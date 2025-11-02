@@ -32,10 +32,10 @@ test.describe('Landing Page', () => {
     const cardCount = await featureCards.count()
     expect(cardCount).toBeGreaterThanOrEqual(3)
 
-    // And the cards should include specific titles
-    const bddCard = page.getByText('BDD First')
-    const testingCard = page.getByText('Comprehensive Testing')
-    const modernCard = page.getByText('Modern Stack')
+    // And the cards should include specific titles (using role selectors to avoid strict mode)
+    const bddCard = page.getByRole('heading', { name: /BDD First/ })
+    const testingCard = page.getByRole('heading', { name: /Comprehensive Testing/ })
+    const modernCard = page.getByRole('heading', { name: /Modern Stack/ })
 
     await expect(bddCard).toBeVisible()
     await expect(testingCard).toBeVisible()
@@ -65,7 +65,8 @@ test.describe('Landing Page', () => {
     ]
 
     for (const tech of technologies) {
-      const techElement = techStackSection.getByText(tech)
+      // Use a more specific selector scoped to the tech stack section to avoid strict mode violations
+      const techElement = techStackSection.locator(`text=${tech}`).first()
       await expect(techElement).toBeVisible()
     }
 
