@@ -27,6 +27,14 @@ export type QuickStartCommand = {
   readonly command: string
 }
 
+export type DocumentationLink = {
+  readonly id: string
+  readonly title: string
+  readonly description: string
+  readonly href: string
+  readonly category: 'getting-started' | 'development' | 'best-practices' | 'architecture'
+}
+
 // Hero Section Data
 export const getHeroSectionData = (): HeroSectionData => ({
   headline: 'Next.js Starter',
@@ -88,5 +96,79 @@ export const getQuickStartCommands = (): readonly QuickStartCommand[] => [
     id: 'build',
     label: 'Build for Production',
     command: 'npm run build',
+  },
+]
+
+// Documentation Links Data
+export const getDocumentationLinks = (): readonly DocumentationLink[] => [
+  {
+    id: 'claude-md',
+    title: 'Claude.md Guide',
+    description: 'Development approach with BDD, ATDD, TDD workflow and expert agents integration',
+    href: '/CLAUDE.md',
+    category: 'getting-started',
+  },
+  {
+    id: 'testing-guide',
+    title: 'Testing Guide',
+    description: 'Comprehensive testing strategies and best practices for unit, integration, and E2E tests',
+    href: '/docs/TESTING-GUIDE.md',
+    category: 'development',
+  },
+  {
+    id: 'contributing',
+    title: 'Contributing Guide',
+    description: 'How to contribute to this project and follow development conventions',
+    href: '/docs/CONTRIBUTING.md',
+    category: 'development',
+  },
+  {
+    id: 'branching-strategy',
+    title: 'Branching Strategy',
+    description: 'Git workflow and branch naming conventions for trunk-based development',
+    href: '/docs/BRANCH-STRATEGY.md',
+    category: 'development',
+  },
+  {
+    id: 'typescript-enforcer',
+    title: 'TypeScript Enforcer Agent',
+    description: 'Expert agent for enforcing type safety and schema-first development patterns',
+    href: '/.claude/agents/typescript-enforcer.md',
+    category: 'best-practices',
+  },
+  {
+    id: 'test-quality-reviewer',
+    title: 'Test Quality Reviewer Agent',
+    description: 'Expert agent for ensuring tests focus on behavior and provide meaningful coverage',
+    href: '/.claude/agents/test-quality-reviewer.md',
+    category: 'best-practices',
+  },
+  {
+    id: 'nextjs-expert',
+    title: 'Next.js Expert Agent',
+    description: 'Expert agent for Next.js best practices, performance, and accessibility',
+    href: '/.claude/agents/nextjs-expert.md',
+    category: 'best-practices',
+  },
+  {
+    id: 'bdd-expert',
+    title: 'BDD Expert Agent',
+    description: 'Expert agent for Behavior-Driven Development and Gherkin specifications',
+    href: '/.claude/agents/bdd-expert.md',
+    category: 'best-practices',
+  },
+  {
+    id: 'ddd-expert',
+    title: 'Domain-Driven Design Expert',
+    description: 'Expert agent for domain modeling and bounded context design',
+    href: '/.claude/agents/ddd-expert.md',
+    category: 'architecture',
+  },
+  {
+    id: 'tailwind-expert',
+    title: 'Tailwind CSS Expert',
+    description: 'Expert agent for responsive design and utility-first CSS patterns',
+    href: '/.claude/agents/tailwind-expert.md',
+    category: 'best-practices',
   },
 ]

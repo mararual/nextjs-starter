@@ -2,11 +2,13 @@ import { HeroSection } from '@/app/components/HeroSection'
 import { FeaturesSection } from '@/app/components/FeaturesSection'
 import { TechStackSection } from '@/app/components/TechStackSection'
 import { QuickStartSection } from '@/app/components/QuickStartSection'
+import { DocumentationSection } from '@/app/components/DocumentationSection'
 import {
   getHeroSectionData,
   getFeatures,
   getTechStack,
   getQuickStartCommands,
+  getDocumentationLinks,
 } from '@/app/lib/landing-page-data'
 
 export const metadata = {
@@ -20,6 +22,7 @@ export default function Home(): React.ReactElement {
   const features = getFeatures()
   const techStack = getTechStack()
   const quickStartCommands = getQuickStartCommands()
+  const documentationLinks = getDocumentationLinks()
 
   return (
     <main className="min-h-screen">
@@ -41,6 +44,9 @@ export default function Home(): React.ReactElement {
 
       {/* Quick Start Section */}
       <QuickStartSection commands={quickStartCommands} />
+
+      {/* Documentation Section */}
+      <DocumentationSection links={documentationLinks} />
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-12">

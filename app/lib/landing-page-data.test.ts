@@ -4,10 +4,12 @@ import {
   getFeatures,
   getTechStack,
   getQuickStartCommands,
+  getDocumentationLinks,
   type HeroSectionData,
   type Feature,
   type Technology,
   type QuickStartCommand,
+  type DocumentationLink,
 } from './landing-page-data'
 
 describe('Landing Page Data Functions', () => {
@@ -217,6 +219,71 @@ describe('Landing Page Data Functions', () => {
       // At runtime, verify it's an array
       expect(Array.isArray(commands)).toBe(true)
       expect(commands.length).toBe(3)
+    })
+  })
+
+  describe('getDocumentationLinks', () => {
+    it('returns array of documentation links', () => {
+      const links = getDocumentationLinks()
+
+      expect(Array.isArray(links)).toBe(true)
+      expect(links.length).toBeGreaterThan(0)
+    })
+
+    it('includes required documentation links', () => {
+      const links = getDocumentationLinks()
+      const linkIds = links.map(l => l.id)
+
+      expect(linkIds).toContain('claude-md')
+      expect(linkIds).toContain('testing-guide')
+      expect(linkIds).toContain('contributing')
+      expect(linkIds).toContain('branching-strategy')
+      expect(linkIds).toContain('typescript-enforcer')
+      expect(linkIds).toContain('test-quality-reviewer')
+      expect(linkIds).toContain('nextjs-expert')
+      expect(linkIds).toContain('bdd-expert')
+    })
+
+    it('each link has required fields', () => {
+      const links = getDocumentationLinks()
+
+      links.forEach(link => {
+        expect(link).toHaveProperty('id')
+        expect(link).toHaveProperty('title')
+        expect(link).toHaveProperty('description')
+        expect(link).toHaveProperty('href')
+        expect(link).toHaveProperty('category')
+        expect(link.id).toBeTruthy()
+        expect(link.title).toBeTruthy()
+        expect(link.description).toBeTruthy()
+        expect(link.href).toBeTruthy()
+      })
+    })
+
+    it('each link has valid category', () => {
+      const links = getDocumentationLinks()
+      const validCategories = ['getting-started', 'development', 'best-practices', 'architecture']
+
+      links.forEach(link => {
+        expect(validCategories).toContain(link.category)
+      })
+    })
+
+    it('all hrefs are strings starting with / or https', () => {
+      const links = getDocumentationLinks()
+
+      links.forEach(link => {
+        expect(link.href).toMatch(/^\/|^https/)
+      })
+    })
+
+    it('returns immutable array structure', () => {
+      const links = getDocumentationLinks()
+
+      // TypeScript ensures readonly array at compile time
+      // At runtime, verify it's an array
+      expect(Array.isArray(links)).toBe(true)
+      expect(links.length).toBeGreaterThan(0)
     })
   })
 })
