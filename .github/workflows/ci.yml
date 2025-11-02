@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, release]
     paths-ignore:
       - '**.md'
       - '.claude/**'
@@ -10,7 +10,7 @@ on:
       - 'LICENSE'
       - '.gitignore'
   pull_request:
-    branches: [main]
+    branches: [main, release]
     paths-ignore:
       - '**.md'
       - '.claude/**'
@@ -297,3 +297,32 @@ jobs:
               repo: context.repo.repo,
               body: '❌ Quality gate failed. Please review the workflow logs and fix the issues.'
             })
+
+  # Deploy to Vercel (staging on main, production on release)
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Vercel
+    needs: quality-gate
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel (Staging)
+        if: github.ref == 'refs/heads/main'
+        uses: vercel/action@master
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          production: false
+
+      - name: Deploy to Vercel (Production)
+        if: github.ref == 'refs/heads/release'
+        uses: vercel/action@master
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          production: true
