@@ -104,6 +104,7 @@ test.describe('Landing Page', () => {
     // And I should see specific documentation links
     const docLinks = [
       'Claude.md Guide',
+      'Agent Workflow Guide',
       'Testing Guide',
       'Contributing Guide',
       'Branching Strategy',

@@ -235,6 +235,7 @@ describe('Landing Page Data Functions', () => {
       const linkIds = links.map(l => l.id)
 
       expect(linkIds).toContain('claude-md')
+      expect(linkIds).toContain('agent-workflow-guide')
       expect(linkIds).toContain('testing-guide')
       expect(linkIds).toContain('contributing')
       expect(linkIds).toContain('branching-strategy')

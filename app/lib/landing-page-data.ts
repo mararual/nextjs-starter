@@ -109,6 +109,13 @@ export const getDocumentationLinks = (): readonly DocumentationLink[] => [
     category: 'getting-started',
   },
   {
+    id: 'agent-workflow-guide',
+    title: 'Agent Workflow Guide',
+    description: 'Complete guide on using 6 expert agents with claude-flow and the BDD → ATDD → TDD workflow',
+    href: 'https://github.com/ruvnet/nextjs-starter/blob/main/docs/AGENT-WORKFLOW-GUIDE.md',
+    category: 'getting-started',
+  },
+  {
     id: 'testing-guide',
     title: 'Testing Guide',
     description: 'Comprehensive testing strategies and best practices for unit, integration, and E2E tests',
