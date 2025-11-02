@@ -204,19 +204,42 @@ jobs:
         run: npm ci
 
       - name: Build Next.js application
-        run: npm run build
-
-      - name: Verify build artifacts exist
         run: |
+          echo "Starting Next.js build..."
+          npm run build
+          BUILD_EXIT=$?
+          echo "Build exit code: $BUILD_EXIT"
+
+          if [ $BUILD_EXIT -ne 0 ]; then
+            echo "❌ Build failed with exit code $BUILD_EXIT"
+            exit $BUILD_EXIT
+          fi
+          echo "✅ Build completed successfully"
+
+      - name: Verify and list build artifacts
+        if: always()
+        run: |
+          echo "Checking for .next directory..."
           if [ -d ".next" ]; then
-            echo "✓ .next directory exists with $(find .next -type f | wc -l) files"
-            du -sh .next
+            echo "✓ .next directory exists"
+            echo "File count: $(find .next -type f | wc -l) files"
+            echo "Directory size: $(du -sh .next | cut -f1)"
+            echo ""
+            echo "Contents of .next:"
+            ls -la .next | head -20
           else
             echo "✗ .next directory NOT found"
+            echo ""
+            echo "Current directory contents:"
+            ls -la
+            echo ""
+            echo "Checking if build process created any output..."
+            find . -maxdepth 2 -type d -name ".next" 2>/dev/null || echo "No .next found anywhere"
             exit 1
           fi
 
       - name: Upload build artifacts
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-build
@@ -225,6 +248,7 @@ jobs:
           if-no-files-found: error
 
       - name: Cache build output
+        if: success()
         uses: actions/cache/save@v4
         with:
           path: .next
