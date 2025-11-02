@@ -1,13 +1,13 @@
-import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
+import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-}
+};
 
 export const metadata: Metadata = {
   title: {
@@ -21,13 +21,7 @@ export const metadata: Metadata = {
       url: 'https://github.com',
     },
   ],
-  keywords: [
-    'Next.js',
-    'React',
-    'TypeScript',
-    'Tailwind CSS',
-    'Starter Template',
-  ],
+  keywords: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Starter Template'],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -47,16 +41,16 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }): React.ReactElement {
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
-  )
+  );
 }

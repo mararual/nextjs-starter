@@ -1,39 +1,39 @@
 // Pure functions for landing page data
 
 export type HeroSectionData = {
-  readonly headline: string
-  readonly subheading: string
-  readonly primaryCtaText: string
-  readonly primaryCtaHref: string
-  readonly secondaryCtaText: string
-  readonly secondaryCtaHref: string
-}
+  readonly headline: string;
+  readonly subheading: string;
+  readonly primaryCtaText: string;
+  readonly primaryCtaHref: string;
+  readonly secondaryCtaText: string;
+  readonly secondaryCtaHref: string;
+};
 
 export type Feature = {
-  readonly id: string
-  readonly title: string
-  readonly description: string
-}
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+};
 
 export type Technology = {
-  readonly id: string
-  readonly name: string
-  readonly version?: string
-}
+  readonly id: string;
+  readonly name: string;
+  readonly version?: string;
+};
 
 export type QuickStartCommand = {
-  readonly id: string
-  readonly label: string
-  readonly command: string
-}
+  readonly id: string;
+  readonly label: string;
+  readonly command: string;
+};
 
 export type DocumentationLink = {
-  readonly id: string
-  readonly title: string
-  readonly description: string
-  readonly href: string
-  readonly category: 'getting-started' | 'development' | 'best-practices' | 'architecture'
-}
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly href: string;
+  readonly category: 'getting-started' | 'development' | 'best-practices' | 'architecture';
+};
 
 // Hero Section Data
 export const getHeroSectionData = (): HeroSectionData => ({
@@ -43,7 +43,7 @@ export const getHeroSectionData = (): HeroSectionData => ({
   primaryCtaHref: '/docs',
   secondaryCtaText: 'View on GitHub',
   secondaryCtaHref: 'https://github.com/ruvnet/nextjs-starter',
-})
+});
 
 // Feature Highlights Data
 export const getFeatures = (): readonly Feature[] => [
@@ -62,7 +62,7 @@ export const getFeatures = (): readonly Feature[] => [
     title: 'Modern Stack',
     description: 'Next.js 15, React 19, TypeScript, Tailwind CSS, and more',
   },
-]
+];
 
 // Technology Stack Data
 export const getTechStack = (): readonly Technology[] => [
@@ -78,7 +78,7 @@ export const getTechStack = (): readonly Technology[] => [
   { id: 'github-actions', name: 'GitHub Actions' },
   { id: 'vercel', name: 'Vercel' },
   { id: 'conventional-commits', name: 'Conventional Commits' },
-]
+];
 
 // Quick Start Commands Data
 export const getQuickStartCommands = (): readonly QuickStartCommand[] => [
@@ -97,7 +97,7 @@ export const getQuickStartCommands = (): readonly QuickStartCommand[] => [
     label: 'Build for Production',
     command: 'npm run build',
   },
-]
+];
 
 // Documentation Links Data
 export const getDocumentationLinks = (): readonly DocumentationLink[] => [
@@ -111,14 +111,16 @@ export const getDocumentationLinks = (): readonly DocumentationLink[] => [
   {
     id: 'agent-workflow-guide',
     title: 'Agent Workflow Guide',
-    description: 'Complete guide on using 6 expert agents with claude-flow and the BDD → ATDD → TDD workflow',
+    description:
+      'Complete guide on using 6 expert agents with claude-flow and the BDD → ATDD → TDD workflow',
     href: 'https://github.com/ruvnet/nextjs-starter/blob/main/docs/AGENT-WORKFLOW-GUIDE.md',
     category: 'getting-started',
   },
   {
     id: 'testing-guide',
     title: 'Testing Guide',
-    description: 'Comprehensive testing strategies and best practices for unit, integration, and E2E tests',
+    description:
+      'Comprehensive testing strategies and best practices for unit, integration, and E2E tests',
     href: 'https://github.com/ruvnet/nextjs-starter/blob/main/docs/TESTING-GUIDE.md',
     category: 'development',
   },
@@ -146,7 +148,8 @@ export const getDocumentationLinks = (): readonly DocumentationLink[] => [
   {
     id: 'test-quality-reviewer',
     title: 'Test Quality Reviewer Agent',
-    description: 'Expert agent for ensuring tests focus on behavior and provide meaningful coverage',
+    description:
+      'Expert agent for ensuring tests focus on behavior and provide meaningful coverage',
     href: 'https://github.com/ruvnet/nextjs-starter/blob/main/.claude/agents/test-quality-reviewer.md',
     category: 'best-practices',
   },
@@ -178,4 +181,4 @@ export const getDocumentationLinks = (): readonly DocumentationLink[] => [
     href: 'https://github.com/ruvnet/nextjs-starter/blob/main/.claude/agents/tailwind-expert.md',
     category: 'best-practices',
   },
-]
+];

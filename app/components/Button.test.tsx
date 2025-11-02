@@ -1,49 +1,49 @@
-import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
-import { Button } from './Button'
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from './Button';
 
 describe('Button Component', () => {
   it('renders button with children', () => {
-    render(<Button>Click me</Button>)
-    expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
-  })
+    render(<Button>Click me</Button>);
+    expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument();
+  });
 
   it('handles click events', () => {
-    const handleClick = jest.fn()
-    render(<Button onClick={handleClick}>Click me</Button>)
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
 
-    const button = screen.getByRole('button', { name: 'Click me' })
-    fireEvent.click(button)
+    const button = screen.getByRole('button', { name: 'Click me' });
+    fireEvent.click(button);
 
-    expect(handleClick).toHaveBeenCalledTimes(1)
-  })
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
 
   it('applies variant styles', () => {
-    const { container } = render(<Button variant="secondary">Click me</Button>)
-    const button = container.querySelector('button')
+    const { container } = render(<Button variant="secondary">Click me</Button>);
+    const button = container.querySelector('button');
 
-    expect(button).toHaveClass('border', 'border-slate-600')
-  })
+    expect(button).toHaveClass('border', 'border-slate-600');
+  });
 
   it('disables button when disabled prop is true', () => {
-    render(<Button disabled>Click me</Button>)
-    const button = screen.getByRole('button', { name: 'Click me' })
+    render(<Button disabled>Click me</Button>);
+    const button = screen.getByRole('button', { name: 'Click me' });
 
-    expect(button).toBeDisabled()
-  })
+    expect(button).toBeDisabled();
+  });
 
   it('disables button when loading', () => {
-    render(<Button isLoading>Click me</Button>)
-    const button = screen.getByRole('button')
+    render(<Button isLoading>Click me</Button>);
+    const button = screen.getByRole('button');
 
-    expect(button).toBeDisabled()
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
-  })
+    expect(button).toBeDisabled();
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
 
   it('applies custom className', () => {
-    const { container } = render(<Button className="custom-class">Click me</Button>)
-    const button = container.querySelector('button')
+    const { container } = render(<Button className="custom-class">Click me</Button>);
+    const button = container.querySelector('button');
 
-    expect(button).toHaveClass('custom-class')
-  })
-})
+    expect(button).toHaveClass('custom-class');
+  });
+});

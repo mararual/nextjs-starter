@@ -1,15 +1,15 @@
-import type React from 'react'
-import Link from 'next/link'
+import type React from 'react';
+import Link from 'next/link';
 
 type HeroSectionProps = {
-  readonly headline: string
-  readonly subheading: string
-  readonly primaryCtaText: string
-  readonly primaryCtaHref: string
-  readonly secondaryCtaText: string
-  readonly secondaryCtaHref: string
-  readonly isInternalLink?: boolean
-}
+  readonly headline: string;
+  readonly subheading: string;
+  readonly primaryCtaText: string;
+  readonly primaryCtaHref: string;
+  readonly secondaryCtaText: string;
+  readonly secondaryCtaHref: string;
+  readonly isInternalLink?: boolean;
+};
 
 export function HeroSection({
   headline,
@@ -39,28 +39,24 @@ export function HeroSection({
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           {/* Headline */}
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-            {headline}
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">{headline}</h1>
 
           {/* Subheading */}
-          <p className="mt-6 text-lg leading-8 text-gray-300">
-            {subheading}
-          </p>
+          <p className="mt-6 text-lg leading-8 text-gray-300">{subheading}</p>
 
           {/* CTA Buttons */}
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
             {isInternalLink ? (
               <Link
                 href={primaryCtaHref}
-                className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors"
+                className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 {primaryCtaText}
               </Link>
             ) : (
               <a
                 href={primaryCtaHref}
-                className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors"
+                className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 {primaryCtaText}
               </a>
@@ -70,7 +66,7 @@ export function HeroSection({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="View project source code on GitHub"
-              className="inline-flex items-center justify-center rounded-lg border border-gray-600 px-6 py-3 text-sm font-semibold text-gray-300 hover:border-gray-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 transition-colors"
+              className="inline-flex items-center justify-center rounded-lg border border-gray-600 px-6 py-3 text-sm font-semibold text-gray-300 transition-colors hover:border-gray-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
             >
               {secondaryCtaText}
             </a>
@@ -78,5 +74,5 @@ export function HeroSection({
         </div>
       </div>
     </section>
-  )
+  );
 }
