@@ -21,7 +21,7 @@ test.describe('Landing Page', () => {
     await expect(docButton).toBeVisible()
 
     // And I should see the call-to-action button labeled "View on GitHub"
-    const githubButton = page.getByRole('link', { name: /View on GitHub/ })
+    const githubButton = page.getByRole('link', { name: /View project source code on GitHub/ })
     await expect(githubButton).toBeVisible()
   })
 
@@ -48,7 +48,7 @@ test.describe('Landing Page', () => {
     const techStackSection = page.locator('[data-testid="tech-stack-section"]')
     await expect(techStackSection).toBeVisible()
 
-    // Verify key technologies are listed
+    // Verify key technologies are listed (check within tech stack section to avoid duplication in hero description)
     const technologies = [
       'Next.js 15',
       'React 19',
@@ -65,7 +65,7 @@ test.describe('Landing Page', () => {
     ]
 
     for (const tech of technologies) {
-      const techElement = page.getByText(tech)
+      const techElement = techStackSection.getByText(tech)
       await expect(techElement).toBeVisible()
     }
 

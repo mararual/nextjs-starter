@@ -39,7 +39,7 @@ describe('HeroSection Component', () => {
     it('renders secondary CTA link with correct text', () => {
       render(<HeroSection {...defaultProps} />)
 
-      const secondaryCta = screen.getByRole('link', { name: defaultProps.secondaryCtaText })
+      const secondaryCta = screen.getByRole('link', { name: /View project source code on GitHub/ })
       expect(secondaryCta).toBeInTheDocument()
       expect(secondaryCta).toHaveAttribute('href', defaultProps.secondaryCtaHref)
     })
@@ -101,7 +101,7 @@ describe('HeroSection Component', () => {
       expect(screen.getByRole('heading', { level: 1 })).toBeVisible()
       expect(screen.getByText(defaultProps.subheading)).toBeVisible()
       expect(screen.getByRole('link', { name: defaultProps.primaryCtaText })).toBeVisible()
-      expect(screen.getByRole('link', { name: defaultProps.secondaryCtaText })).toBeVisible()
+      expect(screen.getByRole('link', { name: /View project source code on GitHub/ })).toBeVisible()
     })
   })
 })

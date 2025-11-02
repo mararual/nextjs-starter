@@ -19,7 +19,7 @@ test.describe('Homepage', () => {
     // Check for main heading
     const heading = page.locator('h1')
     await expect(heading).toBeVisible()
-    await expect(heading).toContainText(/Welcome to Next.js/)
+    await expect(heading).toContainText(/Next.js Starter/)
   })
 
   test('should have proper semantic HTML', async ({ page }) => {

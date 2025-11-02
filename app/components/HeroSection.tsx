@@ -1,4 +1,5 @@
 import type React from 'react'
+import Link from 'next/link'
 
 type HeroSectionProps = {
   readonly headline: string
@@ -7,6 +8,7 @@ type HeroSectionProps = {
   readonly primaryCtaHref: string
   readonly secondaryCtaText: string
   readonly secondaryCtaHref: string
+  readonly isInternalLink?: boolean
 }
 
 export function HeroSection({
@@ -16,6 +18,7 @@ export function HeroSection({
   primaryCtaHref,
   secondaryCtaText,
   secondaryCtaHref,
+  isInternalLink = true,
 }: HeroSectionProps): React.ReactElement {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 py-20 sm:py-32">
@@ -47,14 +50,26 @@ export function HeroSection({
 
           {/* CTA Buttons */}
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
-            <a
-              href={primaryCtaHref}
-              className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors"
-            >
-              {primaryCtaText}
-            </a>
+            {isInternalLink ? (
+              <Link
+                href={primaryCtaHref}
+                className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors"
+              >
+                {primaryCtaText}
+              </Link>
+            ) : (
+              <a
+                href={primaryCtaHref}
+                className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors"
+              >
+                {primaryCtaText}
+              </a>
+            )}
             <a
               href={secondaryCtaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View project source code on GitHub"
               className="inline-flex items-center justify-center rounded-lg border border-gray-600 px-6 py-3 text-sm font-semibold text-gray-300 hover:border-gray-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 transition-colors"
             >
               {secondaryCtaText}
