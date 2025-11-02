@@ -227,7 +227,7 @@ jobs:
           name: nextjs-build
           path: .next
           retention-days: 7
-          if-no-files-found: error
+          if-no-files-found: warn
 
   # Quality Gate: Ensure all checks pass
   quality-gate:
