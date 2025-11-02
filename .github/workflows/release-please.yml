@@ -68,6 +68,8 @@ jobs:
     name: Create Release
     needs: check-trigger
     if: needs.check-trigger.outputs.should-run == 'true' && github.event_name != 'pull_request'
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
 
     steps:
       - name: Create release
@@ -93,3 +95,22 @@ jobs:
           git checkout release || git checkout --orphan release
           git reset --hard origin/main
           git push --force origin release
+
+  # Deploy to Vercel production on release
+  deploy-vercel:
+    runs-on: ubuntu-latest
+    name: Deploy to Vercel Production
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel Production
+        uses: vercel/action@master
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          production: true
