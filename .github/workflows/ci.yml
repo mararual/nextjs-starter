@@ -50,10 +50,10 @@ jobs:
             echo "should-run=true" >> $GITHUB_OUTPUT
           fi
 
-  # Setup: Install dependencies and cache for downstream jobs
-  setup:
+  # Lint: ESLint, TypeScript, and Prettier checks
+  lint:
     runs-on: ubuntu-latest
-    name: Setup Dependencies
+    name: Lint
     needs: should-run
     if: needs.should-run.outputs.should-run == 'true'
 
@@ -70,34 +70,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Save node_modules cache
-        uses: actions/cache/save@v4
-        with:
-          path: node_modules
-          key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-  # Lint: ESLint, TypeScript, and Prettier checks
-  lint:
-    runs-on: ubuntu-latest
-    name: Lint
-    needs: setup
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Restore node_modules cache
-        uses: actions/cache/restore@v4
-        with:
-          path: node_modules
-          key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          fail-on-cache-miss: true
 
       - name: Run Prettier format
         run: npm run format
@@ -123,7 +95,8 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     name: Unit Tests
-    needs: setup
+    needs: should-run
+    if: needs.should-run.outputs.should-run == 'true'
 
     steps:
       - name: Checkout code
@@ -133,13 +106,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
-      - name: Restore node_modules cache
-        uses: actions/cache/restore@v4
-        with:
-          path: node_modules
-          key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          fail-on-cache-miss: true
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run unit tests
         run: npm test
@@ -160,7 +131,8 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-latest
     name: E2E Tests
-    needs: setup
+    needs: should-run
+    if: needs.should-run.outputs.should-run == 'true'
 
     steps:
       - name: Checkout code
@@ -180,14 +152,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
-      - name: Restore node_modules cache
+      - name: Install dependencies
         if: steps.check-playwright.outputs.configured == 'true'
-        uses: actions/cache/restore@v4
-        with:
-          path: node_modules
-          key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          fail-on-cache-miss: true
+        run: npm ci
 
       - name: Cache Playwright browsers
         if: steps.check-playwright.outputs.configured == 'true'
@@ -216,7 +186,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Build
-    needs: setup
+    needs: should-run
+    if: needs.should-run.outputs.should-run == 'true'
 
     steps:
       - name: Checkout code
@@ -226,17 +197,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
-      - name: Restore node_modules cache
-        uses: actions/cache/restore@v4
-        with:
-          path: node_modules
-          key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          fail-on-cache-miss: true
-
-      - name: Check and install missing dependencies
-        run: npm install --legacy-peer-deps
-        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build Next.js application
         run: npm run build
