@@ -54,7 +54,9 @@ export function DocumentationSection({ links }: DocumentationSectionProps): Reac
         <div className="space-y-12">
           {categories.map(category => {
             const categoryLinks = groupedLinks[category]
-            if (categoryLinks.length === 0) return null
+            if (categoryLinks.length === 0) {
+              return null
+            }
 
             return (
               <div key={category}>

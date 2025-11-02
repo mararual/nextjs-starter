@@ -5,11 +5,6 @@ import {
   getTechStack,
   getQuickStartCommands,
   getDocumentationLinks,
-  type HeroSectionData,
-  type Feature,
-  type Technology,
-  type QuickStartCommand,
-  type DocumentationLink,
 } from './landing-page-data'
 
 describe('Landing Page Data Functions', () => {
