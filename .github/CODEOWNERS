@@ -1,0 +1,20 @@
+# CODEOWNERS file for automatic reviewer assignment
+# GitHub will request reviews from these users when PRs modify these files
+
+# GitHub Actions workflow files require team/admin approval
+.github/workflows/ @marcosaruj
+
+# CI/CD configuration
+vercel.json @marcosaruj
+next.config.js @marcosaruj
+
+# Environment and secrets (metadata only)
+.env.example @marcosaruj
+config/github-secrets-template.md @marcosaruj
+
+# TypeScript and build configuration
+tsconfig.json @marcosaruj
+tsconfig.*.json @marcosaruj
+
+# Default for all other files
+* @marcosaruj

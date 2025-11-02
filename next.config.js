@@ -4,9 +4,6 @@ const nextConfig = {
   // React strict mode for development
   reactStrictMode: true,
 
-  // Swc compiler settings for faster builds
-  swcMinify: true,
-
   // Page extensions
   pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
 
@@ -19,15 +16,9 @@ const nextConfig = {
         hostname: '**.example.com',
       },
     ],
-    sizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    loader: 'default',
     minimumCacheTTL: 31536000,
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     formats: ['image/avif', 'image/webp'],
   },
-
-  // Typography optimization
-  optimizeFonts: true,
 
   // Source maps (disabled in production for smaller builds)
   productionBrowserSourceMaps: false,

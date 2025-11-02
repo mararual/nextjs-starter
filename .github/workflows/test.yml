@@ -176,7 +176,7 @@ jobs:
   quality-gate:
     runs-on: ubuntu-latest
     name: Quality Gate
-    needs: [lint-and-types, build, test, security]
+    needs: [lint-and-types, build, test, security, e2e]
     if: always()
 
     steps:
@@ -191,6 +191,14 @@ jobs:
         run: |
           if [[ "${{ needs.test.result }}" == "failure" ]]; then
             echo "Tests failed - stopping deployment"
+            exit 1
+          fi
+
+      - name: Check E2E test status
+        if: needs.e2e.result != 'skipped'
+        run: |
+          if [[ "${{ needs.e2e.result }}" == "failure" ]]; then
+            echo "E2E tests failed - stopping deployment"
             exit 1
           fi
 

@@ -1,0 +1,43 @@
+version: 2
+updates:
+  # Enable Dependabot version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "marcosaruj"
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "chore(deps):"
+      prefix-development: "chore(deps-dev):"
+      include: "scope"
+    pull-request-branch-name:
+      separator: "/"
+    rebase-strategy: "auto"
+    allow:
+      - dependency-type: "all"
+    ignore:
+      # Add any packages to ignore here
+      # - dependency-name: "package-name"
+      #   versions: ["1.0.0"]
+
+  # Enable Dependabot for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:30"
+    reviewers:
+      - "marcosaruj"
+    labels:
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "ci:"
