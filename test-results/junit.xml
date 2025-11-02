@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="6.715131">
+<testsuite name="homepage.spec.ts" timestamp="2025-11-02T03:33:55.557Z" hostname="Desktop Chrome" tests="3" failures="0" skipped="0" time="2.877" errors="0">
+<testcase name="Homepage › should load successfully" classname="homepage.spec.ts" time="0.994">
+</testcase>
+<testcase name="Homepage › should display main heading" classname="homepage.spec.ts" time="0.91">
+</testcase>
+<testcase name="Homepage › should have proper semantic HTML" classname="homepage.spec.ts" time="0.973">
+</testcase>
+</testsuite>
+<testsuite name="homepage.spec.ts" timestamp="2025-11-02T03:33:55.557Z" hostname="Mobile Chrome" tests="3" failures="0" skipped="0" time="2.449" errors="0">
+<testcase name="Homepage › should load successfully" classname="homepage.spec.ts" time="1.005">
+</testcase>
+<testcase name="Homepage › should display main heading" classname="homepage.spec.ts" time="0.991">
+</testcase>
+<testcase name="Homepage › should have proper semantic HTML" classname="homepage.spec.ts" time="0.453">
+</testcase>
+</testsuite>
+</testsuites>
