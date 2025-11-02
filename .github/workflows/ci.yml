@@ -216,17 +216,20 @@ jobs:
           fi
           echo "✅ Build completed successfully"
 
-      - name: Verify and list build artifacts
-        if: always()
+      - name: Verify build artifacts exist
+        id: verify-artifacts
         run: |
           echo "Checking for .next directory..."
           if [ -d ".next" ]; then
             echo "✓ .next directory exists"
-            echo "File count: $(find .next -type f | wc -l) files"
-            echo "Directory size: $(du -sh .next | cut -f1)"
+            FILE_COUNT=$(find .next -type f | wc -l)
+            DIR_SIZE=$(du -sh .next | cut -f1)
+            echo "File count: $FILE_COUNT files"
+            echo "Directory size: $DIR_SIZE"
             echo ""
             echo "Contents of .next:"
             ls -la .next | head -20
+            echo "artifacts-exist=true" >> $GITHUB_OUTPUT
           else
             echo "✗ .next directory NOT found"
             echo ""
@@ -235,11 +238,11 @@ jobs:
             echo ""
             echo "Checking if build process created any output..."
             find . -maxdepth 2 -type d -name ".next" 2>/dev/null || echo "No .next found anywhere"
-            exit 1
+            echo "artifacts-exist=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Upload build artifacts
-        if: success()
+        if: steps.verify-artifacts.outputs.artifacts-exist == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-build
@@ -248,11 +251,17 @@ jobs:
           if-no-files-found: error
 
       - name: Cache build output
-        if: success()
+        if: steps.verify-artifacts.outputs.artifacts-exist == 'true'
         uses: actions/cache/save@v4
         with:
           path: .next
           key: nextjs-build-${{ runner.os }}-${{ github.sha }}
+
+      - name: Fail if artifacts missing
+        if: steps.verify-artifacts.outputs.artifacts-exist == 'false'
+        run: |
+          echo "❌ Build artifacts (.next directory) were not created!"
+          exit 1
 
   # Quality Gate: Ensure all checks pass
   quality-gate:
