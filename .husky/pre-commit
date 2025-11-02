@@ -1,4 +1,19 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx lint-staged
+echo "🔍 Running pre-commit checks..."
+echo ""
+
+# Format and lint staged files
+echo "📝 Running lint-staged..."
+npx lint-staged || exit 1
+echo "✓ Code formatting and linting passed"
+echo ""
+
+# Run type-check on the entire project
+echo "📋 Type checking..."
+npm run type-check || exit 1
+echo "✓ Type check passed"
+echo ""
+
+echo "✅ All pre-commit checks passed!"
