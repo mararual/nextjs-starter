@@ -234,14 +234,18 @@ jobs:
           key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
           fail-on-cache-miss: true
 
+      - name: Check and install missing dependencies
+        run: npm install --legacy-peer-deps
+        continue-on-error: true
+
       - name: Build Next.js application
         run: npm run build
 
       - name: Verify build artifacts exist
         run: |
           if [ -d ".next" ]; then
-            echo "✓ .next directory exists"
-            ls -la .next | head -20
+            echo "✓ .next directory exists with $(find .next -type f | wc -l) files"
+            du -sh .next
           else
             echo "✗ .next directory NOT found"
             exit 1
@@ -254,6 +258,12 @@ jobs:
           path: .next
           retention-days: 7
           if-no-files-found: error
+
+      - name: Cache build output
+        uses: actions/cache/save@v4
+        with:
+          path: .next
+          key: nextjs-build-${{ runner.os }}-${{ github.sha }}
 
   # Quality Gate: Ensure all checks pass
   quality-gate:
