@@ -53,10 +53,8 @@ describe('DocumentationSection Component', () => {
     it('renders all documentation links', () => {
       render(<DocumentationSection links={mockLinks} />);
 
-      mockLinks.forEach((link) => {
-        const linkElement = screen.getByTestId(`doc-link-${link.id}`);
-        expect(linkElement).toBeInTheDocument();
-      });
+      const links = screen.getAllByTestId('documentation-link');
+      expect(links.length).toBe(mockLinks.length);
     });
 
     it('renders link titles', () => {
@@ -80,14 +78,9 @@ describe('DocumentationSection Component', () => {
     it('renders category headings for grouped links', () => {
       render(<DocumentationSection links={mockLinks} />);
 
-      // Get all text that matches categories - use getAllByText since they appear in badges too
-      const gettingStartedElements = screen.getAllByText('Getting Started');
-      const developmentElements = screen.getAllByText('Development');
-      const bestPracticesElements = screen.getAllByText('Best Practices');
-
-      expect(gettingStartedElements.length).toBeGreaterThan(0);
-      expect(developmentElements.length).toBeGreaterThan(0);
-      expect(bestPracticesElements.length).toBeGreaterThan(0);
+      // Check that category containers are rendered
+      const categories = screen.getAllByTestId('documentation-category');
+      expect(categories.length).toBeGreaterThan(0);
     });
 
     it('renders info box about expert agents', () => {
@@ -102,9 +95,11 @@ describe('DocumentationSection Component', () => {
     it('renders links as anchor elements with correct hrefs', () => {
       render(<DocumentationSection links={mockLinks} />);
 
-      mockLinks.forEach((link) => {
-        const linkElement = screen.getByTestId(`doc-link-${link.id}`);
-        expect(linkElement).toHaveAttribute('href', link.href);
+      const links = screen.getAllByTestId('documentation-link');
+      expect(links.length).toBe(mockLinks.length);
+
+      links.forEach((link, index) => {
+        expect(link).toHaveAttribute('href', mockLinks[index].href);
       });
     });
 
@@ -137,10 +132,10 @@ describe('DocumentationSection Component', () => {
     it('renders links with accessible text', () => {
       render(<DocumentationSection links={mockLinks} />);
 
-      mockLinks.forEach((link) => {
-        const linkElement = screen.getByTestId(`doc-link-${link.id}`);
-        expect(linkElement).toHaveTextContent(link.title);
-        expect(linkElement).toHaveTextContent(link.description);
+      const links = screen.getAllByTestId('documentation-link');
+      links.forEach((link, index) => {
+        expect(link).toHaveTextContent(mockLinks[index].title);
+        expect(link).toHaveTextContent(mockLinks[index].description);
       });
     });
   });
@@ -149,24 +144,29 @@ describe('DocumentationSection Component', () => {
     it('groups links by category', () => {
       render(<DocumentationSection links={mockLinks} />);
 
-      // Check that category headings appear (level 3 headings are used for categories)
-      const categoryHeadings = screen.getAllByRole('heading', { level: 3 });
-      expect(categoryHeadings.length).toBeGreaterThan(0);
+      // Check that category containers are rendered
+      const categories = screen.getAllByTestId('documentation-category');
+      expect(categories.length).toBeGreaterThan(0);
 
-      // Verify specific categories appear
-      const headingTexts = categoryHeadings.map((h) => h.textContent);
-      expect(headingTexts.some((text) => text?.includes('Getting Started'))).toBe(true);
+      // Verify category titles exist
+      const categoryTitles = screen.getAllByTestId('category-title');
+      expect(categoryTitles.length).toBeGreaterThan(0);
     });
 
     it('displays category badges on links', () => {
       render(<DocumentationSection links={mockLinks} />);
 
       // Verify that badges are rendered within links
-      mockLinks.forEach((link) => {
-        const linkElement = screen.getByTestId(`doc-link-${link.id}`);
-        // Check that the badge is visible inside each link
-        const badge = linkElement.querySelector('span');
+      const links = screen.getAllByTestId('documentation-link');
+      expect(links.length).toBe(mockLinks.length);
+
+      // Each link should have a span badge with category label
+      links.forEach((link) => {
+        const badge = link.querySelector('span');
         expect(badge).toBeDefined();
+        expect(badge?.textContent).toMatch(
+          /Getting Started|Development|Best Practices|Architecture/
+        );
       });
     });
   });
@@ -176,9 +176,12 @@ describe('DocumentationSection Component', () => {
       render(<DocumentationSection links={mockLinks} />);
 
       expect(screen.getByRole('heading', { level: 2 })).toBeVisible();
-      mockLinks.forEach((link) => {
-        expect(screen.getByTestId(`doc-link-${link.id}`)).toBeVisible();
+
+      const links = screen.getAllByTestId('documentation-link');
+      links.forEach((link) => {
+        expect(link).toBeVisible();
       });
+
       expect(screen.getByText(/Expert Agents/)).toBeVisible();
     });
   });

@@ -98,6 +98,7 @@ If you have slash commands configured in `.claude/commands/`, you can create sho
 ## Recommended Workflow: BDD → ATDD → TDD with Agents
 
 ### Phase 1: Specification (BDD)
+
 **Use BDD Expert**
 
 ```
@@ -111,6 +112,7 @@ If you have slash commands configured in `.claude/commands/`, you can create sho
 ```
 
 ### Phase 2: Acceptance Tests (ATDD)
+
 **Use Test Quality Reviewer + Next.js Expert**
 
 ```
@@ -127,6 +129,7 @@ If you have slash commands configured in `.claude/commands/`, you can create sho
 ```
 
 ### Phase 3: Implementation (TDD)
+
 **Use TypeScript Enforcer + Next.js Expert + Tailwind Expert**
 
 ```
@@ -148,20 +151,21 @@ If you have slash commands configured in `.claude/commands/`, you can create sho
 
 ## Quick Reference: When to Use Each Agent
 
-| Task | Agent | Command |
-|------|-------|---------|
-| Writing/reviewing Gherkin features | BDD Expert | Review feature file before ATDD |
-| Writing E2E acceptance tests | Test Quality Reviewer | Review test suite for brittleness |
-| Writing unit/integration tests | Test Quality Reviewer | Ensure behavior-focused tests |
-| Implementing components | TypeScript Enforcer | Validate type safety |
-| Building React components | Next.js Expert | Review component patterns |
-| Adding/reviewing styles | Tailwind Expert | Check responsive design |
-| Domain logic design | DDD Expert | Validate domain model |
-| Code quality | Test Quality Reviewer | Review test coverage |
+| Task                               | Agent                 | Command                           |
+| ---------------------------------- | --------------------- | --------------------------------- |
+| Writing/reviewing Gherkin features | BDD Expert            | Review feature file before ATDD   |
+| Writing E2E acceptance tests       | Test Quality Reviewer | Review test suite for brittleness |
+| Writing unit/integration tests     | Test Quality Reviewer | Ensure behavior-focused tests     |
+| Implementing components            | TypeScript Enforcer   | Validate type safety              |
+| Building React components          | Next.js Expert        | Review component patterns         |
+| Adding/reviewing styles            | Tailwind Expert       | Check responsive design           |
+| Domain logic design                | DDD Expert            | Validate domain model             |
+| Code quality                       | Test Quality Reviewer | Review test coverage              |
 
 ## Example: Complete BDD → ATDD → TDD Cycle
 
 ### Step 1: Write Feature File
+
 ```gherkin
 # docs/features/my-feature.feature
 Feature: My Feature
@@ -173,6 +177,7 @@ Feature: My Feature
 ```
 
 ### Step 2: Review with BDD Expert
+
 ```
 Using Task tool:
 "Act as the BDD Expert. Review docs/features/my-feature.feature.
@@ -181,6 +186,7 @@ Provide specific recommendations."
 ```
 
 ### Step 3: Write E2E Tests
+
 ```typescript
 // tests/e2e/my-feature.spec.ts
 test('scenario from feature file', async ({ page }) => {
@@ -189,6 +195,7 @@ test('scenario from feature file', async ({ page }) => {
 ```
 
 ### Step 4: Review with Test Quality Reviewer
+
 ```
 Using Task tool:
 "Act as the Test Quality Reviewer. Review tests/e2e/my-feature.spec.ts.
@@ -197,6 +204,7 @@ Provide improvements."
 ```
 
 ### Step 5: Implement Component
+
 ```typescript
 // app/components/MyComponent.tsx
 export function MyComponent() {
@@ -205,6 +213,7 @@ export function MyComponent() {
 ```
 
 ### Step 6: Review with Multiple Experts
+
 ```
 TypeScript Enforcer:
 "Review app/components/MyComponent.tsx for TypeScript patterns..."
@@ -217,6 +226,7 @@ Tailwind Expert:
 ```
 
 ### Step 7: Refactor Based on Feedback
+
 Keep running tests and refining based on expert guidance.
 
 ## Best Practices
@@ -238,6 +248,7 @@ The agents don't run in CI/CD automatically, but you should:
 4. **Learning:** Use feedback to improve coding patterns
 
 Example commit message:
+
 ```
 feat: add documentation section component
 
@@ -260,6 +271,7 @@ Per Test Quality Reviewer:
 ## Getting Help
 
 Each agent file contains:
+
 - **Core Principles** - What they believe and how they approach problems
 - **Process** - Step-by-step workflow they follow
 - **Best Practices** - Guidelines for quality
@@ -271,6 +283,7 @@ Refer to individual agent files for detailed guidance on your specific task.
 ---
 
 **Next Steps:**
+
 1. Read through individual agent files to understand their expertise
 2. Start using agents in your BDD → ATDD → TDD workflow
 3. Reference agent feedback in pull requests and commit messages

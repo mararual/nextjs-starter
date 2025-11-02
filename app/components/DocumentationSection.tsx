@@ -62,7 +62,10 @@ export function DocumentationSection({ links }: DocumentationSectionProps): Reac
             return (
               <div key={category} data-testid="documentation-category">
                 {/* Category Title */}
-                <h3 className="mb-6 text-xl font-semibold text-gray-900" data-testid="category-title">
+                <h3
+                  className="mb-6 text-xl font-semibold text-gray-900"
+                  data-testid="category-title"
+                >
                   {categoryLabels[category]}
                 </h3>
 
@@ -85,12 +88,18 @@ export function DocumentationSection({ links }: DocumentationSectionProps): Reac
                       </span>
 
                       {/* Title */}
-                      <h4 className="mb-2 text-lg font-semibold text-gray-900" data-testid="link-title">
+                      <h4
+                        className="mb-2 text-lg font-semibold text-gray-900"
+                        data-testid="link-title"
+                      >
                         {link.title}
                       </h4>
 
                       {/* Description */}
-                      <p className="mb-4 text-sm leading-relaxed text-gray-700" data-testid="link-description">
+                      <p
+                        className="mb-4 text-sm leading-relaxed text-gray-700"
+                        data-testid="link-description"
+                      >
                         {link.description}
                       </p>
 
