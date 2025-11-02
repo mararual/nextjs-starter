@@ -204,64 +204,30 @@ jobs:
         run: npm ci
 
       - name: Build Next.js application
-        run: |
-          echo "Starting Next.js build..."
-          npm run build
-          BUILD_EXIT=$?
-          echo "Build exit code: $BUILD_EXIT"
+        run: npm run build
 
-          if [ $BUILD_EXIT -ne 0 ]; then
-            echo "❌ Build failed with exit code $BUILD_EXIT"
-            exit $BUILD_EXIT
-          fi
-          echo "✅ Build completed successfully"
-
-      - name: Verify build artifacts exist
-        id: verify-artifacts
+      - name: List .next directory contents
         run: |
-          echo "Checking for .next directory..."
+          echo "Current working directory: $(pwd)"
+          echo ""
+          echo "Listing current directory:"
+          ls -la | head -30
+          echo ""
           if [ -d ".next" ]; then
-            echo "✓ .next directory exists"
-            FILE_COUNT=$(find .next -type f | wc -l)
-            DIR_SIZE=$(du -sh .next | cut -f1)
-            echo "File count: $FILE_COUNT files"
-            echo "Directory size: $DIR_SIZE"
-            echo ""
-            echo "Contents of .next:"
-            ls -la .next | head -20
-            echo "artifacts-exist=true" >> $GITHUB_OUTPUT
+            echo "✓ .next directory found"
+            echo "File count: $(find .next -type f | wc -l)"
+            echo "Directory size: $(du -sh .next)"
           else
             echo "✗ .next directory NOT found"
-            echo ""
-            echo "Current directory contents:"
-            ls -la
-            echo ""
-            echo "Checking if build process created any output..."
-            find . -maxdepth 2 -type d -name ".next" 2>/dev/null || echo "No .next found anywhere"
-            echo "artifacts-exist=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Upload build artifacts
-        if: steps.verify-artifacts.outputs.artifacts-exist == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-build
           path: .next
           retention-days: 7
           if-no-files-found: error
-
-      - name: Cache build output
-        if: steps.verify-artifacts.outputs.artifacts-exist == 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: .next
-          key: nextjs-build-${{ runner.os }}-${{ github.sha }}
-
-      - name: Fail if artifacts missing
-        if: steps.verify-artifacts.outputs.artifacts-exist == 'false'
-        run: |
-          echo "❌ Build artifacts (.next directory) were not created!"
-          exit 1
 
   # Quality Gate: Ensure all checks pass
   quality-gate:
