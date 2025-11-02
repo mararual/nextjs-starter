@@ -1,122 +1,50 @@
-import Link from 'next/link'
+import { HeroSection } from './components/HeroSection'
+import { FeaturesSection } from './components/FeaturesSection'
+import { PricingSection } from './components/PricingSection'
+import { TestimonialsSection } from './components/TestimonialsSection'
+import { NewsletterSignup } from './components/NewsletterSignup'
+import { ContactForm } from './components/ContactForm'
+
+export const metadata = {
+  title: 'Professional Landing Page - Build Better Software',
+  description: 'Build better software faster with our modern development tools. Get started with a free trial today.',
+  openGraph: {
+    title: 'Professional Landing Page',
+    description: 'Build better software faster with our modern development tools',
+    images: ['/og-image.jpg'],
+  },
+}
 
 export default function Home(): React.ReactElement {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <div className="flex flex-col items-center justify-center px-4 py-32 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          {/* Hero Section */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/50 px-4 py-2 backdrop-blur-sm">
-            <span className="text-sm font-medium text-slate-300">
-              Welcome to Next.js 15
-            </span>
-            <span className="text-xs text-slate-400">•</span>
-            <span className="text-xs text-slate-400">Built with TypeScript</span>
-          </div>
+    <main className="min-h-screen">
+      <HeroSection
+        headline="Build Better Software, Faster"
+        subheading="Modern tools for productive teams. Streamline your development workflow with powerful features."
+        ctaText="Get Started"
+        ctaHref="/signup"
+      />
 
-          {/* Title */}
-          <h1 className="mb-6 bg-gradient-to-r from-slate-50 via-slate-100 to-slate-300 bg-clip-text py-4 text-5xl font-bold tracking-tight text-transparent sm:text-6xl lg:text-7xl">
-            Next.js Starter
-          </h1>
+      <FeaturesSection features={undefined} />
 
-          {/* Description */}
-          <p className="mb-8 text-lg leading-8 text-slate-400">
-            A modern, production-ready Next.js template configured with TypeScript, Tailwind CSS,
-            ESLint, and Prettier. Everything you need to build amazing web applications.
-          </p>
+      <PricingSection tiers={undefined} />
 
-          {/* Feature Grid */}
-          <div className="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Feature
-              icon="⚡"
-              title="Fast & Optimized"
-              description="Built with App Router and latest Next.js features"
-            />
-            <Feature
-              icon="🔒"
-              title="Type Safe"
-              description="Full TypeScript with strict mode enabled"
-            />
-            <Feature
-              icon="🎨"
-              title="Styled"
-              description="Tailwind CSS with custom configuration"
-            />
-            <Feature
-              icon="📐"
-              title="Linted"
-              description="ESLint and Prettier pre-configured"
-            />
-            <Feature
-              icon="✅"
-              title="Tested"
-              description="Jest and Testing Library ready"
-            />
-            <Feature
-              icon="🚀"
-              title="Production Ready"
-              description="Deploy to Vercel or any Node host"
-            />
-          </div>
+      <TestimonialsSection />
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Link
-              href="/docs"
-              className="inline-flex items-center justify-center rounded-lg bg-primary-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-primary-700"
-            >
-              Read Documentation
-            </Link>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg border border-slate-600 px-8 py-3 font-semibold text-slate-300 transition-colors hover:border-slate-500 hover:bg-slate-800"
-            >
-              View on GitHub
-            </a>
-          </div>
+      <NewsletterSignup />
 
-          {/* Stats */}
-          <div className="mt-16 border-t border-slate-700 pt-12">
-            <div className="grid gap-8 sm:grid-cols-3">
-              <Stat label="React" value="19" />
-              <Stat label="Next.js" value="15" />
-              <Stat label="TypeScript" value="5.6+" />
-            </div>
+      <ContactForm />
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="border-t border-gray-800 pt-8">
+            <p className="text-center text-gray-400">
+              © 2024 Professional Landing Page. All rights reserved.
+            </p>
           </div>
         </div>
-      </div>
+      </footer>
     </main>
-  )
-}
-
-interface FeatureProps {
-  icon: string
-  title: string
-  description: string
-}
-
-function Feature({ icon, title, description }: FeatureProps): React.ReactElement {
-  return (
-    <div className="rounded-lg border border-slate-700 bg-slate-800/50 p-6 backdrop-blur-sm transition-all hover:border-slate-600 hover:bg-slate-800/75">
-      <div className="mb-3 text-3xl">{icon}</div>
-      <h3 className="mb-2 font-semibold text-slate-100">{title}</h3>
-      <p className="text-sm text-slate-400">{description}</p>
-    </div>
-  )
-}
-
-interface StatProps {
-  label: string
-  value: string
-}
-
-function Stat({ label, value }: StatProps): React.ReactElement {
-  return (
-    <div>
-      <p className="text-3xl font-bold text-slate-100">{value}</p>
-      <p className="text-sm text-slate-400">{label}</p>
-    </div>
   )
 }
