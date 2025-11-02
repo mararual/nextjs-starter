@@ -39,6 +39,12 @@ jobs:
       - name: Install dependencies
         run: npm ci --verbose
 
+      - name: Verify TypeScript installation
+        run: npm list typescript @types/react @types/node || true
+
+      - name: Install TypeScript explicitly
+        run: npm install --no-save typescript @types/react @types/node
+
       - name: Run ESLint
         run: npm run lint --if-present
         continue-on-error: true
