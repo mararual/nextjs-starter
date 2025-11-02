@@ -22,6 +22,7 @@ Use the Next.js Expert agent:
 ### 1. App Router Structure
 
 **What it checks:**
+
 - Proper use of app directory structure
 - Correct layout composition and nesting
 - Route segment configuration (layout.js, page.js, etc.)
@@ -29,6 +30,7 @@ Use the Next.js Expert agent:
 - Parallel and intercepting routes (if used)
 
 **Example feedback:**
+
 ```
 ❌ Problem: Route organization is unclear
 ✅ Solution: Use consistent folder structure with clear page boundaries
@@ -40,6 +42,7 @@ Use the Next.js Expert agent:
 ### 2. Server/Client Boundaries
 
 **What it checks:**
+
 - Correct use of 'use server' and 'use client' directives
 - Avoiding unnecessary client components
 - Proper server component patterns
@@ -47,6 +50,7 @@ Use the Next.js Expert agent:
 - Form actions and server mutations
 
 **Example feedback:**
+
 ```
 ❌ Problem: Everything is marked 'use client'
 ✅ Solution: Move data fetching to Server Components
@@ -58,6 +62,7 @@ Use the Next.js Expert agent:
 ### 3. Data Fetching Patterns
 
 **What it checks:**
+
 - Using fetch API with Next.js caching
 - Proper revalidation strategies
 - Error handling in data fetching
@@ -66,6 +71,7 @@ Use the Next.js Expert agent:
 - Environment variables usage
 
 **Example feedback:**
+
 ```
 ❌ Problem: No caching strategy specified
 ✅ Solution: Configure cache and revalidation:
@@ -79,6 +85,7 @@ Use the Next.js Expert agent:
 ### 4. Performance Optimization
 
 **What it checks:**
+
 - Image optimization with next/image
 - Font loading and optimization
 - Script optimization with next/script
@@ -88,6 +95,7 @@ Use the Next.js Expert agent:
 - Unnecessary re-renders
 
 **Example feedback:**
+
 ```
 ❌ Problem: Using <img> tags instead of Image
 ✅ Solution: Use Next.js Image component for optimization:
@@ -104,6 +112,7 @@ Use the Next.js Expert agent:
 ### 5. API Routes/Route Handlers
 
 **What it checks:**
+
 - Proper HTTP method handling
 - Error handling and status codes
 - Middleware usage
@@ -113,6 +122,7 @@ Use the Next.js Expert agent:
 - Authentication/authorization
 
 **Example feedback:**
+
 ```
 ❌ Problem: No error handling in route handler
 ✅ Solution: Add proper error handling:
@@ -132,6 +142,7 @@ Use the Next.js Expert agent:
 ### 6. Metadata and SEO
 
 **What it checks:**
+
 - Proper metadata configuration
 - Dynamic metadata generation
 - Open Graph and social sharing
@@ -140,6 +151,7 @@ Use the Next.js Expert agent:
 - Robot and sitemap configuration
 
 **Example feedback:**
+
 ```
 ❌ Problem: No metadata exported
 ✅ Solution: Configure metadata in layout:
@@ -157,6 +169,7 @@ Use the Next.js Expert agent:
 ### 7. Middleware and Guards
 
 **What it checks:**
+
 - Middleware.js configuration
 - Auth guards and redirects
 - Request/response manipulation
@@ -164,6 +177,7 @@ Use the Next.js Expert agent:
 - Proper error responses
 
 **Example feedback:**
+
 ```
 ❌ Problem: Auth logic scattered across routes
 ✅ Solution: Use middleware for centralized auth:
@@ -181,6 +195,7 @@ Use the Next.js Expert agent:
 ### 8. Environment and Configuration
 
 **What it checks:**
+
 - Environment variable usage (.env.local, etc.)
 - Runtime vs build-time variables
 - Secrets management
@@ -188,6 +203,7 @@ Use the Next.js Expert agent:
 - Development vs production settings
 
 **Example feedback:**
+
 ```
 ❌ Problem: Sensitive data in NEXT_PUBLIC_ variables
 ✅ Solution: Use proper environment variable prefixes:
@@ -202,7 +218,9 @@ Use the Next.js Expert agent:
 ## Development Workflow Integration
 
 ### Phase 1: Implementation (TDD Red/Green)
+
 After writing tests and implementing components:
+
 ```
 1. Component is functionally complete
 2. Tests are passing
@@ -212,7 +230,9 @@ After writing tests and implementing components:
 ```
 
 ### Phase 2: Optimization (Refactoring)
+
 During refactoring phase:
+
 ```
 1. Code works correctly
 2. Tests verify behavior
@@ -222,7 +242,9 @@ During refactoring phase:
 ```
 
 ### Phase 3: Before Deployment
+
 Before shipping to production:
+
 ```
 1. Features complete
 2. Tests passing
@@ -234,35 +256,41 @@ Before shipping to production:
 ## Best Practices Reviewed
 
 ### ✅ Server Components by Default
+
 - Use Server Components for data fetching
 - Only use 'use client' when necessary
 - Leverage async/await in Server Components
 
 ### ✅ Efficient Data Fetching
+
 - Fetch at component level or higher
 - Use proper caching strategies
 - Avoid N+1 queries
 - Consider data dependencies
 
 ### ✅ Optimized Images and Assets
+
 - Use next/image for all images
 - Use next/font for web fonts
 - Lazy load non-critical content
 - Optimize media files
 
 ### ✅ Type Safety
+
 - Use TypeScript for components
 - Type props and state properly
 - Type API responses
 - Use discriminated unions for state
 
 ### ✅ Error Handling
+
 - Implement error.js boundaries
 - Handle loading states with Suspense
 - Provide meaningful error messages
 - Log errors appropriately
 
 ### ✅ Accessibility
+
 - Semantic HTML (use proper tags)
 - ARIA labels where needed
 - Keyboard navigation support
@@ -272,32 +300,33 @@ Before shipping to production:
 ## Example: Component Review
 
 ### Original Code
+
 ```javascript
 // app/products/page.js
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data)
-        setLoading(false)
-      })
-  }, [])
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+  }, []);
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
       <h1>Products</h1>
-      {products.map(product => (
+      {products.map((product) => (
         <div key={product.id}>
           <img src={product.image} alt={product.name} width={200} height={200} />
           <h2>{product.name}</h2>
@@ -305,13 +334,14 @@ export default function ProductsPage() {
         </div>
       ))}
     </div>
-  )
+  );
 }
 ```
 
 ### Expert Feedback & Improvements
 
 **Issues Found:**
+
 1. ❌ Page is 'use client' but only fetching data
 2. ❌ Using `<img>` instead of `<Image>`
 3. ❌ Fetching in useEffect on client
@@ -320,29 +350,30 @@ export default function ProductsPage() {
 6. ❌ No caching strategy
 
 **Improved Code:**
+
 ```javascript
 // app/products/page.js
-import { Suspense } from 'react'
-import Image from 'next/image'
-import { ProductList } from '@/components/ProductList'
-import { ProductSkeleton } from '@/components/ProductSkeleton'
+import { Suspense } from 'react';
+import Image from 'next/image';
+import { ProductList } from '@/components/ProductList';
+import { ProductSkeleton } from '@/components/ProductSkeleton';
 
 export const metadata = {
   title: 'Products',
-  description: 'Browse our product catalog'
-}
+  description: 'Browse our product catalog',
+};
 
 async function getProducts() {
   try {
     const res = await fetch('http://localhost:3000/api/products', {
-      next: { revalidate: 3600 } // ISR: revalidate hourly
-    })
+      next: { revalidate: 3600 }, // ISR: revalidate hourly
+    });
 
-    if (!res.ok) throw new Error('Failed to fetch products')
-    return res.json()
+    if (!res.ok) throw new Error('Failed to fetch products');
+    return res.json();
   } catch (error) {
-    console.error('Products fetch error:', error)
-    throw error
+    console.error('Products fetch error:', error);
+    throw error;
   }
 }
 
@@ -354,22 +385,22 @@ export default async function ProductsPage() {
         <ProductList />
       </Suspense>
     </div>
-  )
+  );
 }
 
 // app/products/ProductList.js
-'use client'
+('use client');
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export async function ProductList() {
-  const products = await getProducts()
+  const products = await getProducts();
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      {products.map(product => (
-        <div key={product.id} className="border rounded-lg p-4">
+      {products.map((product) => (
+        <div key={product.id} className="rounded-lg border p-4">
           <Image
             src={product.image}
             alt={product.name}
@@ -382,11 +413,12 @@ export async function ProductList() {
         </div>
       ))}
     </div>
-  )
+  );
 }
 ```
 
 **Improvements Made:**
+
 - ✅ Page is Server Component (fetches data)
 - ✅ Uses `<Image>` for optimization
 - ✅ Data fetching at server level

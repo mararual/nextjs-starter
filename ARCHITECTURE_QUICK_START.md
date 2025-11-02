@@ -185,9 +185,9 @@ Map features to Playwright tests:
 
 ```typescript
 test('home page loads successfully', async ({ page }) => {
-  await page.goto('/')
-  await expect(page).toHaveTitle(/Next.js Starter/)
-})
+  await page.goto('/');
+  await expect(page).toHaveTitle(/Next.js Starter/);
+});
 ```
 
 ### Step 4: Update Tests (2 hours)
@@ -203,14 +203,17 @@ npm run test:e2e
 ## File Locations & Quick Links
 
 ### Read First
+
 - `ARCHITECTURE_REVIEW_SUMMARY.md` - Executive summary
 - `docs/ARCHITECTURE_ANALYSIS.md` - Detailed analysis
 
 ### Implementation Guides
+
 - `docs/BDD_IMPLEMENTATION_GUIDE.md` - Practical patterns
 - `docs/ARCHITECTURE_VISUAL_REFERENCE.md` - Visual diagrams
 
 ### Your Code
+
 - `app/page.tsx` - Home page (well-structured example)
 - `app/components/Button.tsx` - Component with tests
 - `tests/e2e/homepage.spec.ts` - E2E test example
@@ -223,6 +226,7 @@ npm run test:e2e
 ### Create a New Feature
 
 1. **Write Feature File:**
+
    ```gherkin
    # docs/features/domain/feature-name.feature
    Feature: Feature Name
@@ -230,19 +234,21 @@ npm run test:e2e
    ```
 
 2. **Write E2E Test:**
+
    ```typescript
    // tests/e2e/domain/feature-name.spec.ts
    test('scenario description', async ({ page }) => {
      // Test implementation
-   })
+   });
    ```
 
 3. **Write Component Test:**
+
    ```typescript
    // tests/integration/Component.test.tsx
    test('component behavior', () => {
      // Test implementation
-   })
+   });
    ```
 
 4. **Write Component:**
@@ -287,30 +293,35 @@ npm run test -- --coverage
 ## Architecture at a Glance
 
 ### TypeScript (Type Safety)
+
 - Strict mode enabled
 - No implicit any
 - Full type coverage
 - Self-documenting
 
 ### Next.js 15 (Framework)
+
 - App Router (not Pages Router)
 - Server Components by default
 - 'use client' only for interactivity
 - Built-in optimizations
 
 ### Testing (Quality)
+
 - Jest for unit tests
 - React Testing Library for components
 - Playwright for E2E
 - 85%+ coverage target
 
 ### Styling (Design)
+
 - Tailwind CSS utility-first
 - Mobile-first responsive
 - Dark mode ready
 - CSS-in-JS not needed
 
 ### Security (Trust)
+
 - Security headers configured
 - Type safety prevents bugs
 - No exposed secrets
@@ -379,45 +390,53 @@ npm run build
 ## Key Concepts (Explained)
 
 ### BDD (Behavior-Driven Development)
+
 Write features in plain English that everyone understands.
 
 ### ATDD (Acceptance Test-Driven Development)
+
 Convert features to tests before writing code.
 
 ### TDD (Test-Driven Development)
+
 Write failing tests before writing implementation.
 
 ### Feature File
+
 Human-readable specification in Gherkin format.
 
 ### E2E Test
+
 Test the complete user workflow in a real browser.
 
 ### Component Test
+
 Test components in isolation with mocked dependencies.
 
 ### Unit Test
+
 Test pure functions with no side effects.
 
 ---
 
 ## Time Estimates
 
-| Task | Time | Difficulty |
-|------|------|-----------|
-| Read all docs | 2 hours | Easy |
-| Set up features structure | 1 hour | Easy |
-| Write 5 feature files | 3 hours | Medium |
-| Write E2E tests for features | 4 hours | Medium |
-| Write component tests | 4 hours | Medium |
-| Write unit tests | 3 hours | Medium |
-| Total (complete BDD setup) | 17 hours | Moderate |
+| Task                         | Time     | Difficulty |
+| ---------------------------- | -------- | ---------- |
+| Read all docs                | 2 hours  | Easy       |
+| Set up features structure    | 1 hour   | Easy       |
+| Write 5 feature files        | 3 hours  | Medium     |
+| Write E2E tests for features | 4 hours  | Medium     |
+| Write component tests        | 4 hours  | Medium     |
+| Write unit tests             | 3 hours  | Medium     |
+| Total (complete BDD setup)   | 17 hours | Moderate   |
 
 ---
 
 ## Learning Resources
 
 ### Official Documentation
+
 - [Next.js 15 Docs](https://nextjs.org)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
@@ -426,6 +445,7 @@ Test pure functions with no side effects.
 - [React Testing Library](https://testing-library.com/react)
 
 ### BDD Resources
+
 - [Gherkin Syntax](https://cucumber.io/docs/gherkin/)
 - [BDD Best Practices](https://cucumber.io/blog/bdd/bdd-best-practices/)
 - [Feature File Examples](https://cucumber.io/docs/gherkin/by-example/)
@@ -459,18 +479,21 @@ Test pure functions with no side effects.
 ## Key Files to Review
 
 ### Architecture & Analysis
+
 1. `ARCHITECTURE_REVIEW_SUMMARY.md` - High-level overview
 2. `docs/ARCHITECTURE_ANALYSIS.md` - Detailed technical analysis
 3. `docs/BDD_IMPLEMENTATION_GUIDE.md` - Practical implementation patterns
 4. `docs/ARCHITECTURE_VISUAL_REFERENCE.md` - Visual diagrams
 
 ### Code Examples
+
 - `app/components/Button.tsx` - Component structure
 - `app/components/Button.test.tsx` - Component test pattern
 - `tests/e2e/homepage.spec.ts` - E2E test pattern
 - `docs/features/landing-page.feature` - Feature file example
 
 ### Configuration
+
 - `tsconfig.json` - TypeScript strict mode
 - `next.config.js` - Security headers, optimization
 - `playwright.config.ts` - E2E testing config
@@ -483,6 +506,7 @@ Test pure functions with no side effects.
 Your project is **already well-built**. You're not fixing problems, you're **organizing and scaling a solid foundation**.
 
 The guides provided show you how to:
+
 - Organize features by domain
 - Map features to tests
 - Write tests before code
@@ -495,6 +519,7 @@ The guides provided show you how to:
 ## Support
 
 Need help?
+
 1. Check `docs/BDD_IMPLEMENTATION_GUIDE.md` for patterns
 2. Review `docs/ARCHITECTURE_VISUAL_REFERENCE.md` for diagrams
 3. Look at existing tests for examples

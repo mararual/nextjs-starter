@@ -34,6 +34,7 @@
 ```
 
 **Core Principles:**
+
 - Tests define behavior before implementation
 - Code is testable and maintainable
 - Business logic is pure and predictable
@@ -72,6 +73,7 @@ Feature: User Authentication
 ```
 
 **BDD Best Practices:**
+
 - ✅ Describe **what** (user behavior), not **how** (implementation)
 - ✅ Use ubiquitous language understood by all stakeholders
 - ✅ Focus on user value and acceptance criteria
@@ -87,50 +89,51 @@ Convert Gherkin scenarios to E2E tests that verify acceptance criteria.
 **File:** `tests/e2e/authentication.spec.ts`
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test.describe('User Authentication', () => {
   // Scenario: Successful login with valid credentials
   test('successful login with valid credentials', async ({ page }) => {
     // Given I am on the login page
-    await page.goto('/login')
+    await page.goto('/login');
 
     // When I enter valid email and password
-    await page.getByRole('textbox', { name: /email/i }).fill('user@example.com')
-    await page.getByRole('textbox', { name: /password/i }).fill('SecurePass123')
+    await page.getByRole('textbox', { name: /email/i }).fill('user@example.com');
+    await page.getByRole('textbox', { name: /password/i }).fill('SecurePass123');
 
     // And I click the login button
-    await page.getByRole('button', { name: /login/i }).click()
+    await page.getByRole('button', { name: /login/i }).click();
 
     // Then I should be redirected to the dashboard
-    await expect(page).toHaveURL('/dashboard')
+    await expect(page).toHaveURL('/dashboard');
 
     // And I should see a welcome message
-    await expect(page.getByRole('heading', { level: 1 })).toContainText(/Welcome/i)
-  })
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(/Welcome/i);
+  });
 
   // Scenario: Login fails with invalid credentials
   test('login fails with invalid credentials', async ({ page }) => {
     // Given I am on the login page
-    await page.goto('/login')
+    await page.goto('/login');
 
     // When I enter invalid email
-    await page.getByRole('textbox', { name: /email/i }).fill('invalid@example.com')
-    await page.getByRole('textbox', { name: /password/i }).fill('WrongPassword')
+    await page.getByRole('textbox', { name: /email/i }).fill('invalid@example.com');
+    await page.getByRole('textbox', { name: /password/i }).fill('WrongPassword');
 
     // And I click the login button
-    await page.getByRole('button', { name: /login/i }).click()
+    await page.getByRole('button', { name: /login/i }).click();
 
     // Then I should see an error message
-    await expect(page.getByRole('alert')).toContainText(/invalid credentials/i)
+    await expect(page.getByRole('alert')).toContainText(/invalid credentials/i);
 
     // And I should remain on the login page
-    await expect(page).toHaveURL('/login')
-  })
-})
+    await expect(page).toHaveURL('/login');
+  });
+});
 ```
 
 **ATDD Best Practices:**
+
 - ✅ Map Gherkin steps directly to test actions
 - ✅ Use role-based selectors (`getByRole`) - resilient to refactoring
 - ✅ Keep comments referencing Gherkin steps for traceability
@@ -148,51 +151,51 @@ Write unit and integration tests **before** implementing code. Follow Red → Gr
 **File:** `lib/auth.test.ts`
 
 ```typescript
-import { describe, it, expect } from 'vitest'
-import { validateEmail, validatePassword, isValidCredentials } from './auth'
+import { describe, it, expect } from 'vitest';
+import { validateEmail, validatePassword, isValidCredentials } from './auth';
 
 describe('Email Validation', () => {
   it('returns true for valid email', () => {
-    expect(validateEmail('user@example.com')).toBe(true)
-  })
+    expect(validateEmail('user@example.com')).toBe(true);
+  });
 
   it('returns false for email without @', () => {
-    expect(validateEmail('userexample.com')).toBe(false)
-  })
+    expect(validateEmail('userexample.com')).toBe(false);
+  });
 
   it('returns false for empty email', () => {
-    expect(validateEmail('')).toBe(false)
-  })
-})
+    expect(validateEmail('')).toBe(false);
+  });
+});
 
 describe('Password Validation', () => {
   it('returns true for password meeting requirements', () => {
-    expect(validatePassword('SecurePass123')).toBe(true)
-  })
+    expect(validatePassword('SecurePass123')).toBe(true);
+  });
 
   it('returns false for password shorter than 8 characters', () => {
-    expect(validatePassword('Short1')).toBe(false)
-  })
+    expect(validatePassword('Short1')).toBe(false);
+  });
 
   it('returns false for password without uppercase', () => {
-    expect(validatePassword('securepass123')).toBe(false)
-  })
-})
+    expect(validatePassword('securepass123')).toBe(false);
+  });
+});
 
 describe('Credentials Validation', () => {
   it('returns valid result for correct credentials', () => {
-    const result = isValidCredentials('user@example.com', 'SecurePass123')
-    expect(result.isValid).toBe(true)
-    expect(result.errors).toEqual({})
-  })
+    const result = isValidCredentials('user@example.com', 'SecurePass123');
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toEqual({});
+  });
 
   it('returns errors for invalid credentials', () => {
-    const result = isValidCredentials('invalid', 'short')
-    expect(result.isValid).toBe(false)
-    expect(result.errors).toHaveProperty('email')
-    expect(result.errors).toHaveProperty('password')
-  })
-})
+    const result = isValidCredentials('invalid', 'short');
+    expect(result.isValid).toBe(false);
+    expect(result.errors).toHaveProperty('email');
+    expect(result.errors).toHaveProperty('password');
+  });
+});
 ```
 
 **File:** `lib/auth.ts`
@@ -201,42 +204,35 @@ describe('Credentials Validation', () => {
 // Pure functions - no side effects, deterministic, testable
 
 type ValidationResult = {
-  readonly isValid: boolean
-  readonly errors: Record<string, string>
-}
+  readonly isValid: boolean;
+  readonly errors: Record<string, string>;
+};
 
 export const validateEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
 
 export const validatePassword = (password: string): boolean => {
-  return (
-    password.length >= 8 &&
-    /[A-Z]/.test(password) &&
-    /[0-9]/.test(password)
-  )
-}
+  return password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password);
+};
 
-export const isValidCredentials = (
-  email: string,
-  password: string
-): ValidationResult => {
-  const errors: Record<string, string> = {}
+export const isValidCredentials = (email: string, password: string): ValidationResult => {
+  const errors: Record<string, string> = {};
 
   if (!validateEmail(email)) {
-    errors.email = 'Invalid email format'
+    errors.email = 'Invalid email format';
   }
 
   if (!validatePassword(password)) {
-    errors.password = 'Password must be at least 8 characters with uppercase and numbers'
+    errors.password = 'Password must be at least 8 characters with uppercase and numbers';
   }
 
   return {
     isValid: Object.keys(errors).length === 0,
     errors,
-  }
-}
+  };
+};
 ```
 
 #### 3B: Integration Tests (Components)
@@ -429,23 +425,23 @@ Functions that always return the same output for the same input and have no side
 ```typescript
 // ✅ Good: Pure function
 export const calculateTax = (amount: number, taxRate: number): number => {
-  return amount * taxRate
-}
+  return amount * taxRate;
+};
 
 // ❌ Bad: Impure function (side effect: logging)
 export const calculateTaxWithLog = (amount: number, taxRate: number): number => {
-  console.log(`Calculating tax for $${amount}`) // Side effect
-  return amount * taxRate
-}
+  console.log(`Calculating tax for $${amount}`); // Side effect
+  return amount * taxRate;
+};
 
 // ✅ Good: Separate concerns
 export const calculateTax = (amount: number, taxRate: number): number => {
-  return amount * taxRate
-}
+  return amount * taxRate;
+};
 
 export const logCalculation = (amount: number, result: number): void => {
-  console.log(`Calculated tax: $${result} on amount $${amount}`)
-}
+  console.log(`Calculated tax: $${result} on amount $${amount}`);
+};
 ```
 
 ### 2. Immutability
@@ -455,25 +451,25 @@ Never mutate data. Create new data structures instead.
 ```typescript
 // ❌ Bad: Mutating array
 const addUser = (users: User[], newUser: User): User[] => {
-  users.push(newUser) // Mutation
-  return users
-}
+  users.push(newUser); // Mutation
+  return users;
+};
 
 // ✅ Good: Creating new array
 const addUser = (users: readonly User[], newUser: User): readonly User[] => {
-  return [...users, newUser]
-}
+  return [...users, newUser];
+};
 
 // ❌ Bad: Mutating object
 const updateUser = (user: User, updates: Partial<User>): User => {
-  Object.assign(user, updates) // Mutation
-  return user
-}
+  Object.assign(user, updates); // Mutation
+  return user;
+};
 
 // ✅ Good: Creating new object
 const updateUser = (user: User, updates: Partial<User>): User => {
-  return { ...user, ...updates }
-}
+  return { ...user, ...updates };
+};
 ```
 
 ### 3. Function Composition
@@ -482,26 +478,26 @@ Build complex operations from simple functions.
 
 ```typescript
 // Pure functions
-const trim = (str: string): string => str.trim()
-const toLowerCase = (str: string): string => str.toLowerCase()
-const removeSpaces = (str: string): string => str.replace(/\s+/g, '')
+const trim = (str: string): string => str.trim();
+const toLowerCase = (str: string): string => str.toLowerCase();
+const removeSpaces = (str: string): string => str.replace(/\s+/g, '');
 
 // Compose function
 const compose =
   <T>(...fns: Array<(arg: T) => T>) =>
   (value: T): T =>
-    fns.reduceRight((acc, fn) => fn(acc), value)
+    fns.reduceRight((acc, fn) => fn(acc), value);
 
 // Pipe function (left to right)
 const pipe =
   <T>(...fns: Array<(arg: T) => T>) =>
   (value: T): T =>
-    fns.reduce((acc, fn) => fn(acc), value)
+    fns.reduce((acc, fn) => fn(acc), value);
 
 // Usage
-const normalizeInput = pipe(trim, toLowerCase, removeSpaces)
+const normalizeInput = pipe(trim, toLowerCase, removeSpaces);
 
-expect(normalizeInput('  Hello WORLD  ')).toBe('helloworld')
+expect(normalizeInput('  Hello WORLD  ')).toBe('helloworld');
 ```
 
 ### 4. Higher-Order Functions
@@ -510,32 +506,31 @@ Functions that take or return other functions.
 
 ```typescript
 // Higher-order function: map
-const map = <T, U>(fn: (item: T) => U) => (items: readonly T[]): readonly U[] =>
-  items.map(fn)
+const map =
+  <T, U>(fn: (item: T) => U) =>
+  (items: readonly T[]): readonly U[] =>
+    items.map(fn);
 
 // Higher-order function: filter
-const filter = <T>(predicate: (item: T) => boolean) =>
+const filter =
+  <T>(predicate: (item: T) => boolean) =>
   (items: readonly T[]): readonly T[] =>
-    items.filter(predicate)
+    items.filter(predicate);
 
 // Higher-order function: reduce
 const reduce =
   <T, U>(fn: (acc: U, item: T) => U, initial: U) =>
   (items: readonly T[]): U =>
-    items.reduce(fn, initial)
+    items.reduce(fn, initial);
 
 // Usage with composition
-const isEven = (n: number): boolean => n % 2 === 0
-const double = (n: number): number => n * 2
-const sum = (acc: number, n: number): number => acc + n
+const isEven = (n: number): boolean => n % 2 === 0;
+const double = (n: number): number => n * 2;
+const sum = (acc: number, n: number): number => acc + n;
 
-const result = pipe(
-  filter(isEven),
-  map(double),
-  reduce(sum, 0)
-)([1, 2, 3, 4, 5])
+const result = pipe(filter(isEven), map(double), reduce(sum, 0))([1, 2, 3, 4, 5]);
 
-expect(result).toBe(12) // (2 + 4) * 2 = 12
+expect(result).toBe(12); // (2 + 4) * 2 = 12
 ```
 
 ### 5. Currying and Partial Application
@@ -573,34 +568,38 @@ Use types to prevent null/undefined errors.
 ```typescript
 // ❌ Bad: Nullable types
 type User = {
-  name: string | null
-  email: string | undefined
-}
+  name: string | null;
+  email: string | undefined;
+};
 
 // ✅ Good: Non-nullable types
 type User = {
-  readonly name: string
-  readonly email: string
-}
+  readonly name: string;
+  readonly email: string;
+};
 
-type MaybeUser = User | null
+type MaybeUser = User | null;
 
 // Option/Maybe pattern for optional values
-type Option<T> = { readonly kind: 'some'; readonly value: T } | { readonly kind: 'none' }
+type Option<T> = { readonly kind: 'some'; readonly value: T } | { readonly kind: 'none' };
 
-const getSome = <T,>(value: T): Option<T> => ({ kind: 'some', value })
-const getNone = (): Option<never> => ({ kind: 'none' })
+const getSome = <T>(value: T): Option<T> => ({ kind: 'some', value });
+const getNone = (): Option<never> => ({ kind: 'none' });
 
-const mapOption = <T, U>(fn: (value: T) => U) => (option: Option<T>): Option<U> =>
-  option.kind === 'some' ? getSome(fn(option.value)) : getNone()
+const mapOption =
+  <T, U>(fn: (value: T) => U) =>
+  (option: Option<T>): Option<U> =>
+    option.kind === 'some' ? getSome(fn(option.value)) : getNone();
 
-const getOrElse = <T,>(defaultValue: T) => (option: Option<T>): T =>
-  option.kind === 'some' ? option.value : defaultValue
+const getOrElse =
+  <T>(defaultValue: T) =>
+  (option: Option<T>): T =>
+    option.kind === 'some' ? option.value : defaultValue;
 
 // Usage
-const user = getSome({ name: 'Alice', email: 'alice@example.com' })
-const name = mapOption((u: User) => u.name)(user)
-const displayName = getOrElse('Guest')(name)
+const user = getSome({ name: 'Alice', email: 'alice@example.com' });
+const name = mapOption((u: User) => u.name)(user);
+const displayName = getOrElse('Guest')(name);
 ```
 
 ---
@@ -638,52 +637,47 @@ const displayName = getOrElse('Guest')(name)
 ```typescript
 // ❌ Bad: Using `any`
 const processData = (data: any): any => {
-  return data.value + 10
-}
+  return data.value + 10;
+};
 
 // ✅ Good: Type everything
 type DataInput = {
-  readonly value: number
-}
+  readonly value: number;
+};
 
 const processData = (data: DataInput): number => {
-  return data.value + 10
-}
+  return data.value + 10;
+};
 
 // ❌ Bad: Unsafe assertions
-const user = fetchUser() as User
+const user = fetchUser() as User;
 
 // ✅ Good: Type guards
 const isUser = (obj: unknown): obj is User => {
-  return (
-    typeof obj === 'object' &&
-    obj !== null &&
-    'id' in obj &&
-    'name' in obj
-  )
-}
+  return typeof obj === 'object' && obj !== null && 'id' in obj && 'name' in obj;
+};
 
-const user = fetchUser()
+const user = fetchUser();
 if (isUser(user)) {
-  console.log(user.name)
+  console.log(user.name);
 }
 
 // ❌ Bad: Mutable types
 const config = {
   apiUrl: 'https://api.example.com',
   timeout: 5000,
-}
+};
 
 // ✅ Good: Immutable types with readonly
 type Config = {
-  readonly apiUrl: string
-  readonly timeout: number
-}
+  readonly apiUrl: string;
+  readonly timeout: number;
+};
 
 const config: Config = {
   apiUrl: 'https://api.example.com',
   timeout: 5000,
-}
+};
 ```
 
 ---
@@ -692,13 +686,13 @@ const config: Config = {
 
 ### Understanding the Distinction
 
-| Aspect | Server Component | Client Component |
-|--------|------------------|------------------|
-| **When to use** | By default, data fetching | Interactive features |
-| **Rendering** | Server (Node.js) | Browser (JavaScript) |
-| **Bundle size** | Code stays on server | Code sent to browser |
-| **Access** | Databases, APIs, secrets | Browser APIs, state, events |
-| **Declaration** | No directive needed | `'use client'` at top |
+| Aspect          | Server Component          | Client Component            |
+| --------------- | ------------------------- | --------------------------- |
+| **When to use** | By default, data fetching | Interactive features        |
+| **Rendering**   | Server (Node.js)          | Browser (JavaScript)        |
+| **Bundle size** | Code stays on server      | Code sent to browser        |
+| **Access**      | Databases, APIs, secrets  | Browser APIs, state, events |
+| **Declaration** | No directive needed       | `'use client'` at top       |
 
 ### Server Component Example
 
@@ -736,6 +730,7 @@ export default async function UsersPage(): Promise<React.ReactElement> {
 ```
 
 **Benefits:**
+
 - ✅ Direct database access
 - ✅ Keeps secrets safe
 - ✅ Reduces JavaScript bundle
@@ -813,6 +808,7 @@ export default async function UsersPage(): Promise<React.ReactElement> {
 ```
 
 **Strategy:**
+
 - ✅ Fetch data in Server Component
 - ✅ Pass data to Client Component as props
 - ✅ Client handles interactivity
@@ -826,82 +822,82 @@ export default async function UsersPage(): Promise<React.ReactElement> {
 
 ```typescript
 // hooks/useAuthentication.test.ts
-import { renderHook, act, waitFor } from '@testing-library/react'
-import { useAuthentication } from './useAuthentication'
+import { renderHook, act, waitFor } from '@testing-library/react';
+import { useAuthentication } from './useAuthentication';
 
 describe('useAuthentication Hook', () => {
   it('initializes with unauthenticated state', () => {
-    const { result } = renderHook(() => useAuthentication())
+    const { result } = renderHook(() => useAuthentication());
 
-    expect(result.current.user).toBeNull()
-    expect(result.current.isLoading).toBe(false)
-  })
+    expect(result.current.user).toBeNull();
+    expect(result.current.isLoading).toBe(false);
+  });
 
   it('logs in user successfully', async () => {
-    const { result } = renderHook(() => useAuthentication())
+    const { result } = renderHook(() => useAuthentication());
 
     act(() => {
-      result.current.login('user@example.com', 'password123')
-    })
+      result.current.login('user@example.com', 'password123');
+    });
 
     await waitFor(() => {
-      expect(result.current.isLoading).toBe(false)
-    })
+      expect(result.current.isLoading).toBe(false);
+    });
 
-    expect(result.current.user).not.toBeNull()
-    expect(result.current.user?.email).toBe('user@example.com')
-  })
+    expect(result.current.user).not.toBeNull();
+    expect(result.current.user?.email).toBe('user@example.com');
+  });
 
   it('handles login errors', async () => {
-    const { result } = renderHook(() => useAuthentication())
+    const { result } = renderHook(() => useAuthentication());
 
     act(() => {
-      result.current.login('invalid@example.com', 'wrongpassword')
-    })
+      result.current.login('invalid@example.com', 'wrongpassword');
+    });
 
     await waitFor(() => {
-      expect(result.current.isLoading).toBe(false)
-    })
+      expect(result.current.isLoading).toBe(false);
+    });
 
-    expect(result.current.error).not.toBeNull()
-  })
-})
+    expect(result.current.error).not.toBeNull();
+  });
+});
 ```
 
 ### Testing Async Operations
 
 ```typescript
 // lib/api.test.ts
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { fetchUsers } from './api'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { fetchUsers } from './api';
 
 describe('fetchUsers', () => {
   beforeEach(() => {
-    global.fetch = vi.fn()
-  })
+    global.fetch = vi.fn();
+  });
 
   afterEach(() => {
-    vi.restoreAllMocks()
-  })
+    vi.restoreAllMocks();
+  });
 
   it('fetches and returns user data', async () => {
     const mockUsers = [
       { id: '1', name: 'Alice', email: 'alice@example.com' },
       { id: '2', name: 'Bob', email: 'bob@example.com' },
-    ]
+    ];
 
     global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve(mockUsers),
       } as Response)
-    )
+    );
 
-    const result = await fetchUsers()
+    const result = await fetchUsers();
 
-    expect(result).toEqual(mockUsers)
-    expect(global.fetch).toHaveBeenCalledWith('/api/users')
-  })
+    expect(result).toEqual(mockUsers);
+    expect(global.fetch).toHaveBeenCalledWith('/api/users');
+  });
 
   it('throws error on failed request', async () => {
     global.fetch = vi.fn(() =>
@@ -909,11 +905,11 @@ describe('fetchUsers', () => {
         ok: false,
         status: 500,
       } as Response)
-    )
+    );
 
-    await expect(fetchUsers()).rejects.toThrow('Failed to fetch users')
-  })
-})
+    await expect(fetchUsers()).rejects.toThrow('Failed to fetch users');
+  });
+});
 ```
 
 ### Testing Context and Providers
@@ -1173,58 +1169,58 @@ export default function Settings(): React.ReactElement {
 ```typescript
 // lib/errors.ts
 export class ValidationError extends Error {
-  constructor(readonly field: string, message: string) {
-    super(message)
-    this.name = 'ValidationError'
+  constructor(
+    readonly field: string,
+    message: string
+  ) {
+    super(message);
+    this.name = 'ValidationError';
   }
 }
 
 export class NotFoundError extends Error {
   constructor(readonly resourceId: string) {
-    super(`Resource not found: ${resourceId}`)
-    this.name = 'NotFoundError'
+    super(`Resource not found: ${resourceId}`);
+    this.name = 'NotFoundError';
   }
 }
 
 export class UnauthorizedError extends Error {
   constructor(message = 'Unauthorized') {
-    super(message)
-    this.name = 'UnauthorizedError'
+    super(message);
+    this.name = 'UnauthorizedError';
   }
 }
 
 // Type-safe error handling
 export type Result<T, E = Error> =
   | { readonly ok: true; readonly value: T }
-  | { readonly ok: false; readonly error: E }
+  | { readonly ok: false; readonly error: E };
 
-export const success = <T,>(value: T): Result<T> => ({
+export const success = <T>(value: T): Result<T> => ({
   ok: true,
   value,
-})
+});
 
 export const failure = <E extends Error>(error: E): Result<never, E> => ({
   ok: false,
   error,
-})
+});
 
-export const mapResult = <T, U, E extends Error>(
-  fn: (value: T) => U
-) =>
+export const mapResult =
+  <T, U, E extends Error>(fn: (value: T) => U) =>
   (result: Result<T, E>): Result<U, E> =>
-    result.ok ? success(fn(result.value)) : result
+    result.ok ? success(fn(result.value)) : result;
 
-export const flatMapResult = <T, U, E extends Error>(
-  fn: (value: T) => Result<U, E>
-) =>
+export const flatMapResult =
+  <T, U, E extends Error>(fn: (value: T) => Result<U, E>) =>
   (result: Result<T, E>): Result<U, E> =>
-    result.ok ? fn(result.value) : result
+    result.ok ? fn(result.value) : result;
 
-export const getOrElse = <T, E extends Error>(
-  defaultValue: T
-) =>
+export const getOrElse =
+  <T, E extends Error>(defaultValue: T) =>
   (result: Result<T, E>): T =>
-    result.ok ? result.value : defaultValue
+    result.ok ? result.value : defaultValue;
 ```
 
 ### Usage in Components
@@ -1329,91 +1325,91 @@ Feature: User Management
 **File:** `tests/e2e/users.spec.ts`
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test.describe('User Management', () => {
   test('view all users', async ({ page }) => {
-    await page.goto('/login')
-    await page.getByRole('textbox', { name: /email/i }).fill('admin@example.com')
-    await page.getByRole('textbox', { name: /password/i }).fill('AdminPass123')
-    await page.getByRole('button', { name: /login/i }).click()
+    await page.goto('/login');
+    await page.getByRole('textbox', { name: /email/i }).fill('admin@example.com');
+    await page.getByRole('textbox', { name: /password/i }).fill('AdminPass123');
+    await page.getByRole('button', { name: /login/i }).click();
 
-    await page.goto('/users')
+    await page.goto('/users');
 
-    const userList = page.getByRole('region', { name: /users/i })
-    await expect(userList).toBeVisible()
+    const userList = page.getByRole('region', { name: /users/i });
+    await expect(userList).toBeVisible();
 
-    const userRows = page.locator('tr')
-    expect(await userRows.count()).toBeGreaterThan(0)
-  })
+    const userRows = page.locator('tr');
+    expect(await userRows.count()).toBeGreaterThan(0);
+  });
 
   test('create new user', async ({ page }) => {
-    await page.goto('/users/create')
+    await page.goto('/users/create');
 
-    await page.getByRole('textbox', { name: /name/i }).fill('John Doe')
-    await page.getByRole('textbox', { name: /email/i }).fill('john@example.com')
-    await page.getByRole('button', { name: /create/i }).click()
+    await page.getByRole('textbox', { name: /name/i }).fill('John Doe');
+    await page.getByRole('textbox', { name: /email/i }).fill('john@example.com');
+    await page.getByRole('button', { name: /create/i }).click();
 
-    await expect(page.getByRole('alert')).toContainText(/success/i)
-    await expect(page).toHaveURL(/\/users/)
-  })
+    await expect(page.getByRole('alert')).toContainText(/success/i);
+    await expect(page).toHaveURL(/\/users/);
+  });
 
   test('delete user', async ({ page }) => {
-    await page.goto('/users')
+    await page.goto('/users');
 
     const deleteButton = page
       .getByRole('row')
       .filter({ hasText: 'john@example.com' })
-      .getByRole('button', { name: /delete/i })
+      .getByRole('button', { name: /delete/i });
 
-    await deleteButton.click()
+    await deleteButton.click();
 
-    const confirmButton = page.getByRole('button', { name: /confirm/i })
-    await confirmButton.click()
+    const confirmButton = page.getByRole('button', { name: /confirm/i });
+    await confirmButton.click();
 
-    await expect(page.getByRole('alert')).toContainText(/deleted/i)
-  })
-})
+    await expect(page.getByRole('alert')).toContainText(/deleted/i);
+  });
+});
 ```
 
 **File:** `lib/users.ts`
 
 ```typescript
-import { db } from './db'
+import { db } from './db';
 
 type User = {
-  readonly id: string
-  readonly name: string
-  readonly email: string
-  readonly createdAt: Date
-}
+  readonly id: string;
+  readonly name: string;
+  readonly email: string;
+  readonly createdAt: Date;
+};
 
 type CreateUserInput = {
-  readonly name: string
-  readonly email: string
-}
+  readonly name: string;
+  readonly email: string;
+};
 
 // Pure validation function
 const validateEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
 
 const validateCreateUserInput = (input: CreateUserInput): string | null => {
   if (!input.name.trim()) {
-    return 'Name is required'
+    return 'Name is required';
   }
   if (!validateEmail(input.email)) {
-    return 'Valid email is required'
+    return 'Valid email is required';
   }
-  return null
-}
+  return null;
+};
 
 // Database operations
 export const createUser = async (input: CreateUserInput): Promise<User> => {
-  const error = validateCreateUserInput(input)
+  const error = validateCreateUserInput(input);
   if (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 
   return db.user.create({
@@ -1421,24 +1417,24 @@ export const createUser = async (input: CreateUserInput): Promise<User> => {
       name: input.name,
       email: input.email,
     },
-  })
-}
+  });
+};
 
 export const getUsers = async (): Promise<readonly User[]> => {
-  return db.user.findMany()
-}
+  return db.user.findMany();
+};
 
 export const getUserById = async (id: string): Promise<User | null> => {
   return db.user.findUnique({
     where: { id },
-  })
-}
+  });
+};
 
 export const deleteUser = async (id: string): Promise<void> => {
   await db.user.delete({
     where: { id },
-  })
-}
+  });
+};
 ```
 
 **File:** `app/users/page.tsx`

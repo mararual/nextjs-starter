@@ -12,6 +12,7 @@
 Implement a professional landing page for the Next.js Starter template following the BDD → ATDD → TDD workflow. The page should showcase the project features, technology stack, and quick start commands.
 
 ### Feature File
+
 **Location:** `docs/features/landing-page.feature`
 **Total Scenarios:** 4 (3 to implement, 1 marked @not-implemented)
 
@@ -46,6 +47,7 @@ PHASE 3: TDD (Test-Driven Development)
 **Feature File Location:** `docs/features/landing-page.feature` (Lines 6-11)
 
 **Gherkin Specification:**
+
 ```gherkin
 Scenario: Landing page displays the core project overview
   Given I navigate to the home page
@@ -56,9 +58,11 @@ Scenario: Landing page displays the core project overview
 ```
 
 #### Phase 2: ATDD - Acceptance Tests
+
 **File:** `tests/e2e/landing-page.spec.ts`
 **Test Name:** `displays core project overview`
 **Assertions:**
+
 - Page loads successfully
 - Main title "Next.js Starter" is visible
 - Supporting message is visible
@@ -66,8 +70,10 @@ Scenario: Landing page displays the core project overview
 - "View on GitHub" button exists and is visible
 
 #### Phase 3: TDD - Unit/Integration Tests
+
 **Component:** `HeroSection.tsx`
 **Tests Needed:**
+
 - Hero section renders with correct heading
 - Props are typed correctly (readonly)
 - Buttons have correct labels
@@ -75,12 +81,15 @@ Scenario: Landing page displays the core project overview
 - Links are properly assigned (Documentation → /docs, GitHub → repo link)
 
 #### Implementation
+
 **Files to Create:**
+
 - `app/components/HeroSection.tsx` - Server component for hero section
 - `app/components/HeroSection.test.tsx` - Component tests
 - `tests/e2e/landing-page.spec.ts` - E2E tests
 
 **Component Structure:**
+
 ```typescript
 // HeroSection Props (TypeScript, strict mode)
 type HeroSectionProps = {
@@ -103,6 +112,7 @@ const getHeroData = (): HeroSectionProps => ({...})
 **Feature File Location:** `docs/features/landing-page.feature` (Lines 13-20)
 
 **Gherkin Specification:**
+
 ```gherkin
 Scenario: Feature highlights are visible
   Given I navigate to the home page
@@ -115,23 +125,29 @@ Scenario: Feature highlights are visible
 ```
 
 #### Phase 2: ATDD - Acceptance Tests
+
 **File:** `tests/e2e/landing-page.spec.ts`
 **Test Name:** `displays feature highlights`
 **Assertions:**
+
 - At least 3 feature cards are visible
 - Cards include: "BDD First", "Comprehensive Testing", "Modern Stack"
 - Each card has description text
 
 #### Phase 3: TDD - Unit/Integration Tests
+
 **Component:** `FeaturesSection.tsx`
 **Tests Needed:**
+
 - Renders correct number of feature cards
 - Each card displays title and description
 - All required features are present
 - Cards are accessible (proper semantic HTML)
 
 #### Implementation
+
 **Files to Create:**
+
 - `app/components/FeaturesSection.tsx` - Feature cards component
 - `app/components/FeatureCard.tsx` - Individual feature card
 - `app/components/FeaturesSection.test.tsx` - Component tests
@@ -139,6 +155,7 @@ Scenario: Feature highlights are visible
 - `tests/e2e/landing-page.spec.ts` - Add feature highlights test
 
 **Data Structure:**
+
 ```typescript
 type Feature = {
   readonly id: string
@@ -158,6 +175,7 @@ const getFeatures = (): readonly Feature[] => [...]
 **Feature File Location:** `docs/features/landing-page.feature` (Lines 22-42)
 
 **Gherkin Specification:**
+
 ```gherkin
 Scenario: Quick start guidance is available
   Given I navigate to the home page
@@ -183,9 +201,11 @@ Scenario: Quick start guidance is available
 ```
 
 #### Phase 2: ATDD - Acceptance Tests
+
 **File:** `tests/e2e/landing-page.spec.ts`
 **Test Name:** `displays tech stack and quick start commands`
 **Assertions:**
+
 - Tech stack section is visible
 - All 13 technologies are listed and visible
 - Quick start commands section is visible
@@ -193,19 +213,24 @@ Scenario: Quick start guidance is available
 - Commands are copyable or shown in code blocks
 
 #### Phase 3: TDD - Unit/Integration Tests
+
 **Components:** `TechStackSection.tsx`, `QuickStartSection.tsx`
 **Tests Needed:**
+
 - Tech stack data is complete and correct
 - Quick start commands are properly formatted
 - Sections are properly labeled and accessible
 
 #### Implementation
+
 **Files to Create:**
+
 - `app/components/TechStackSection.tsx` - Tech stack display
 - `app/components/QuickStartSection.tsx` - Quick start commands
 - `tests/e2e/landing-page.spec.ts` - Add tech stack test
 
 **Data Structures:**
+
 ```typescript
 type Technology = {
   readonly id: string
@@ -246,6 +271,7 @@ Scenario: Dark mode toggle works
 ## Test Organization
 
 ### Directory Structure
+
 ```
 nextjs-starter/
 ├── app/
@@ -277,12 +303,12 @@ nextjs-starter/
 
 ## Test Coverage Targets
 
-| Layer | Target | Why |
-|-------|--------|-----|
-| **Unit Tests** | 90%+ | Business logic (data functions) |
-| **Integration Tests** | 85%+ | Component behavior |
-| **E2E Tests** | Critical paths | User-visible functionality |
-| **Overall** | 80%+ | High confidence in features |
+| Layer                 | Target         | Why                             |
+| --------------------- | -------------- | ------------------------------- |
+| **Unit Tests**        | 90%+           | Business logic (data functions) |
+| **Integration Tests** | 85%+           | Component behavior              |
+| **E2E Tests**         | Critical paths | User-visible functionality      |
+| **Overall**           | 80%+           | High confidence in features     |
 
 ---
 
@@ -315,7 +341,9 @@ nextjs-starter/
 ## Functional Programming Patterns
 
 ### Pure Functions
+
 All data retrieval functions should be pure (no side effects):
+
 ```typescript
 // ✅ Good: Pure function
 const getHeroData = (): HeroSectionProps => ({...})
@@ -327,23 +355,27 @@ const getHeroData = async () => {
 ```
 
 ### Immutability
+
 All props should be `readonly`:
+
 ```typescript
 // ✅ Good
 type Props = {
-  readonly title: string
-  readonly items: readonly Item[]
-}
+  readonly title: string;
+  readonly items: readonly Item[];
+};
 
 // ❌ Bad
 type Props = {
-  title: string
-  items: Item[]
-}
+  title: string;
+  items: Item[];
+};
 ```
 
 ### Type Safety
+
 Use TypeScript strict mode, no `any` types:
+
 ```typescript
 // ✅ Good
 const features: readonly Feature[] = [...]
@@ -357,21 +389,25 @@ const features: any[] = [...]
 ## Testing Checklist
 
 ### Before ATDD
+
 - [ ] Gherkin scenario is clear and declarative
 - [ ] No implementation details in scenario
 - [ ] Scenario is user-focused
 
 ### Before TDD
+
 - [ ] E2E tests written and failing
 - [ ] All assertions map to Gherkin steps
 - [ ] Tests use proper selectors (data-testid)
 
 ### Before Implementation
+
 - [ ] Unit tests written and failing
 - [ ] Integration tests written and failing
 - [ ] Tests use AAA pattern (Arrange-Act-Assert)
 
 ### After Implementation
+
 - [ ] All tests pass (Red → Green)
 - [ ] Code refactored while keeping tests green
 - [ ] TypeScript strict mode compliance
@@ -383,6 +419,7 @@ const features: any[] = [...]
 ## Git Workflow
 
 ### Commits Follow Conventional Commits
+
 ```bash
 feat(landing-page): add hero section component
 test(landing-page): add E2E tests for hero section
@@ -391,6 +428,7 @@ refactor(landing-page): extract data functions to lib
 ```
 
 ### Branch Structure
+
 - Feature branch: `feat/landing-page`
 - One commit per scenario implementation
 
@@ -399,11 +437,13 @@ refactor(landing-page): extract data functions to lib
 ## Success Criteria
 
 ✅ **All 3 scenarios implemented:**
+
 - [ ] Scenario 1: Core overview with hero section
 - [ ] Scenario 2: Feature highlights visible
 - [ ] Scenario 3: Tech stack & quick start visible
 
 ✅ **All tests passing:**
+
 - [ ] E2E tests: All 3 scenarios pass
 - [ ] Unit tests: 90%+ coverage
 - [ ] Integration tests: 85%+ coverage
@@ -411,6 +451,7 @@ refactor(landing-page): extract data functions to lib
 - [ ] No ESLint warnings
 
 ✅ **Code quality:**
+
 - [ ] Pure functions for all data
 - [ ] Immutable types (readonly)
 - [ ] Proper type safety (no any)
@@ -418,6 +459,7 @@ refactor(landing-page): extract data functions to lib
 - [ ] Semantic HTML (accessibility)
 
 ✅ **Documentation:**
+
 - [ ] Code is self-documenting via types
 - [ ] Tests serve as living documentation
 - [ ] Feature file matches implementation
@@ -427,15 +469,18 @@ refactor(landing-page): extract data functions to lib
 ## Timeline
 
 **Scenario 1 (Hero Section):** ~1-2 hours
+
 - ATDD: 15 min
 - TDD: 30 min
 - Implementation: 30 min
 - Refactor & tests: 15 min
 
 **Scenario 2 (Features):** ~1-2 hours
+
 - Similar timeline as Scenario 1
 
 **Scenario 3 (Quick Start):** ~1-2 hours
+
 - Similar timeline as Scenario 1
 
 **Total:** ~3-6 hours for all three scenarios

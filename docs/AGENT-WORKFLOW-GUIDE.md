@@ -34,6 +34,7 @@ Task("Agent name", "Your detailed task description", "agent-type")
 ```
 
 **Available agent-types for this project:**
+
 - `bdd-expert` - Review Gherkin features
 - `test-quality-reviewer` - Review test quality
 - `typescript-enforcer` - Validate TypeScript
@@ -50,6 +51,7 @@ Task("Agent name", "Your detailed task description", "agent-type")
 **Purpose:** Ensure feature files are clear, declarative, and focused on user behavior
 
 **When to use:**
+
 - ✅ After writing Gherkin scenarios
 - ✅ When scenarios feel too technical
 - ✅ Before stakeholder review
@@ -75,6 +77,7 @@ Task(
 ```
 
 **What it checks:**
+
 - ✅ Declarative vs imperative language
 - ✅ Technical coupling
 - ✅ Ubiquitous language consistency
@@ -90,6 +93,7 @@ Task(
 **Purpose:** Ensure tests focus on behavior and would actually catch bugs
 
 **When to use:**
+
 - ✅ After writing unit/integration tests
 - ✅ When tests break on refactoring
 - ✅ During code review
@@ -117,6 +121,7 @@ Task(
 ```
 
 **What it checks:**
+
 - ✅ Behavior vs implementation testing
 - ✅ Test brittleness
 - ✅ Mock appropriateness
@@ -133,6 +138,7 @@ Task(
 **Purpose:** Ensure strict type safety and schema-first patterns
 
 **When to use:**
+
 - ✅ Before committing TypeScript code
 - ✅ When defining new types/interfaces
 - ✅ On API boundaries (external data)
@@ -164,6 +170,7 @@ Task(
 ```
 
 **What it checks:**
+
 - ✅ `any` type usage
 - ✅ Schema validation (Zod)
 - ✅ Immutability
@@ -180,6 +187,7 @@ Task(
 **Purpose:** Ensure proper Next.js patterns and performance
 
 **When to use:**
+
 - ✅ After creating/updating components
 - ✅ On performance optimization
 - ✅ When refactoring components
@@ -211,6 +219,7 @@ Task(
 ```
 
 **What it checks:**
+
 - ✅ Server vs Client components
 - ✅ Data fetching strategy
 - ✅ SEO/metadata
@@ -228,6 +237,7 @@ Task(
 **Purpose:** Ensure responsive design and utility-first CSS patterns
 
 **When to use:**
+
 - ✅ When styling components
 - ✅ On responsive design issues
 - ✅ When custom CSS is needed
@@ -259,6 +269,7 @@ Task(
 ```
 
 **What it checks:**
+
 - ✅ Inline styles vs utilities
 - ✅ Responsive design (mobile-first)
 - ✅ Utility organization
@@ -276,6 +287,7 @@ Task(
 **Purpose:** Ensure proper domain modeling and bounded contexts
 
 **When to use:**
+
 - ✅ Designing complex features
 - ✅ Extracting domain concepts
 - ✅ Before implementing domain layer
@@ -304,6 +316,7 @@ Task(
 ```
 
 **What it checks:**
+
 - ✅ Bounded contexts
 - ✅ Entity vs value object design
 - ✅ Aggregate design
@@ -321,6 +334,7 @@ Task(
 ### How Claude-Flow Works with Agents
 
 **Claude-Flow** is the orchestration layer that:
+
 1. Coordinates between multiple agents
 2. Manages memory/context sharing
 3. Handles agent deployment
@@ -397,6 +411,7 @@ npx claude-flow metrics
 **Steps:**
 
 1. **Write Gherkin Feature File**
+
 ```gherkin
 # docs/features/user-authentication.feature
 Feature: User Authentication
@@ -412,6 +427,7 @@ Feature: User Authentication
 ```
 
 2. **Invoke BDD Expert (via Claude Code)**
+
 ```
 Task(
   "Review Gherkin scenarios",
@@ -423,11 +439,13 @@ Task(
 ```
 
 3. **Apply Agent Recommendations**
+
 - Refine scenarios based on feedback
 - Ensure non-technical language
 - Validate with stakeholders
 
 4. **Commit Feature File**
+
 ```bash
 git commit -m "feat(auth): add user authentication feature specification"
 ```
@@ -441,35 +459,38 @@ git commit -m "feat(auth): add user authentication feature specification"
 **Steps:**
 
 1. **Write Failing E2E Test (Playwright)**
+
 ```typescript
 // tests/e2e/authentication.spec.ts
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test.describe('User Authentication', () => {
   test('successful login redirects to dashboard', async ({ page }) => {
     // Given I am on the login page
-    await page.goto('/login')
+    await page.goto('/login');
 
     // When I enter valid email and password
-    await page.fill('[data-testid="email"]', 'user@example.com')
-    await page.fill('[data-testid="password"]', 'password123')
+    await page.fill('[data-testid="email"]', 'user@example.com');
+    await page.fill('[data-testid="password"]', 'password123');
 
     // And I click the login button
-    await page.click('[data-testid="login-button"]')
+    await page.click('[data-testid="login-button"]');
 
     // Then I should be redirected to the dashboard
-    await expect(page).toHaveURL('/dashboard')
-  })
-})
+    await expect(page).toHaveURL('/dashboard');
+  });
+});
 ```
 
 2. **Run E2E Tests (should fail)**
+
 ```bash
 npm run test:e2e
 # Expected: ❌ Test fails (RED)
 ```
 
 3. **Invoke Test Quality Reviewer**
+
 ```
 Task(
   "Review E2E test structure",
@@ -481,11 +502,13 @@ Task(
 ```
 
 4. **Refactor Tests**
+
 - Apply agent recommendations
 - Ensure good selectors
 - Clean up unnecessary steps
 
 5. **Commit E2E Tests**
+
 ```bash
 git commit -m "test(auth): add E2E acceptance tests for login"
 ```
@@ -499,31 +522,33 @@ git commit -m "test(auth): add E2E acceptance tests for login"
 **Steps:**
 
 1. **Write Failing Unit Test**
+
 ```typescript
 // app/lib/auth.test.ts
-import { describe, it, expect } from 'vitest'
-import { validateCredentials } from './auth'
+import { describe, it, expect } from 'vitest';
+import { validateCredentials } from './auth';
 
 describe('validateCredentials', () => {
   it('returns true for valid credentials', () => {
-    const result = validateCredentials('user@example.com', 'password123')
-    expect(result).toBe(true)
-  })
+    const result = validateCredentials('user@example.com', 'password123');
+    expect(result).toBe(true);
+  });
 
   it('throws error for missing email', () => {
-    expect(() => validateCredentials('', 'password123'))
-      .toThrow('Email is required')
-  })
-})
+    expect(() => validateCredentials('', 'password123')).toThrow('Email is required');
+  });
+});
 ```
 
 2. **Run Unit Tests (should fail)**
+
 ```bash
 npm test
 # Expected: ❌ Tests fail (RED)
 ```
 
 3. **Invoke TypeScript Enforcer**
+
 ```
 Task(
   "Validate TypeScript patterns",
@@ -535,27 +560,27 @@ Task(
 ```
 
 4. **Write Minimal Implementation**
+
 ```typescript
 // app/lib/auth.ts
-export const validateCredentials = (
-  email: string,
-  password: string
-): boolean => {
-  if (!email) throw new Error('Email is required')
-  if (!password) throw new Error('Password is required')
+export const validateCredentials = (email: string, password: string): boolean => {
+  if (!email) throw new Error('Email is required');
+  if (!password) throw new Error('Password is required');
 
   // Real validation would check database
-  return email.includes('@') && password.length >= 8
-}
+  return email.includes('@') && password.length >= 8;
+};
 ```
 
 5. **Run Tests (should pass)**
+
 ```bash
 npm test
 # Expected: ✅ Tests pass (GREEN)
 ```
 
 6. **Invoke Test Quality Reviewer**
+
 ```
 Task(
   "Review unit test quality",
@@ -567,11 +592,13 @@ Task(
 ```
 
 7. **Refactor**
+
 - Apply agent recommendations
 - Extract pure functions
 - Improve test clarity
 
 8. **Run All Tests**
+
 ```bash
 npm test          # Unit tests
 npm run test:e2e  # E2E tests
@@ -579,6 +606,7 @@ npm run test:e2e  # E2E tests
 ```
 
 9. **Commit Implementation**
+
 ```bash
 git commit -m "feat(auth): implement credential validation with full test coverage"
 ```
@@ -592,6 +620,7 @@ git commit -m "feat(auth): implement credential validation with full test covera
 **Steps:**
 
 1. **Create React Component**
+
 ```typescript
 // app/components/LoginForm.tsx
 'use client'
@@ -643,6 +672,7 @@ export function LoginForm() {
 ```
 
 2. **Invoke Tailwind Expert**
+
 ```
 Task(
   "Review component styling",
@@ -654,6 +684,7 @@ Task(
 ```
 
 3. **Invoke Next.js Expert**
+
 ```
 Task(
   "Review component structure",
@@ -665,11 +696,13 @@ Task(
 ```
 
 4. **Refactor Based on Feedback**
+
 - Improve responsive design
 - Add accessibility features
 - Optimize performance
 
 5. **Run All Tests**
+
 ```bash
 npm test          # Unit tests
 npm run test:e2e  # E2E tests
@@ -679,6 +712,7 @@ npm run typecheck # TypeScript
 ```
 
 6. **Commit Component**
+
 ```bash
 git commit -m "feat(auth): add login form component with accessibility"
 ```
@@ -724,21 +758,25 @@ git commit -m "feat(auth): add login form component with accessibility"
 **Process:**
 
 1. **Check TypeScript compliance**
+
 ```
 Task("Validate TypeScript...", "Review PR changes...", "code-analyzer")
 ```
 
 2. **Review test quality**
+
 ```
 Task("Review test quality...", "Check PR test files...", "reviewer")
 ```
 
 3. **Review component quality**
+
 ```
 Task("Review component...", "Check Next.js patterns...", "system-architect")
 ```
 
 4. **Review styling**
+
 ```
 Task("Review styling...", "Check Tailwind patterns...", "reviewer")
 ```
@@ -818,15 +856,15 @@ echo "   - Tailwind Expert for styling"
 
 The 6 expert agents work together to ensure quality at every stage:
 
-| Phase | Agent | Goal | Time |
-|-------|-------|------|------|
-| **BDD** | BDD Expert | Clear, testable scenarios | 15-30 min |
-| **ATDD** | Test Quality Reviewer | Solid acceptance tests | 20-45 min |
-| **TDD** | TypeScript Enforcer | Type-safe implementation | 10-20 min |
-| **TDD** | Test Quality Reviewer | High-quality unit tests | 20-45 min |
-| **Components** | Next.js Expert | Optimized components | 20-30 min |
-| **Styling** | Tailwind Expert | Responsive, accessible design | 15-20 min |
-| **Architecture** | DDD Expert | Proper domain design | 20-30 min |
+| Phase            | Agent                 | Goal                          | Time      |
+| ---------------- | --------------------- | ----------------------------- | --------- |
+| **BDD**          | BDD Expert            | Clear, testable scenarios     | 15-30 min |
+| **ATDD**         | Test Quality Reviewer | Solid acceptance tests        | 20-45 min |
+| **TDD**          | TypeScript Enforcer   | Type-safe implementation      | 10-20 min |
+| **TDD**          | Test Quality Reviewer | High-quality unit tests       | 20-45 min |
+| **Components**   | Next.js Expert        | Optimized components          | 20-30 min |
+| **Styling**      | Tailwind Expert       | Responsive, accessible design | 15-20 min |
+| **Architecture** | DDD Expert            | Proper domain design          | 20-30 min |
 
 **Total:** ~2-4 hours per feature with full quality assurance
 
@@ -837,6 +875,7 @@ The 6 expert agents work together to ensure quality at every stage:
 ## Next Steps
 
 1. **Set up Claude-Flow** (5 min)
+
    ```bash
    claude mcp add claude-flow npx claude-flow@latest mcp start
    ```

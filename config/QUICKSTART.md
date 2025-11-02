@@ -20,11 +20,13 @@ vercel
 ### Step 2: Get Credentials (2 minutes)
 
 **Vercel Dashboard**:
+
 1. Visit https://vercel.com/account/tokens
 2. Create token > Copy
 3. Project Settings > Note down Project ID & Org ID
 
 **GitHub**:
+
 1. Settings > Secrets and variables > Actions
 2. New repository secret > Name: `VERCEL_TOKEN` > Paste token
 3. New repository secret > Name: `VERCEL_ORG_ID` > Paste org ID
@@ -48,7 +50,9 @@ git push origin main
 ## Key Workflows
 
 ### Test Workflow (Auto)
+
 Runs on every push and PR:
+
 - Linting
 - Type checking
 - Build
@@ -58,7 +62,9 @@ Runs on every push and PR:
 Status: Green check mark on commit
 
 ### Deploy Workflow (Auto)
+
 Runs on push to main (after tests pass):
+
 - Build
 - Deploy to Vercel
 - Health check
@@ -67,7 +73,9 @@ Runs on push to main (after tests pass):
 Status: See Actions tab
 
 ### Preview Deployment (Auto)
+
 Runs on every PR:
+
 - Deploy to preview URL
 - Post URL in PR comment
 - Available for review
@@ -172,6 +180,7 @@ config/
 ## Troubleshooting
 
 ### Tests failing locally?
+
 ```bash
 npm install
 npm test
@@ -179,18 +188,21 @@ npm run build
 ```
 
 ### Workflow not triggering?
+
 1. Check workflow files in `.github/workflows/`
 2. Verify trigger conditions (push/PR)
 3. Check branch name matches (main/develop)
 4. Review repo settings > Actions
 
 ### Deployment not working?
+
 1. Verify secrets are set correctly
 2. Check build log in Actions
 3. Verify Vercel project connected
 4. Check environment variables in Vercel
 
 ### Can't see preview URL?
+
 1. Create PR (not push to branch)
 2. Wait for workflow to run (~5 min)
 3. Check PR comments for deployment link
@@ -252,6 +264,7 @@ gh workflow run pr-preview.yml
 Set these in Vercel dashboard:
 
 **Production**:
+
 ```
 NODE_ENV=production
 DATABASE_URL=your-production-db
@@ -259,6 +272,7 @@ API_SECRET_KEY=your-secret
 ```
 
 **Preview/Staging**:
+
 ```
 NODE_ENV=production
 DATABASE_URL=your-staging-db

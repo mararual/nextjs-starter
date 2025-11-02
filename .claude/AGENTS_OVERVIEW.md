@@ -5,6 +5,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ## Complete Agent List
 
 ### 1. **BDD Expert** (`.claude/agents/bdd-expert.md`)
+
 **Behavior-Driven Development Specialist**
 
 - ✅ Reviews and improves Gherkin feature files
@@ -17,6 +18,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ---
 
 ### 2. **DDD Expert** (`.claude/agents/ddd-expert.md`)
+
 **Domain-Driven Design Specialist**
 
 - ✅ Domain modeling and bounded context identification
@@ -29,6 +31,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ---
 
 ### 3. **Test Quality Reviewer** (`.claude/agents/test-quality-reviewer.md`)
+
 **Test Quality Assurance Specialist**
 
 - ✅ Reviews unit, integration, and E2E tests
@@ -41,6 +44,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ---
 
 ### 4. **Tailwind CSS Expert** (`.claude/agents/tailwind-expert.md`)
+
 **Styling and Responsive Design Specialist**
 
 - ✅ Reviews Tailwind CSS usage and layout patterns
@@ -54,6 +58,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ---
 
 ### 5. **Next.js Expert** (`.claude/agents/nextjs-expert.md`)
+
 **Next.js Patterns and Performance Specialist**
 
 - ✅ Reviews Next.js component architecture
@@ -68,6 +73,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ---
 
 ### 6. **TypeScript Enforcer** (`.claude/agents/typescript-enforcer.md`)
+
 **Type Safety and Schema-First Development Guardian**
 
 - ✅ Enforces TypeScript strict mode
@@ -85,6 +91,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ## Development Workflow Integration
 
 ### Phase 1: BDD (Feature Definition)
+
 ```
 1. Write Gherkin feature file
 2. → Run BDD EXPERT AGENT (improve scenarios)
@@ -94,6 +101,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ```
 
 ### Phase 2: ATDD (Acceptance Tests)
+
 ```
 1. Convert Gherkin to Playwright tests
 2. Write failing E2E tests
@@ -102,6 +110,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ```
 
 ### Phase 3: TDD (Unit/Integration Tests & Implementation)
+
 ```
 1. Write failing unit tests
 2. Implement code (Red → Green)
@@ -118,6 +127,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ## Agent Usage by Task
 
 ### When Writing a New Feature
+
 1. **BDD Expert** - Define feature in Gherkin
 2. **DDD Expert** - Design domain model if needed
 3. **Test Quality Reviewer** - Review acceptance tests
@@ -126,12 +136,14 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 6. **Tailwind Expert** - Styling and layout
 
 ### When Fixing a Bug
+
 1. **Test Quality Reviewer** - Write tests that catch the bug
 2. **TypeScript Enforcer** - Type safety of fix
 3. **Next.js Expert** - Component patterns
 4. **Tailwind Expert** - Any styling changes
 
 ### When Refactoring
+
 1. **TypeScript Enforcer** - Type safety improvements
 2. **Next.js Expert** - Simplify components
 3. **Test Quality Reviewer** - Tests still valid?
@@ -139,6 +151,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 5. **DDD Expert** - Domain model clarity
 
 ### When Optimizing Performance
+
 1. **Next.js Expert** - Performance patterns
 2. **TypeScript Enforcer** - Type overhead
 3. **Tailwind Expert** - CSS efficiency
@@ -148,31 +161,37 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ## Key Principles Each Agent Enforces
 
 ### BDD Expert
+
 - ✅ User-focused scenarios
 - ✅ Declarative language
 - ✅ Business value clarity
 
 ### DDD Expert
+
 - ✅ Domain models reflect reality
 - ✅ Clear boundaries
 - ✅ Ubiquitous language
 
 ### Test Quality Reviewer
+
 - ✅ Behavior over implementation
 - ✅ Meaningful coverage
 - ✅ Real bug detection
 
 ### Tailwind CSS Expert
+
 - ✅ Utility-first CSS
 - ✅ Mobile-first responsive
 - ✅ Accessibility compliance
 
 ### Next.js Expert
+
 - ✅ Server-first architecture
 - ✅ Performance optimization
 - ✅ Proper data fetching
 
 ### TypeScript Enforcer
+
 - ✅ Type safety
 - ✅ Schema-first validation
 - ✅ Immutable patterns
@@ -182,6 +201,7 @@ Your Next.js starter template now includes **6 specialized expert agents** to gu
 ## Quality Gates
 
 All agents work together to ensure:
+
 - ✅ Features match user needs (BDD)
 - ✅ Domain models are sound (DDD)
 - ✅ Tests verify behavior (Test Quality)
@@ -193,27 +213,31 @@ All agents work together to ensure:
 
 ## Quick Reference
 
-| Agent | File | Focus | When |
-|-------|------|-------|------|
-| BDD | `bdd-expert.md` | Features | Writing features |
-| DDD | `ddd-expert.md` | Domain | Complex logic |
-| Test | `test-quality-reviewer.md` | Tests | Test review |
-| Tailwind | `tailwind-expert.md` | Styles | Styling |
-| Next.js | `nextjs-expert.md` | Components | Implementation |
-| TypeScript | `typescript-enforcer.md` | Types | Type definitions |
+| Agent      | File                       | Focus      | When             |
+| ---------- | -------------------------- | ---------- | ---------------- |
+| BDD        | `bdd-expert.md`            | Features   | Writing features |
+| DDD        | `ddd-expert.md`            | Domain     | Complex logic    |
+| Test       | `test-quality-reviewer.md` | Tests      | Test review      |
+| Tailwind   | `tailwind-expert.md`       | Styles     | Styling          |
+| Next.js    | `nextjs-expert.md`         | Components | Implementation   |
+| TypeScript | `typescript-enforcer.md`   | Types      | Type definitions |
 
 ---
 
 ## Running Agents
 
 ### Proactive Guidance
+
 Ask an agent for guidance while developing:
+
 - "How should I structure this component?"
 - "Is this type definition correct?"
 - "Should this test focus on...?"
 
 ### Reactive Review
+
 Ask an agent to review completed work:
+
 - "Review my feature file"
 - "Check my TypeScript types"
 - "Review my test quality"
@@ -223,6 +247,7 @@ Ask an agent to review completed work:
 ## Integration with CLAUDE.md
 
 All agents are fully documented in `CLAUDE.md` with:
+
 - When to use each agent
 - Example workflows
 - Integration points

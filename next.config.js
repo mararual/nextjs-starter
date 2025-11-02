@@ -90,7 +90,7 @@ const nextConfig = {
           },
         ],
       },
-    ]
+    ];
   },
 
   // Redirects configuration
@@ -102,7 +102,7 @@ const nextConfig = {
       //   destination: '/new-path',
       //   permanent: true,
       // },
-    ]
+    ];
   },
 
   // Rewrites configuration
@@ -111,7 +111,7 @@ const nextConfig = {
       beforeFiles: [],
       afterFiles: [],
       fallback: [],
-    }
+    };
   },
 
   // On-demand ISR settings
@@ -138,17 +138,17 @@ const nextConfig = {
           reuseExistingChunk: true,
           enforce: true,
         },
-      }
+      };
     }
-    return config
+    return config;
   },
 
   // Build ID for deployment versioning
   generateBuildId: async () => {
     if (process.env.BUILD_ID) {
-      return process.env.BUILD_ID
+      return process.env.BUILD_ID;
     }
-    return `${Date.now()}`
+    return `${Date.now()}`;
   },
 
   // Trailing slashes configuration
@@ -162,6 +162,6 @@ const nextConfig = {
     NEXT_PUBLIC_APP_NAME: 'Next.js Starter',
     NEXT_PUBLIC_APP_VERSION: '1.0.0',
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

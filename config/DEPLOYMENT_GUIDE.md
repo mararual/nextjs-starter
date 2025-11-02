@@ -68,6 +68,7 @@ In Vercel Dashboard:
 2. Add variables for each environment:
 
 **Production Environment**:
+
 ```
 NODE_ENV=production
 DATABASE_URL=[your-production-db]
@@ -76,6 +77,7 @@ NEXT_PUBLIC_API_URL=https://nextjs-starter.vercel.app/api
 ```
 
 **Preview Environment**:
+
 ```
 NODE_ENV=production
 DATABASE_URL=[your-staging-db]
@@ -84,6 +86,7 @@ NEXT_PUBLIC_API_URL=https://preview-xxx.vercel.app/api
 ```
 
 **Development Environment**:
+
 ```
 NODE_ENV=development
 ```
@@ -152,6 +155,7 @@ The test workflow will still run, but deploy workflow will skip.
 ### View Deployment Status
 
 **GitHub CLI**:
+
 ```bash
 # List recent deployments
 gh run list -w deploy.yml
@@ -164,11 +168,13 @@ gh run watch RUN_ID
 ```
 
 **GitHub UI**:
+
 1. Go to Actions tab
 2. Click "Deploy to Production"
 3. View runs and logs
 
 **Vercel Dashboard**:
+
 1. Go to Project > Deployments
 2. View deployment status
 3. Check build logs
@@ -183,6 +189,7 @@ After deployment, automatic health checks verify:
 - No critical errors
 
 If health check fails:
+
 1. Previous version remains live
 2. Slack notification sent
 3. Check deployment logs
@@ -206,11 +213,13 @@ git push origin main
 ### Option 2: Deploy Previous Version
 
 **Via Vercel Dashboard**:
+
 1. Go to Project > Deployments
 2. Click on previous stable deployment
 3. Click "Redeploy"
 
 **Via CLI**:
+
 ```bash
 # Find previous deployment
 vercel list
@@ -280,6 +289,7 @@ Monitor in Vercel Dashboard:
 4. Optimize dependencies or build config
 
 Common optimizations:
+
 - Remove unused dependencies
 - Enable SWC minification
 - Use ISR for static pages
@@ -301,17 +311,20 @@ Monitor Core Web Vitals:
 ### Build Fails
 
 **Check logs**:
+
 ```bash
 gh run view RUN_ID --log | grep -i error
 ```
 
 **Common causes**:
+
 - TypeScript errors: `npm run typecheck`
 - Missing env vars: Check Vercel environment variables
 - Dependency issues: `npm ci`
 - Insufficient memory: Check build logs
 
 **Fix**:
+
 1. Identify error from logs
 2. Fix locally
 3. Commit and push
@@ -320,6 +333,7 @@ gh run view RUN_ID --log | grep -i error
 ### Deployment Timeout
 
 **Increase timeout in vercel.json**:
+
 ```json
 {
   "functions": {
@@ -333,12 +347,14 @@ gh run view RUN_ID --log | grep -i error
 ### Preview Deployments Not Working
 
 **Check**:
+
 1. PR created against correct branch
 2. Branch protection rules not blocking
 3. Vercel project connected correctly
 4. GitHub and Vercel integration active
 
 **Reset connection**:
+
 1. Go to Vercel > Project Settings > Git Integration
 2. Click "Disconnect"
 3. Reconnect repository
@@ -346,11 +362,13 @@ gh run view RUN_ID --log | grep -i error
 ### Production Deployment Blocked
 
 **Check pre-deploy-checks job**:
+
 ```bash
 gh run view RUN_ID --log | grep -A 20 "Pre-Deployment"
 ```
 
 **Common causes**:
+
 - Not on main branch
 - [skip-deploy] in commit message
 - Previous test failed
@@ -360,11 +378,13 @@ gh run view RUN_ID --log | grep -A 20 "Pre-Deployment"
 ### Slack Notifications
 
 Configure in GitHub Secrets:
+
 ```
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
 ```
 
 Notifications sent for:
+
 - Deployment success
 - Deployment failure
 - Health check failure
@@ -372,6 +392,7 @@ Notifications sent for:
 ### GitHub Notifications
 
 Configure in GitHub:
+
 1. Go to Settings > Notifications
 2. Set notification preferences
 3. Receive alerts for workflow failures
@@ -379,11 +400,13 @@ Configure in GitHub:
 ### Performance Monitoring
 
 **Vercel Analytics**:
+
 - Real-time Web Vitals
 - Deployment analytics
 - Error tracking
 
 **Sentry Integration** (optional):
+
 ```bash
 SENTRY_DSN=https://your-key@sentry.io/project
 ```
@@ -393,6 +416,7 @@ SENTRY_DSN=https://your-key@sentry.io/project
 ### Update Node Version
 
 In vercel.json:
+
 ```json
 {
   "nodeVersion": "18.x"
@@ -400,6 +424,7 @@ In vercel.json:
 ```
 
 Or in `.nvmrc`:
+
 ```
 18.18.0
 ```

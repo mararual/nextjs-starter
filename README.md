@@ -82,15 +82,15 @@ Feature: User Authentication
 Create Playwright E2E tests (`tests/e2e/`):
 
 ```javascript
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test('successful login', async ({ page }) => {
-	await page.goto('/login')
-	await page.fill('[data-testid="email"]', 'user@example.com')
-	await page.fill('[data-testid="password"]', 'password123')
-	await page.click('[data-testid="login-btn"]')
-	await expect(page).toHaveURL('/dashboard')
-})
+  await page.goto('/login');
+  await page.fill('[data-testid="email"]', 'user@example.com');
+  await page.fill('[data-testid="password"]', 'password123');
+  await page.click('[data-testid="login-btn"]');
+  await expect(page).toHaveURL('/dashboard');
+});
 ```
 
 ### 3. TDD - Write Unit Tests
@@ -98,14 +98,14 @@ test('successful login', async ({ page }) => {
 Create Vitest tests (`src/**/*.test.js`):
 
 ```javascript
-import { describe, it, expect } from 'vitest'
-import { validateEmail } from './validators'
+import { describe, it, expect } from 'vitest';
+import { validateEmail } from './validators';
 
 describe('validateEmail', () => {
-	it('returns true for valid emails', () => {
-		expect(validateEmail('user@example.com')).toBe(true)
-	})
-})
+  it('returns true for valid emails', () => {
+    expect(validateEmail('user@example.com')).toBe(true);
+  });
+});
 ```
 
 ### 4. Implement Code
@@ -168,30 +168,30 @@ nextjs-starter-claude/
 
 ```javascript
 // ✅ Good - pure function
-export const capitalize = str => {
-	if (!str) return ''
-	return str.charAt(0).toUpperCase() + str.slice(1)
-}
+export const capitalize = (str) => {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
 // ❌ Bad - side effects
-let result = ''
-export const capitalize = str => {
-	result = str.toUpperCase() // Side effect!
-	return result
-}
+let result = '';
+export const capitalize = (str) => {
+  result = str.toUpperCase(); // Side effect!
+  return result;
+};
 ```
 
 **Immutability:**
 
 ```javascript
 // ✅ Good - immutable
-const addUser = (users, user) => [...users, user]
+const addUser = (users, user) => [...users, user];
 
 // ❌ Bad - mutating
 const addUser = (users, user) => {
-	users.push(user) // Mutation!
-	return users
-}
+  users.push(user); // Mutation!
+  return users;
+};
 ```
 
 ## Configuration Files

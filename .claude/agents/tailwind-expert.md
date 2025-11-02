@@ -24,25 +24,25 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 ```html
 <!-- Horizontal centering -->
-<div class="flex justify-center items-center">
-	<span>Centered content</span>
+<div class="flex items-center justify-center">
+  <span>Centered content</span>
 </div>
 
 <!-- Space between items -->
-<div class="flex justify-between items-center">
-	<span>Left</span>
-	<span>Right</span>
+<div class="flex items-center justify-between">
+  <span>Left</span>
+  <span>Right</span>
 </div>
 
 <!-- Vertical stack with gap -->
 <div class="flex flex-col gap-4">
-	<div>Item 1</div>
-	<div>Item 2</div>
+  <div>Item 1</div>
+  <div>Item 2</div>
 </div>
 
 <!-- Responsive flex direction -->
-<div class="flex flex-col md:flex-row gap-4">
-	<div>Stacked on mobile, horizontal on tablet+</div>
+<div class="flex flex-col gap-4 md:flex-row">
+  <div>Stacked on mobile, horizontal on tablet+</div>
 </div>
 ```
 
@@ -50,21 +50,21 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 ```html
 <!-- Auto-fit responsive grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-	<div>Card 1</div>
-	<div>Card 2</div>
-	<div>Card 3</div>
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+  <div>Card 1</div>
+  <div>Card 2</div>
+  <div>Card 3</div>
 </div>
 
 <!-- 3-column layout with specific placement -->
 <div class="grid grid-cols-3 gap-4">
-	<div class="col-span-2">Main content</div>
-	<div>Sidebar</div>
+  <div class="col-span-2">Main content</div>
+  <div>Sidebar</div>
 </div>
 
 <!-- Grid with auto-fill -->
 <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-	<div>Responsive card</div>
+  <div>Responsive card</div>
 </div>
 ```
 
@@ -73,13 +73,13 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 ```html
 <!-- Standard container with responsive padding -->
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-	<div class="max-w-7xl mx-auto">Content</div>
+  <div class="mx-auto max-w-7xl">Content</div>
 </div>
 
 <!-- Consistent vertical spacing -->
 <div class="space-y-4">
-	<p>Paragraph with margin-bottom</p>
-	<p>Paragraph with margin-bottom</p>
+  <p>Paragraph with margin-bottom</p>
+  <p>Paragraph with margin-bottom</p>
 </div>
 
 <!-- Responsive spacing -->
@@ -90,8 +90,8 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 ```html
 <!-- Fixed header -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow">
-	<div class="container mx-auto px-4">Header content</div>
+<header class="fixed left-0 right-0 top-0 z-50 bg-white shadow">
+  <div class="container mx-auto px-4">Header content</div>
 </header>
 
 <!-- Sticky sidebar -->
@@ -99,8 +99,8 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 <!-- Absolute positioning within relative parent -->
 <div class="relative">
-	<img src="image.jpg" alt="Base" class="w-full" />
-	<div class="absolute top-3 right-3 bg-white rounded px-2 py-1">Badge</div>
+  <img src="image.jpg" alt="Base" class="w-full" />
+  <div class="absolute right-3 top-3 rounded bg-white px-2 py-1">Badge</div>
 </div>
 ```
 
@@ -116,15 +116,15 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 ```html
 <!-- Mobile-first responsive text -->
-<h1 class="text-2xl md:text-4xl lg:text-5xl font-bold">Responsive heading</h1>
+<h1 class="text-2xl font-bold md:text-4xl lg:text-5xl">Responsive heading</h1>
 
 <!-- Hide/show at different breakpoints -->
 <div class="hidden md:block">Visible on tablet and up</div>
 <div class="md:hidden">Visible only on mobile</div>
 
 <!-- Responsive grid columns -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-	Cards that reflow based on screen size
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  Cards that reflow based on screen size
 </div>
 ```
 
@@ -132,24 +132,24 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 ```html
 <!-- Sidebar layout -->
-<div class="flex flex-col lg:flex-row gap-6">
-	<aside class="lg:w-64 flex-shrink-0">Sidebar</aside>
-	<main class="flex-1">Main content</main>
+<div class="flex flex-col gap-6 lg:flex-row">
+  <aside class="flex-shrink-0 lg:w-64">Sidebar</aside>
+  <main class="flex-1">Main content</main>
 </div>
 
 <!-- Hero section -->
-<div class="min-h-screen flex items-center justify-center px-4">
-	<div class="max-w-2xl mx-auto text-center">
-		<h1 class="text-4xl md:text-6xl font-bold mb-4">Hero Title</h1>
-		<p class="text-lg md:text-xl text-gray-600">Subtitle</p>
-	</div>
+<div class="flex min-h-screen items-center justify-center px-4">
+  <div class="mx-auto max-w-2xl text-center">
+    <h1 class="mb-4 text-4xl font-bold md:text-6xl">Hero Title</h1>
+    <p class="text-lg text-gray-600 md:text-xl">Subtitle</p>
+  </div>
 </div>
 
 <!-- Card grid -->
 <div class="container mx-auto px-4 py-8">
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-		<div class="bg-white rounded-lg shadow-lg p-6">Card</div>
-	</div>
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="rounded-lg bg-white p-6 shadow-lg">Card</div>
+  </div>
 </div>
 ```
 
@@ -165,31 +165,31 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 /* Base styles - lowest specificity */
 @layer base {
-	body {
-		@apply bg-gray-50 text-gray-900;
-	}
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
 
-	h1 {
-		@apply text-3xl font-bold;
-	}
+  h1 {
+    @apply text-3xl font-bold;
+  }
 }
 
 /* Component patterns - medium specificity */
 @layer components {
-	.btn {
-		@apply px-4 py-2 rounded font-semibold transition;
-	}
+  .btn {
+    @apply rounded px-4 py-2 font-semibold transition;
+  }
 
-	.btn-primary {
-		@apply bg-blue-600 text-white hover:bg-blue-700;
-	}
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+  }
 }
 
 /* Custom utilities - high specificity */
 @layer utilities {
-	.text-shadow {
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-	}
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
 }
 ```
 
@@ -215,9 +215,9 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 <div class="custom-card">Content</div>
 
 <style>
-	.custom-card {
-		background: linear-gradient(to right, #3b82f6, #8b5cf6);
-	}
+  .custom-card {
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  }
 </style>
 ```
 
@@ -237,22 +237,22 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 ```html
 <!-- Don't: Inline styles instead of Tailwind utilities -->
 <div style="margin-top: 20px; padding: 16px; background-color: white;">
-	<!-- Use: class="mt-5 p-4 bg-white" -->
+  <!-- Use: class="mt-5 p-4 bg-white" -->
 </div>
 
 <!-- Don't: Overly specific custom classes -->
 <div class="my-specific-header-with-logo-and-nav">
-	<!-- Use: class="flex items-center justify-between p-4" -->
+  <!-- Use: class="flex items-center justify-between p-4" -->
 </div>
 
 <!-- Don't: Duplicate responsive patterns -->
-<div class="mt-2 md:mt-4 lg:mt-6 mb-2 md:mb-4 lg:mb-6">
-	<!-- Use: class="my-2 md:my-4 lg:my-6" -->
+<div class="mb-2 mt-2 md:mb-4 md:mt-4 lg:mb-6 lg:mt-6">
+  <!-- Use: class="my-2 md:my-4 lg:my-6" -->
 </div>
 
 <!-- Don't: Fighting specificity with !important -->
-<div class="bg-blue-500 !bg-red-500">
-	<!-- Fix the root cause instead -->
+<div class="!bg-red-500 bg-blue-500">
+  <!-- Fix the root cause instead -->
 </div>
 ```
 
@@ -260,12 +260,12 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 ```html
 <!-- Use semantic Tailwind utilities -->
-<div class="mt-5 p-4 bg-white rounded-lg shadow">Clean, readable, maintainable</div>
+<div class="mt-5 rounded-lg bg-white p-4 shadow">Clean, readable, maintainable</div>
 
 <!-- Extract repeated patterns to components -->
 <!-- components/Card.svelte -->
-<div class="bg-white rounded-lg shadow-lg p-6">
-	<slot />
+<div class="rounded-lg bg-white p-6 shadow-lg">
+  <slot />
 </div>
 
 <!-- Use arbitrary values when needed -->
@@ -273,9 +273,9 @@ You are an expert in Tailwind CSS with deep knowledge of utility-first CSS, resp
 
 <!-- Combine utilities efficiently -->
 <div class="space-y-4">
-	<!-- Automatically adds margin-bottom to children -->
-	<p>Paragraph 1</p>
-	<p>Paragraph 2</p>
+  <!-- Automatically adds margin-bottom to children -->
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
 </div>
 ```
 
@@ -311,35 +311,35 @@ npm run dev
 ```js
 // tailwind.config.js
 export default {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
-	theme: {
-		extend: {
-			// Add to existing values
-			colors: {
-				brand: {
-					50: '#f0f9ff',
-					100: '#e0f2fe'
-					// ... custom brand colors
-				}
-			},
-			spacing: {
-				128: '32rem',
-				144: '36rem'
-			},
-			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif']
-			}
-		}
-	},
-	plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')]
-}
+  content: ['./src/**/*.{html,js,svelte,ts}'],
+  theme: {
+    extend: {
+      // Add to existing values
+      colors: {
+        brand: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          // ... custom brand colors
+        },
+      },
+      spacing: {
+        128: '32rem',
+        144: '36rem',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+};
 ```
 
 ## Accessibility Considerations
 
 ```html
 <!-- Focus states for keyboard navigation -->
-<button class="focus:ring-2 focus:ring-blue-500 focus:outline-none">Accessible button</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-blue-500">Accessible button</button>
 
 <!-- Screen reader only text -->
 <span class="sr-only">Hidden from visual users</span>
@@ -358,16 +358,16 @@ export default {
 ```js
 // tailwind.config.js
 export default {
-	content: [
-		'./src/**/*.{html,js,svelte,ts}'
-		// Be specific to avoid scanning unnecessary files
-	],
-	safelist: [
-		// Only safelist classes generated dynamically
-		'bg-red-500',
-		'bg-green-500'
-	]
-}
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
+    // Be specific to avoid scanning unnecessary files
+  ],
+  safelist: [
+    // Only safelist classes generated dynamically
+    'bg-red-500',
+    'bg-green-500',
+  ],
+};
 ```
 
 ### Avoid Class Bloat
@@ -375,19 +375,19 @@ export default {
 ```html
 <!-- ❌ Don't: Excessive utility stacking -->
 <div
-	class="flex flex-col items-center justify-center w-full h-full min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4 md:p-8 lg:p-12 text-center"
+  class="flex h-full min-h-screen w-full flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-center md:p-8 lg:p-12"
 >
-	<!-- ✅ Do: Extract to component or use @apply in scoped styles -->
-	<div class="hero-section">Content</div>
+  <!-- ✅ Do: Extract to component or use @apply in scoped styles -->
+  <div class="hero-section">Content</div>
 
-	<style>
-		.hero-section {
-			@apply flex flex-col items-center justify-center;
-			@apply w-full min-h-screen;
-			@apply bg-gradient-to-r from-blue-500 to-purple-600;
-			@apply p-4 md:p-8 lg:p-12 text-center;
-		}
-	</style>
+  <style>
+    .hero-section {
+      @apply flex flex-col items-center justify-center;
+      @apply min-h-screen w-full;
+      @apply bg-gradient-to-r from-blue-500 to-purple-600;
+      @apply p-4 text-center md:p-8 lg:p-12;
+    }
+  </style>
 </div>
 ```
 

@@ -224,11 +224,11 @@ This aligns perfectly with the project's BDD → ATDD → TDD approach:
 
 ```javascript
 // ❌ Non-deterministic (depends on current time)
-const token = createToken()
+const token = createToken();
 
 // ✅ Deterministic (inject time)
-const now = new Date('2025-10-18T12:00:00Z')
-const token = createToken({ now })
+const now = new Date('2025-10-18T12:00:00Z');
+const token = createToken({ now });
 ```
 
 ### 2. Use Test Data Builders
@@ -236,12 +236,12 @@ const token = createToken({ now })
 ```javascript
 // tests/utils/builders.js
 export const buildUser = (overrides = {}) => ({
-	id: 'user-123',
-	name: 'Test User',
-	email: 'test@example.com',
-	createdAt: new Date('2025-10-18T00:00:00Z'),
-	...overrides
-})
+  id: 'user-123',
+  name: 'Test User',
+  email: 'test@example.com',
+  createdAt: new Date('2025-10-18T00:00:00Z'),
+  ...overrides,
+});
 ```
 
 ### 3. Mock External Dependencies
@@ -249,26 +249,26 @@ export const buildUser = (overrides = {}) => ({
 ```javascript
 // ✅ Mock API calls
 global.fetch = vi.fn().mockResolvedValueOnce({
-	ok: true,
-	json: async () => ({ id: '123', name: 'Alice' })
-})
+  ok: true,
+  json: async () => ({ id: '123', name: 'Alice' }),
+});
 ```
 
 ### 4. Isolate Test State
 
 ```javascript
 beforeEach(async () => {
-	await db.query('DELETE FROM users')
-})
+  await db.query('DELETE FROM users');
+});
 ```
 
 ### 5. Use Fake Timers
 
 ```javascript
 beforeEach(() => {
-	vi.useFakeTimers()
-	vi.setSystemTime(new Date('2025-10-18T12:00:00Z'))
-})
+  vi.useFakeTimers();
+  vi.setSystemTime(new Date('2025-10-18T12:00:00Z'));
+});
 ```
 
 ---
@@ -323,21 +323,21 @@ for i in {1..10}; do npm test || break; done
 ```javascript
 // tests/unit/components/GraphNode.test.js
 describe('GraphNode', () => {
-	// ✅ Deterministic - uses specific test data
-	const practice = buildPractice({
-		id: 'test-practice',
-		name: 'Test Practice',
-		category: 'tooling',
-		description: 'A test practice',
-		requirements: ['Requirement 1'],
-		benefits: ['Benefit 1']
-	})
+  // ✅ Deterministic - uses specific test data
+  const practice = buildPractice({
+    id: 'test-practice',
+    name: 'Test Practice',
+    category: 'tooling',
+    description: 'A test practice',
+    requirements: ['Requirement 1'],
+    benefits: ['Benefit 1'],
+  });
 
-	test('renders practice name', () => {
-		const { getByText } = render(GraphNode, { props: { practice } })
-		expect(getByText('Test Practice')).toBeInTheDocument()
-	})
-})
+  test('renders practice name', () => {
+    const { getByText } = render(GraphNode, { props: { practice } });
+    expect(getByText('Test Practice')).toBeInTheDocument();
+  });
+});
 ```
 
 ### Example 2: PracticeId Value Object Test
@@ -345,14 +345,14 @@ describe('GraphNode', () => {
 ```javascript
 // tests/unit/domain/practice-catalog/PracticeId.test.js
 describe('PracticeId.fromString', () => {
-	// ✅ Deterministic - specific inputs, no external dependencies
-	test('creates PracticeId from valid string', () => {
-		const result = PracticeId.fromString('continuous-delivery')
+  // ✅ Deterministic - specific inputs, no external dependencies
+  test('creates PracticeId from valid string', () => {
+    const result = PracticeId.fromString('continuous-delivery');
 
-		expect(result.isSuccess).toBe(true)
-		expect(result.value.getValue()).toBe('continuous-delivery')
-	})
-})
+    expect(result.isSuccess).toBe(true);
+    expect(result.value.getValue()).toBe('continuous-delivery');
+  });
+});
 ```
 
 ### Example 3: Practice Repository (Would Need Improvement)
@@ -360,23 +360,23 @@ describe('PracticeId.fromString', () => {
 ```javascript
 // If this existed, it should be:
 beforeEach(async () => {
-	await db.query('DELETE FROM practices')
-	await db.query('DELETE FROM practice_dependencies')
-})
+  await db.query('DELETE FROM practices');
+  await db.query('DELETE FROM practice_dependencies');
+});
 
 test('fetches practice tree', async () => {
-	// Setup deterministic test data
-	const practice = await db.insert('practices', {
-		id: 'test-practice',
-		name: 'Test Practice',
-		category: 'tooling'
-		// ... explicit values
-	})
+  // Setup deterministic test data
+  const practice = await db.insert('practices', {
+    id: 'test-practice',
+    name: 'Test Practice',
+    category: 'tooling',
+    // ... explicit values
+  });
 
-	const tree = await repository.getPracticeTree('test-practice')
+  const tree = await repository.getPracticeTree('test-practice');
 
-	expect(tree.practice.id).toBe('test-practice')
-})
+  expect(tree.practice.id).toBe('test-practice');
+});
 ```
 
 ---

@@ -9,9 +9,11 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ### GitHub Actions Workflows
 
 #### 1. `.github/workflows/test.yml` (800 lines)
+
 **Purpose**: Quality checks on every push and PR
 
 **Jobs**:
+
 - `lint-and-types`: ESLint, TypeScript, Prettier checks
 - `build`: Next.js build verification
 - `test`: Unit and integration tests with coverage
@@ -20,11 +22,13 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - `quality-gate`: Summary and notifications
 
 **Triggers**:
+
 - Push to main/develop
 - All pull requests
 - Manual trigger
 
 **Features**:
+
 - Concurrent job execution
 - Artifact caching (7-day retention)
 - Codecov coverage upload
@@ -34,9 +38,11 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 **Execution Time**: ~10-15 minutes (parallel)
 
 #### 2. `.github/workflows/deploy.yml` (500 lines)
+
 **Purpose**: Production deployment with full validation
 
 **Jobs**:
+
 - `pre-deploy-checks`: Verify commit eligibility
 - `build-test`: Full build and test suite
 - `deploy-vercel`: Deploy to Vercel production
@@ -45,11 +51,13 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - `notify-deployment`: Success/failure notifications
 
 **Triggers**:
+
 - Push to main branch
 - Manual workflow dispatch
 - Runs after all checks pass
 
 **Features**:
+
 - Commit validation (skip-deploy flag support)
 - Vercel production deployment
 - Automatic release creation
@@ -62,17 +70,21 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 **Environment**: Production (deployable)
 
 #### 3. `.github/workflows/pr-preview.yml` (100 lines)
+
 **Purpose**: Automatic preview deployments for PRs
 
 **Jobs**:
+
 - `deploy-preview`: Vercel preview deployment
 - `security-scan`: npm audit
 - `performance`: Bundle analysis
 
 **Triggers**:
+
 - PR opened/synchronized/reopened
 
 **Features**:
+
 - Automatic preview URL
 - PR comment with deployment link
 - Security scanning
@@ -81,17 +93,21 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 **Execution Time**: ~5-10 minutes
 
 #### 4. `.github/workflows/codeql.yml` (50 lines)
+
 **Purpose**: Security vulnerability scanning
 
 **Jobs**:
+
 - `analyze`: CodeQL analysis for security issues
 
 **Triggers**:
+
 - Push to main/develop
 - Weekly schedule (Sundays)
 - Manual trigger
 
 **Features**:
+
 - JavaScript/TypeScript analysis
 - SARIF result upload
 - GitHub security tab integration
@@ -101,13 +117,16 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ### Vercel Configuration
 
 #### 5. `vercel.json` (150 lines)
+
 **Key Settings**:
+
 - Node.js version: 18.x
 - Build command: `npm run build`
 - Framework: Next.js
 - Output directory: `.next`
 
 **Features**:
+
 - Security headers (CSP, HSTS, X-Frame-Options)
 - Cache control for APIs and static assets
 - Image optimization settings
@@ -117,11 +136,13 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - API function configuration (1024MB, 60s timeout)
 
 **Header Configuration**:
+
 - API routes: No cache, must revalidate
 - Static assets: 1-year cache (immutable)
 - All routes: Security headers (HSTS, CSP, etc.)
 
 **Image Optimization**:
+
 - Formats: AVIF, WebP, JPEG
 - Device sizes: 640px to 3840px
 - Cache TTL: 1 year (31536000 seconds)
@@ -129,13 +150,16 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ### Next.js Configuration
 
 #### 6. `next.config.js` (180 lines)
+
 **Optimization Settings**:
+
 - React Strict Mode: Enabled
 - SWC Minification: Enabled
 - Image Optimization: Enabled
 - Font Optimization: Enabled
 
 **Performance Features**:
+
 - Automatic code splitting
 - Webpack optimization
 - On-demand ISR settings
@@ -143,6 +167,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Source map configuration
 
 **Security Headers**:
+
 - X-Content-Type-Options: nosniff
 - X-Frame-Options: DENY
 - X-XSS-Protection: 1; mode=block
@@ -151,12 +176,14 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Permissions-Policy: Restrict camera, microphone, geolocation
 
 **Image Configuration**:
+
 - Remote patterns for external images
 - Responsive device sizes
 - Format optimization (AVIF, WebP)
 - Minimum cache TTL: 1 year
 
 **Experimental Features**:
+
 - ESM externals
 - Package import optimization
 - Optimized vendor chunks
@@ -164,7 +191,9 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ### Environment Configuration
 
 #### 7. `.env.example` (200 lines)
+
 **Comprehensive Template** with sections:
+
 - Application Settings
 - API Configuration
 - Database Configuration
@@ -183,7 +212,9 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 **Total Variables**: 50+
 
 #### 8. `.env.local.example` (15 lines)
+
 **Local Development Template**:
+
 - API URLs (localhost)
 - Development database
 - Debug and logging settings
@@ -192,7 +223,9 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ### Documentation
 
 #### 9. `docs/CI_CD_PIPELINE.md` (800 lines)
+
 **Comprehensive Documentation**:
+
 - Architecture diagram
 - Detailed workflow descriptions
 - Caching strategy explanation
@@ -205,6 +238,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Advanced topics
 
 **Sections**:
+
 1. Overview and architecture
 2. Workflow descriptions (4 workflows)
 3. Caching strategy
@@ -219,7 +253,9 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 12. Advanced topics
 
 #### 10. `config/github-secrets-template.md` (200 lines)
+
 **Complete Secrets Guide**:
+
 - How to add secrets
 - Required secrets list
 - Optional secrets for OAuth, third-party services
@@ -230,6 +266,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Troubleshooting
 
 **Covers**:
+
 1. Vercel credentials
 2. Authentication keys
 3. OAuth providers
@@ -239,7 +276,9 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 7. Deployment notifications
 
 #### 11. `config/DEPLOYMENT_GUIDE.md` (500 lines)
+
 **Step-by-Step Deployment**:
+
 - Initial setup instructions
 - Vercel project creation
 - Credential configuration
@@ -255,6 +294,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Disaster recovery
 
 **Key Sections**:
+
 1. Prerequisites and setup
 2. Deployment workflows
 3. Monitoring
@@ -265,7 +305,9 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 8. Disaster recovery
 
 #### 12. `config/QUICKSTART.md` (200 lines)
+
 **5-Minute Quick Start**:
+
 - Step-by-step setup
 - Common tasks
 - File reference
@@ -277,10 +319,12 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ### Support Files
 
 #### 13. `.github/CODEOWNERS`
+
 - Automatic reviewer assignment for workflow changes
 - Ensures CI/CD configuration changes are reviewed
 
 #### 14. `.github/dependabot.yml`
+
 - Automatic dependency updates
 - Weekly npm updates
 - GitHub Actions updates
@@ -326,6 +370,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ## Key Features
 
 ### 1. Automated Testing
+
 - Linting with ESLint
 - Type checking with TypeScript
 - Unit tests with Vitest
@@ -333,6 +378,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Code coverage reporting
 
 ### 2. Security
+
 - Trivy vulnerability scanning
 - npm audit checking
 - CodeQL analysis
@@ -341,6 +387,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Dependabot updates
 
 ### 3. Performance
+
 - Concurrent job execution
 - Dependency caching (npm)
 - Artifact caching (build)
@@ -349,6 +396,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Bundle analysis
 
 ### 4. Deployment
+
 - Automatic Vercel deployment
 - Production health checks
 - GitHub releases
@@ -357,6 +405,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Health verification
 
 ### 5. Notifications
+
 - Slack notifications
 - PR comments
 - GitHub workflow status
@@ -364,6 +413,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 - Error alerts
 
 ### 6. Configuration
+
 - Environment-specific settings
 - Security headers
 - API caching rules
@@ -373,6 +423,7 @@ A comprehensive GitHub Actions and Vercel CI/CD pipeline has been successfully i
 ## Environment Variables
 
 ### Public Variables (in .env.example)
+
 ```
 NEXT_PUBLIC_APP_NAME
 NEXT_PUBLIC_APP_VERSION
@@ -381,6 +432,7 @@ NEXT_PUBLIC_FEATURE_FLAGS_ENABLED
 ```
 
 ### Secret Variables (in GitHub Secrets)
+
 ```
 VERCEL_TOKEN
 VERCEL_ORG_ID
@@ -398,18 +450,21 @@ AWS_SECRET_ACCESS_KEY
 ## Performance Metrics
 
 ### Build Performance
+
 - Lint: ~2 minutes
 - Build: ~3 minutes
 - Test: ~5 minutes
 - Total: ~10-15 minutes (parallel)
 
 ### Deployment Performance
+
 - Build: ~3 minutes
 - Vercel deployment: ~1-2 minutes
 - Health check: ~30 seconds
 - Total: ~15-20 minutes
 
 ### Caching Efficiency
+
 - npm cache hit rate: ~95%
 - Build artifact retention: 7 days
 - Test reports: 30 days
@@ -417,6 +472,7 @@ AWS_SECRET_ACCESS_KEY
 ## Security Measures
 
 ### Secrets Management
+
 - GitHub encrypted secrets
 - Never logged or printed
 - Automatic masking in logs
@@ -424,6 +480,7 @@ AWS_SECRET_ACCESS_KEY
 - Regular rotation recommended
 
 ### Access Control
+
 - Workflow permissions restricted
 - CODEOWNERS for CI/CD files
 - Branch protection on main
@@ -431,6 +488,7 @@ AWS_SECRET_ACCESS_KEY
 - Code review requirements
 
 ### Scanning
+
 - Trivy vulnerability scans
 - npm audit checks
 - CodeQL analysis
@@ -440,6 +498,7 @@ AWS_SECRET_ACCESS_KEY
 ## Integration Points
 
 ### GitHub
+
 - Push/PR triggers
 - Workflow status checks
 - PR comments
@@ -447,6 +506,7 @@ AWS_SECRET_ACCESS_KEY
 - Security alerts
 
 ### Vercel
+
 - Automatic deployment
 - Preview URLs
 - Build logs
@@ -454,12 +514,14 @@ AWS_SECRET_ACCESS_KEY
 - Performance analytics
 
 ### Slack
+
 - Deployment notifications
 - Failure alerts
 - Build status
 - Custom webhooks
 
 ### Codecov
+
 - Coverage reports
 - Coverage history
 - PR coverage comments
@@ -521,12 +583,14 @@ Project Root
 ## Support
 
 ### Documentation Files
+
 1. **Start Here**: `config/QUICKSTART.md` (5-minute setup)
 2. **Detailed Guide**: `docs/CI_CD_PIPELINE.md` (full reference)
 3. **Secrets Setup**: `config/github-secrets-template.md` (credential management)
 4. **Deployment**: `config/DEPLOYMENT_GUIDE.md` (deployment steps)
 
 ### View Logs
+
 ```bash
 # List recent runs
 gh run list -w test.yml
@@ -539,6 +603,7 @@ gh run watch RUN_ID
 ```
 
 ### Common Issues
+
 - Build fails: Check `npm install` and build steps
 - Tests fail: Review test logs and coverage
 - Deployment fails: Check secrets and Vercel settings
@@ -561,6 +626,7 @@ gh run watch RUN_ID
 This CI/CD pipeline provides a production-ready, secure, and efficient deployment system for the Next.js application. It includes comprehensive testing, security scanning, automated deployment, and monitoring with clear documentation for team members.
 
 All workflows are designed to:
+
 - Fail fast on critical issues
 - Provide clear feedback to developers
 - Maintain code quality and security

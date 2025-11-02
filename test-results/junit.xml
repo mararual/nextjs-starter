@@ -1,18 +1,38 @@
-<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="6.715131">
-<testsuite name="homepage.spec.ts" timestamp="2025-11-02T03:33:55.557Z" hostname="Desktop Chrome" tests="3" failures="0" skipped="0" time="2.877" errors="0">
-<testcase name="Homepage › should load successfully" classname="homepage.spec.ts" time="0.994">
+<testsuites id="" name="" tests="14" failures="0" skipped="0" errors="0" time="7.962354">
+<testsuite name="homepage.spec.ts" timestamp="2025-11-02T20:30:51.324Z" hostname="Desktop Chrome" tests="3" failures="0" skipped="0" time="3.852" errors="0">
+<testcase name="Homepage › should load successfully" classname="homepage.spec.ts" time="1.26">
 </testcase>
-<testcase name="Homepage › should display main heading" classname="homepage.spec.ts" time="0.91">
+<testcase name="Homepage › should display main heading" classname="homepage.spec.ts" time="1.319">
 </testcase>
-<testcase name="Homepage › should have proper semantic HTML" classname="homepage.spec.ts" time="0.973">
+<testcase name="Homepage › should have proper semantic HTML" classname="homepage.spec.ts" time="1.273">
 </testcase>
 </testsuite>
-<testsuite name="homepage.spec.ts" timestamp="2025-11-02T03:33:55.557Z" hostname="Mobile Chrome" tests="3" failures="0" skipped="0" time="2.449" errors="0">
-<testcase name="Homepage › should load successfully" classname="homepage.spec.ts" time="1.005">
+<testsuite name="landing-page.spec.ts" timestamp="2025-11-02T20:30:51.324Z" hostname="Desktop Chrome" tests="4" failures="0" skipped="0" time="4.044" errors="0">
+<testcase name="Landing Page › displays core project overview" classname="landing-page.spec.ts" time="1.246">
 </testcase>
-<testcase name="Homepage › should display main heading" classname="homepage.spec.ts" time="0.991">
+<testcase name="Landing Page › displays feature highlights" classname="landing-page.spec.ts" time="1.321">
 </testcase>
-<testcase name="Homepage › should have proper semantic HTML" classname="homepage.spec.ts" time="0.453">
+<testcase name="Landing Page › displays tech stack and quick start commands" classname="landing-page.spec.ts" time="0.744">
+</testcase>
+<testcase name="Landing Page › displays learning and documentation section" classname="landing-page.spec.ts" time="0.733">
+</testcase>
+</testsuite>
+<testsuite name="homepage.spec.ts" timestamp="2025-11-02T20:30:51.324Z" hostname="Mobile Chrome" tests="3" failures="0" skipped="0" time="3.249" errors="0">
+<testcase name="Homepage › should load successfully" classname="homepage.spec.ts" time="1.074">
+</testcase>
+<testcase name="Homepage › should display main heading" classname="homepage.spec.ts" time="1.088">
+</testcase>
+<testcase name="Homepage › should have proper semantic HTML" classname="homepage.spec.ts" time="1.087">
+</testcase>
+</testsuite>
+<testsuite name="landing-page.spec.ts" timestamp="2025-11-02T20:30:51.324Z" hostname="Mobile Chrome" tests="4" failures="0" skipped="0" time="4.139" errors="0">
+<testcase name="Landing Page › displays core project overview" classname="landing-page.spec.ts" time="1.044">
+</testcase>
+<testcase name="Landing Page › displays feature highlights" classname="landing-page.spec.ts" time="1.089">
+</testcase>
+<testcase name="Landing Page › displays tech stack and quick start commands" classname="landing-page.spec.ts" time="1.01">
+</testcase>
+<testcase name="Landing Page › displays learning and documentation section" classname="landing-page.spec.ts" time="0.996">
 </testcase>
 </testsuite>
 </testsuites>

@@ -237,11 +237,13 @@ jobs:
 ## Troubleshooting
 
 ### Secret not found error
+
 - Verify the secret name matches exactly (case-sensitive)
 - Check it's configured in the correct repository/environment
 - Ensure the workflow has permission to access it
 
 ### Secret shows as literal value in logs
+
 - Secrets should be automatically masked by GitHub Actions
 - If not masked, check you're using the correct syntax: `${{ secrets.SECRET_NAME }}`
 - Regenerate the secret if it appears to be compromised

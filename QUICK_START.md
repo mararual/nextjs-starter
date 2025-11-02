@@ -20,6 +20,7 @@ npm run dev
 ```
 
 Output should show:
+
 ```
 > next dev
 
@@ -37,6 +38,7 @@ Output should show:
 Visit: **http://localhost:3000**
 
 You should see a beautiful landing page with:
+
 - Hero section with headline
 - Feature grid
 - Call-to-action buttons
@@ -51,6 +53,7 @@ npm test
 ```
 
 You should see:
+
 ```
 PASS  app/components/Button.test.tsx
   ✓ renders correctly
@@ -109,24 +112,27 @@ config/               # Configuration guides
 ## 🚀 Next Steps
 
 ### 1. Edit Home Page
+
 Open `app/page.tsx` and modify the content
 
 ### 2. Create New Component
+
 ```bash
 # Create app/components/YourComponent.tsx
 ```
 
 ### 3. Add Styling
+
 Use Tailwind CSS classes:
+
 ```tsx
-<div className="bg-blue-500 p-4 rounded-lg">
-  Styled with Tailwind!
-</div>
+<div className="rounded-lg bg-blue-500 p-4">Styled with Tailwind!</div>
 ```
 
 ### 4. Deploy to Vercel
 
 1. Push to GitHub:
+
 ```bash
 git remote add origin <YOUR_GITHUB_URL>
 git branch -M main
@@ -140,6 +146,7 @@ git push -u origin main
    - Click "Deploy"
 
 3. Set GitHub Secrets:
+
 ```bash
 gh secret set VERCEL_TOKEN --body "YOUR_TOKEN"
 gh secret set VERCEL_ORG_ID --body "YOUR_ORG_ID"
@@ -163,17 +170,20 @@ For more details, see:
 ## ⚠️ Troubleshooting
 
 ### Port 3000 in use?
+
 ```bash
 npm run dev -- -p 3001
 ```
 
 ### Module not found?
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install
 ```
 
 ### Type errors?
+
 ```bash
 npm run type-check
 npm run lint:fix

@@ -5,21 +5,25 @@ Welcome to the comprehensive CI/CD pipeline for your Next.js application. This d
 ## Quick Navigation
 
 ### For Getting Started (Start Here)
+
 1. **[SETUP_CHECKLIST.md](./SETUP_CHECKLIST.md)** - Complete step-by-step setup (2 hours)
 2. **[config/QUICKSTART.md](./config/QUICKSTART.md)** - 5-minute quick start
 3. **[.github/workflows/README.md](./.github/workflows/README.md)** - Workflow overview
 
 ### For Understanding the System
+
 1. **[CI_CD_IMPLEMENTATION_SUMMARY.md](./CI_CD_IMPLEMENTATION_SUMMARY.md)** - Complete system overview
 2. **[docs/CI_CD_PIPELINE.md](./docs/CI_CD_PIPELINE.md)** - Detailed technical reference
 3. **[Architecture Diagram](#system-architecture)** - Below in this document
 
 ### For Configuration & Secrets
+
 1. **[config/github-secrets-template.md](./config/github-secrets-template.md)** - All secrets needed
 2. **[.env.example](./.env.example)** - Environment variable template
 3. **[.env.local.example](./.env.local.example)** - Local development template
 
 ### For Deployment & Operations
+
 1. **[config/DEPLOYMENT_GUIDE.md](./config/DEPLOYMENT_GUIDE.md)** - Step-by-step deployment
 2. **[Monitoring & Debugging](#monitoring--debugging)** - Live troubleshooting
 3. **[Rollback Procedures](#rollback-procedures)** - Emergency operations
@@ -73,6 +77,7 @@ Welcome to the comprehensive CI/CD pipeline for your Next.js application. This d
 ## Key Workflows
 
 ### 1. Test Workflow (test.yml)
+
 **Runs on**: Every push, every PR
 **Duration**: 10-15 minutes
 **Status**: Required for deployment
@@ -100,6 +105,7 @@ Triggered by push or PR
 ```
 
 ### 2. Deploy Workflow (deploy.yml)
+
 **Runs on**: Push to main (only when tests pass)
 **Duration**: 15-20 minutes
 **Status**: Production deployment
@@ -124,6 +130,7 @@ Triggered by main branch push
 ```
 
 ### 3. PR Preview (pr-preview.yml)
+
 **Runs on**: PR opened/updated
 **Duration**: 5-10 minutes
 **Status**: Informational (non-blocking)
@@ -140,6 +147,7 @@ Triggered by PR event
 ```
 
 ### 4. Security Scan (codeql.yml)
+
 **Runs on**: Weekly schedule, manual trigger
 **Duration**: 5 minutes
 **Status**: Security monitoring
@@ -189,16 +197,19 @@ nextjs-starter/
 ## Getting Started
 
 ### Option 1: Quick Setup (5 minutes)
+
 1. Read [config/QUICKSTART.md](./config/QUICKSTART.md)
 2. Follow the 3-step setup
 3. Push and test deployment
 
 ### Option 2: Complete Setup (2 hours)
+
 1. Follow [SETUP_CHECKLIST.md](./SETUP_CHECKLIST.md)
 2. Configure all secrets and variables
 3. Run full test cycle
 
 ### Option 3: Deep Dive (1 hour)
+
 1. Read [CI_CD_IMPLEMENTATION_SUMMARY.md](./CI_CD_IMPLEMENTATION_SUMMARY.md)
 2. Review [docs/CI_CD_PIPELINE.md](./docs/CI_CD_PIPELINE.md)
 3. Understand architecture and details
@@ -230,6 +241,7 @@ See [SETUP_CHECKLIST.md](./SETUP_CHECKLIST.md) for complete checklist.
 ## Common Tasks
 
 ### Deploy a Feature
+
 ```bash
 git checkout -b feature/my-feature
 # Make changes
@@ -239,6 +251,7 @@ git push origin feature/my-feature
 ```
 
 ### Skip Deployment
+
 ```bash
 git commit -m "docs: update readme [skip-deploy]"
 git push
@@ -246,12 +259,14 @@ git push
 ```
 
 ### Manual Deployment
+
 ```bash
 gh workflow run deploy.yml -r main
 # Or via GitHub UI: Actions > Deploy > Run
 ```
 
 ### Check Status
+
 ```bash
 gh run list -w test.yml
 gh run view RUN_ID --log
@@ -262,6 +277,7 @@ See [config/QUICKSTART.md](./config/QUICKSTART.md) for more tasks.
 ## Monitoring & Debugging
 
 ### View Logs
+
 ```bash
 # GitHub UI
 GitHub → Actions → Select workflow → View logs
@@ -274,21 +290,25 @@ gh run view RUN_ID --log
 ### Common Issues
 
 **Build Fails**
+
 - Cause: TypeScript errors, missing dependencies
 - Fix: Run `npm run typecheck` and `npm install` locally
 - See: [config/DEPLOYMENT_GUIDE.md](./config/DEPLOYMENT_GUIDE.md)
 
 **Tests Fail**
+
 - Cause: Test logic issues, env variables
 - Fix: Run `npm test` locally
 - See: [docs/CI_CD_PIPELINE.md](./docs/CI_CD_PIPELINE.md)
 
 **Deployment Fails**
+
 - Cause: Env variables not set in Vercel
 - Fix: Check Vercel environment variables
 - See: [config/DEPLOYMENT_GUIDE.md](./config/DEPLOYMENT_GUIDE.md)
 
 **Preview Not Working**
+
 - Cause: Not a PR (just a branch push)
 - Fix: Create pull request instead
 - See: [.github/workflows/README.md](./.github/workflows/README.md)
@@ -296,6 +316,7 @@ gh run view RUN_ID --log
 ## Rollback Procedures
 
 ### Option 1: Git Rollback (Recommended)
+
 ```bash
 git log --oneline | head -5
 git revert COMMIT_HASH
@@ -304,11 +325,13 @@ git push origin main
 ```
 
 ### Option 2: Vercel Rollback
+
 1. Vercel Dashboard > Deployments
 2. Find previous stable deployment
 3. Click "..." → "Promote to Production"
 
 ### Option 3: Manual Revert
+
 ```bash
 vercel rollback
 ```
@@ -318,18 +341,21 @@ See [config/DEPLOYMENT_GUIDE.md](./config/DEPLOYMENT_GUIDE.md) for details.
 ## Performance Metrics
 
 ### Build Times
+
 - Lint: 2 minutes
 - Build: 3 minutes
 - Test: 5 minutes
 - Total (parallel): 10-15 minutes
 
 ### Deployment Times
+
 - Build: 3 minutes
 - Deploy: 1-2 minutes
 - Health check: 30 seconds
 - Total: 15-20 minutes
 
 ### Cache Efficiency
+
 - npm cache hit rate: 95%
 - Build artifacts: 7-day retention
 - Test reports: 30-day retention
@@ -337,18 +363,21 @@ See [config/DEPLOYMENT_GUIDE.md](./config/DEPLOYMENT_GUIDE.md) for details.
 ## Security
 
 ### Secrets Management
+
 - Stored in GitHub encrypted secrets
 - Automatically masked in logs
 - Never hardcoded or logged
 - Regular rotation recommended
 
 ### Access Control
+
 - Branch protection on main
 - Code review requirements
 - Status checks required
 - CODEOWNERS for CI/CD files
 
 ### Scanning
+
 - Trivy vulnerability scans
 - npm audit checks
 - CodeQL analysis
@@ -359,6 +388,7 @@ See [config/github-secrets-template.md](./config/github-secrets-template.md) for
 ## Environment Variables
 
 ### Public (in .env.example)
+
 ```
 NEXT_PUBLIC_APP_NAME
 NEXT_PUBLIC_API_URL
@@ -366,6 +396,7 @@ NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 ```
 
 ### Secrets (in GitHub)
+
 ```
 VERCEL_TOKEN
 VERCEL_ORG_ID
@@ -380,6 +411,7 @@ See [.env.example](./.env.example) for complete list.
 ## Notifications
 
 ### Slack Integration
+
 - Deployment success
 - Deployment failure
 - Health check failure
@@ -388,6 +420,7 @@ See [.env.example](./.env.example) for complete list.
 Set `SLACK_WEBHOOK_URL` in GitHub secrets.
 
 ### GitHub Integration
+
 - PR status checks
 - Workflow failure notifications
 - Release creation
@@ -396,6 +429,7 @@ Set `SLACK_WEBHOOK_URL` in GitHub secrets.
 ## Team Workflows
 
 ### Code Review
+
 1. Create PR from feature branch
 2. Automated tests run (no manual action)
 3. PR shows test results
@@ -404,6 +438,7 @@ Set `SLACK_WEBHOOK_URL` in GitHub secrets.
 6. Auto-deployment starts
 
 ### Hotfix
+
 1. Create branch from main
 2. Fix critical issue
 3. Create PR
@@ -411,6 +446,7 @@ Set `SLACK_WEBHOOK_URL` in GitHub secrets.
 5. Auto-deployment in minutes
 
 ### Release
+
 1. Merge feature PRs to main
 2. Create release branch
 3. Push and deploy
@@ -467,11 +503,13 @@ gh run download RUN_ID -n nextjs-build
 ## Support Resources
 
 ### Documentation
+
 - [GitHub Actions Docs](https://docs.github.com/en/actions)
 - [Vercel Documentation](https://vercel.com/docs)
 - [Next.js Docs](https://nextjs.org/docs)
 
 ### This Project
+
 - [SETUP_CHECKLIST.md](./SETUP_CHECKLIST.md) - Complete setup
 - [config/QUICKSTART.md](./config/QUICKSTART.md) - Quick start
 - [docs/CI_CD_PIPELINE.md](./docs/CI_CD_PIPELINE.md) - Full reference
@@ -504,6 +542,7 @@ gh run download RUN_ID -n nextjs-build
 ## Summary
 
 This CI/CD pipeline provides:
+
 - Automated testing on every push
 - Secure, gated deployments
 - Preview URLs for PRs

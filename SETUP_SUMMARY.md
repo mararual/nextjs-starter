@@ -6,16 +6,16 @@ A production-ready Next.js 15 application configured with TypeScript, ESLint, Pr
 
 ## Technology Stack
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Next.js | ^15.0.0 | React framework with App Router |
-| React | ^19.0.0 | UI library |
-| TypeScript | ^5.6.3 | Type safety |
-| Tailwind CSS | ^3.4.1 | Utility-first CSS |
-| ESLint | ^8.56.0 | Code linting |
-| Prettier | ^3.1.1 | Code formatting |
-| Jest | ^29.7.0 | Unit testing |
-| Testing Library | ^14.1.2 | Component testing |
+| Technology      | Version | Purpose                         |
+| --------------- | ------- | ------------------------------- |
+| Next.js         | ^15.0.0 | React framework with App Router |
+| React           | ^19.0.0 | UI library                      |
+| TypeScript      | ^5.6.3  | Type safety                     |
+| Tailwind CSS    | ^3.4.1  | Utility-first CSS               |
+| ESLint          | ^8.56.0 | Code linting                    |
+| Prettier        | ^3.1.1  | Code formatting                 |
+| Jest            | ^29.7.0 | Unit testing                    |
+| Testing Library | ^14.1.2 | Component testing               |
 
 ## Project Structure
 
@@ -96,6 +96,7 @@ nextjs-starter/
 ### 5. Next.js Configuration (next.config.js)
 
 **Security Headers**:
+
 - Strict-Transport-Security
 - X-Content-Type-Options: nosniff
 - X-Frame-Options: DENY
@@ -104,6 +105,7 @@ nextjs-starter/
 - Permissions-Policy
 
 **Optimization**:
+
 - SWC minification enabled
 - React Strict Mode
 - Font optimization
@@ -111,6 +113,7 @@ nextjs-starter/
 - Webpack code splitting
 
 **Image Optimization**:
+
 - AVIF and WebP format support
 - Responsive image sizes
 - Remote patterns configured
@@ -118,7 +121,7 @@ nextjs-starter/
 ### 6. Jest Configuration (jest.config.ts)
 
 - **Environment**: jsdom (for DOM testing)
-- **Module Mapper**: Path alias support (@/*)
+- **Module Mapper**: Path alias support (@/\*)
 - **Coverage Collection**: From app and lib directories
 - **Testing Library**: Integrated with setup files
 
@@ -127,14 +130,18 @@ nextjs-starter/
 ### Core App Files
 
 #### `/app/layout.tsx`
+
 Root layout with:
+
 - Metadata configuration (title, description, OpenGraph)
 - Font optimization (Inter from Google Fonts)
 - Proper HTML structure
 - TypeScript types for children
 
 #### `/app/page.tsx`
+
 Landing page featuring:
+
 - Modern gradient hero section
 - Feature showcase grid
 - Call-to-action buttons
@@ -142,7 +149,9 @@ Landing page featuring:
 - Responsive design with Tailwind
 
 #### `/app/globals.css`
+
 Global styles with:
+
 - Tailwind directives (base, components, utilities)
 - Layer extensions for buttons and cards
 - Smooth scrolling behavior
@@ -151,7 +160,9 @@ Global styles with:
 ### Components
 
 #### `/app/components/Button.tsx`
+
 Reusable button component with:
+
 - Multiple variants (primary, secondary, danger)
 - Size options (sm, md, lg)
 - Loading state with spinner
@@ -160,7 +171,9 @@ Reusable button component with:
 - Ref forwarding with React.forwardRef
 
 #### `/app/components/Button.test.tsx`
+
 Comprehensive tests covering:
+
 - Rendering with children
 - Click event handling
 - Variant styles
@@ -171,13 +184,17 @@ Comprehensive tests covering:
 ### Utilities
 
 #### `/lib/utils/cn.ts`
+
 Utility function for:
+
 - Merging Tailwind CSS classes
 - Handling conditional classes
 - Type-safe class composition
 
 #### `/lib/types/index.ts`
+
 Common TypeScript types:
+
 - `WithChildren<T>` - Props with children
 - `WithClassName<T>` - Props with className
 - `Nullable<T>` - Optional value type
@@ -219,24 +236,29 @@ git log --oneline
 ## Development Workflow
 
 ### 1. Start Development Server
+
 ```bash
 npm install
 npm run dev
 ```
+
 Open http://localhost:3000
 
 ### 2. Create New Components
+
 - Create in `/app/components/`
 - Use TypeScript with strict typing
 - Add tests alongside components
 - Follow Button.tsx pattern for consistency
 
 ### 3. Add Utilities
+
 - Create in `/lib/utils/`
 - Keep functions pure and testable
 - Export with clear naming
 
 ### 4. Code Quality
+
 ```bash
 npm run type-check    # Check types
 npm run lint         # Find issues
@@ -246,6 +268,7 @@ npm run test         # Run tests
 ```
 
 ### 5. Build for Production
+
 ```bash
 npm run build
 npm run start
@@ -254,30 +277,35 @@ npm run start
 ## Best Practices Implemented
 
 ### TypeScript
+
 - Strict mode enabled for maximum type safety
 - No implicit any types allowed
 - Proper interface definitions for all components
 - Type-safe utility functions
 
 ### Components
+
 - Functional components with hooks
 - Proper prop typing with interfaces
 - Ref forwarding for component extensions
 - Composition-based design
 
 ### Styling
+
 - Tailwind CSS for all styling
 - Custom component layer for reusables
 - Responsive design with mobile-first approach
 - CSS custom properties for theming
 
 ### Testing
+
 - Jest and Testing Library configured
 - Tests alongside components
 - User-behavior focused testing
 - Mock setup included
 
 ### Code Quality
+
 - ESLint with strict rules
 - Prettier for consistent formatting
 - TypeScript for type safety
@@ -286,23 +314,27 @@ npm run start
 ## Next Steps
 
 ### 1. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. Environment Variables
+
 ```bash
 cp .env.local.example .env.local
 # Edit .env.local with your configuration
 ```
 
 ### 3. Develop Features
+
 - Follow the project structure
 - Write tests first (TDD)
 - Use path aliases for imports
 - Keep components under 200 lines
 
 ### 4. Deploy
+
 - Push to GitHub repository
 - Connect to Vercel
 - Automatic deployments on push
@@ -311,7 +343,9 @@ cp .env.local.example .env.local
 ## Environment Variables
 
 ### .env.local.example
+
 Template includes:
+
 - `NEXT_PUBLIC_API_URL` - Client-side API endpoint
 - `API_INTERNAL_URL` - Server-side API endpoint
 - `DATABASE_URL` - Database connection string
@@ -349,6 +383,7 @@ Copy to `.env.local` and update with your values.
 ## Troubleshooting
 
 ### Port Already in Use
+
 ```bash
 # Kill process on port 3000
 lsof -ti:3000 | xargs kill -9
@@ -356,12 +391,14 @@ npm run dev
 ```
 
 ### TypeScript Errors
+
 ```bash
 npm run type-check
 # Verify no `any` types are used
 ```
 
 ### Styling Not Applied
+
 - Clear .next folder: `rm -rf .next`
 - Rebuild: `npm run build`
 - Check Tailwind purge patterns in tailwind.config.ts
@@ -369,6 +406,7 @@ npm run type-check
 ## Support
 
 For issues or questions:
+
 1. Check Next.js documentation
 2. Review TypeScript strict mode rules
 3. Verify ESLint and Prettier configuration

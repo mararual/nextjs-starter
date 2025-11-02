@@ -73,23 +73,23 @@ class Order {
 
 ```typescript
 class Money {
-	constructor(
-		private readonly amount: number,
-		private readonly currency: Currency
-	) {
-		if (amount < 0) throw new Error('Amount cannot be negative')
-	}
+  constructor(
+    private readonly amount: number,
+    private readonly currency: Currency
+  ) {
+    if (amount < 0) throw new Error('Amount cannot be negative');
+  }
 
-	add(other: Money): Money {
-		if (this.currency !== other.currency) {
-			throw new Error('Cannot add different currencies')
-		}
-		return new Money(this.amount + other.amount, this.currency)
-	}
+  add(other: Money): Money {
+    if (this.currency !== other.currency) {
+      throw new Error('Cannot add different currencies');
+    }
+    return new Money(this.amount + other.amount, this.currency);
+  }
 
-	equals(other: Money): boolean {
-		return this.amount === other.amount && this.currency === other.currency
-	}
+  equals(other: Money): boolean {
+    return this.amount === other.amount && this.currency === other.currency;
+  }
 }
 ```
 
@@ -110,21 +110,21 @@ class Money {
 
 ```typescript
 class Order {
-	// Aggregate Root
-	private items: OrderItem[] = []
+  // Aggregate Root
+  private items: OrderItem[] = [];
 
-	addItem(product: ProductId, quantity: number): void {
-		// Enforce invariant: max 10 items per order
-		if (this.items.length >= 10) {
-			throw new Error('Cannot add more than 10 items')
-		}
-		this.items.push(new OrderItem(product, quantity))
-	}
+  addItem(product: ProductId, quantity: number): void {
+    // Enforce invariant: max 10 items per order
+    if (this.items.length >= 10) {
+      throw new Error('Cannot add more than 10 items');
+    }
+    this.items.push(new OrderItem(product, quantity));
+  }
 
-	// Items can only be modified through Order (the root)
-	getItems(): readonly OrderItem[] {
-		return this.items
-	}
+  // Items can only be modified through Order (the root)
+  getItems(): readonly OrderItem[] {
+    return this.items;
+  }
 }
 ```
 
@@ -138,12 +138,12 @@ class Order {
 
 ```typescript
 class OrderPlaced {
-	constructor(
-		public readonly orderId: OrderId,
-		public readonly customerId: CustomerId,
-		public readonly orderTotal: Money,
-		public readonly occurredAt: Date
-	) {}
+  constructor(
+    public readonly orderId: OrderId,
+    public readonly customerId: CustomerId,
+    public readonly orderTotal: Money,
+    public readonly occurredAt: Date
+  ) {}
 }
 ```
 
@@ -156,9 +156,9 @@ class OrderPlaced {
 
 ```typescript
 interface OrderRepository {
-	save(order: Order): Promise<void>
-	findById(id: OrderId): Promise<Order | null>
-	findByCustomerId(customerId: CustomerId): Promise<Order[]>
+  save(order: Order): Promise<void>;
+  findById(id: OrderId): Promise<Order | null>;
+  findByCustomerId(customerId: CustomerId): Promise<Order[]>;
 }
 ```
 
@@ -171,10 +171,10 @@ interface OrderRepository {
 
 ```typescript
 class TransferMoneyService {
-	transfer(from: Account, to: Account, amount: Money): void {
-		from.withdraw(amount)
-		to.deposit(amount)
-	}
+  transfer(from: Account, to: Account, amount: Money): void {
+    from.withdraw(amount);
+    to.deposit(amount);
+  }
 }
 ```
 
@@ -205,15 +205,15 @@ class OrderFactory {
 
 ```typescript
 interface Specification<T> {
-	isSatisfiedBy(candidate: T): boolean
+  isSatisfiedBy(candidate: T): boolean;
 }
 
 class OrdersOverAmountSpecification implements Specification<Order> {
-	constructor(private amount: Money) {}
+  constructor(private amount: Money) {}
 
-	isSatisfiedBy(order: Order): boolean {
-		return order.getTotal().isGreaterThan(this.amount)
-	}
+  isSatisfiedBy(order: Order): boolean {
+    return order.getTotal().isGreaterThan(this.amount);
+  }
 }
 ```
 
