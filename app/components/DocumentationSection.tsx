@@ -60,9 +60,9 @@ export function DocumentationSection({ links }: DocumentationSectionProps): Reac
             }
 
             return (
-              <div key={category}>
+              <div key={category} data-testid="documentation-category">
                 {/* Category Title */}
-                <h3 className="mb-6 text-xl font-semibold text-gray-900">
+                <h3 className="mb-6 text-xl font-semibold text-gray-900" data-testid="category-title">
                   {categoryLabels[category]}
                 </h3>
 
@@ -72,8 +72,10 @@ export function DocumentationSection({ links }: DocumentationSectionProps): Reac
                     <a
                       key={link.id}
                       href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className={`relative rounded-lg border-2 p-6 transition-all hover:border-opacity-100 hover:shadow-lg ${categoryColors[category]}`}
-                      data-testid={`doc-link-${link.id}`}
+                      data-testid="documentation-link"
                     >
                       {/* Category Badge */}
                       <span
@@ -83,10 +85,12 @@ export function DocumentationSection({ links }: DocumentationSectionProps): Reac
                       </span>
 
                       {/* Title */}
-                      <h4 className="mb-2 text-lg font-semibold text-gray-900">{link.title}</h4>
+                      <h4 className="mb-2 text-lg font-semibold text-gray-900" data-testid="link-title">
+                        {link.title}
+                      </h4>
 
                       {/* Description */}
-                      <p className="mb-4 text-sm leading-relaxed text-gray-700">
+                      <p className="mb-4 text-sm leading-relaxed text-gray-700" data-testid="link-description">
                         {link.description}
                       </p>
 
