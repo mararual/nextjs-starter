@@ -60,21 +60,21 @@ export const getFeatures = (): readonly Feature[] => [
   {
     id: 'modern-stack',
     title: 'Modern Stack',
-    description: 'Next.js 15, React 19, TypeScript, Tailwind CSS, and more',
+    description: 'Next.js 15, React 18, TypeScript, Tailwind CSS 3, and more',
   },
 ];
 
 // Technology Stack Data
 export const getTechStack = (): readonly Technology[] => [
   { id: 'nextjs', name: 'Next.js 15', version: '15.0.0' },
-  { id: 'react', name: 'React 19', version: '19.0.0' },
-  { id: 'typescript', name: 'TypeScript', version: '5.6.2' },
-  { id: 'tailwindcss', name: 'Tailwind CSS 4', version: '4.0.0' },
-  { id: 'vitest', name: 'Vitest', version: '2.1.0' },
-  { id: 'playwright', name: 'Playwright', version: '1.48.0' },
-  { id: 'eslint', name: 'ESLint', version: '9.0.0' },
-  { id: 'prettier', name: 'Prettier', version: '3.1.0' },
-  { id: 'husky', name: 'Husky', version: '9.0.0' },
+  { id: 'react', name: 'React 18', version: '18.3.0' },
+  { id: 'typescript', name: 'TypeScript', version: '5.6.3' },
+  { id: 'tailwindcss', name: 'Tailwind CSS 3', version: '3.4.1' },
+  { id: 'vitest', name: 'Vitest', version: '4.0.6' },
+  { id: 'playwright', name: 'Playwright', version: '1.56.1' },
+  { id: 'eslint', name: 'ESLint', version: '8.56.0' },
+  { id: 'prettier', name: 'Prettier', version: '3.1.1' },
+  { id: 'husky', name: 'Husky', version: '9.1.7' },
   { id: 'github-actions', name: 'GitHub Actions' },
   { id: 'vercel', name: 'Vercel' },
   { id: 'conventional-commits', name: 'Conventional Commits' },

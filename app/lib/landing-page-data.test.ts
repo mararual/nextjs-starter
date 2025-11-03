@@ -117,9 +117,9 @@ describe('Landing Page Data Functions', () => {
       const techNames = techs.map((t) => t.name);
 
       expect(techNames).toContain('Next.js 15');
-      expect(techNames).toContain('React 19');
+      expect(techNames).toContain('React 18');
       expect(techNames).toContain('TypeScript');
-      expect(techNames).toContain('Tailwind CSS 4');
+      expect(techNames).toContain('Tailwind CSS 3');
       expect(techNames).toContain('Vitest');
       expect(techNames).toContain('Playwright');
     });
