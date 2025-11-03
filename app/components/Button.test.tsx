@@ -47,4 +47,12 @@ describe('Button Component', () => {
 
     expect(button).toHaveClass('custom-class');
   });
+
+  it('INTENTIONAL FAILURE - Testing CI block on unit test failure', () => {
+    // This test is intentionally failing to verify that:
+    // 1. Failed unit tests block PR merging
+    // 2. Vercel preview deployment is blocked/skipped
+    // 3. GitHub Actions CI workflow properly reports failures
+    expect(true).toBe(false);
+  });
 });
