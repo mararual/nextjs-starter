@@ -22,6 +22,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 env:
   NODE_ENV: test
   CI: true
@@ -71,19 +76,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Prettier format
-        run: npm run format
-
-      - name: Commit formatting changes if any
-        run: |
-          if [[ -n $(git status -s) ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add -A
-            git commit -m "style: auto-format code with Prettier"
-            git push origin HEAD:${{ github.head_ref }}
-          fi
-        if: github.event_name == 'pull_request'
+      - name: Check Prettier format
+        run: npm run format:check
 
       - name: Run ESLint
         run: npm run lint
@@ -294,31 +288,3 @@ jobs:
               body: '❌ Quality gate failed. Please review the workflow logs and fix the issues.'
             })
 
-  # Deploy to Vercel (staging on main, production on release)
-  deploy:
-    runs-on: ubuntu-latest
-    name: Deploy to Vercel
-    needs: quality-gate
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release')
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Deploy to Vercel (Staging)
-        if: github.ref == 'refs/heads/main'
-        uses: vercel/action@master
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          production: false
-
-      - name: Deploy to Vercel (Production)
-        if: github.ref == 'refs/heads/release'
-        uses: vercel/action@master
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          production: true
