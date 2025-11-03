@@ -18,9 +18,7 @@ export default function Feature({ feature }: FeatureProps): React.ReactElement {
       <header className="border-b border-gray-300 pb-6">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <h1 className="text-4xl font-bold text-gray-900">
-              Feature: {feature.name}
-            </h1>
+            <h1 className="text-4xl font-bold text-gray-900">Feature: {feature.name}</h1>
 
             {feature.tags && feature.tags.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
@@ -42,7 +40,7 @@ export default function Feature({ feature }: FeatureProps): React.ReactElement {
         </div>
 
         {feature.description && (
-          <p className="mt-4 whitespace-pre-wrap text-lg text-gray-600 leading-relaxed">
+          <p className="mt-4 whitespace-pre-wrap text-lg leading-relaxed text-gray-600">
             {feature.description}
           </p>
         )}
@@ -84,7 +82,8 @@ export default function Feature({ feature }: FeatureProps): React.ReactElement {
       {/* Metadata */}
       <footer className="border-t border-gray-300 pt-6 text-sm text-gray-600">
         <p>
-          <strong>Source:</strong> <code className="bg-gray-100 px-2 py-1 rounded">{feature.filePath}</code>
+          <strong>Source:</strong>{' '}
+          <code className="rounded bg-gray-100 px-2 py-1">{feature.filePath}</code>
         </p>
       </footer>
     </article>

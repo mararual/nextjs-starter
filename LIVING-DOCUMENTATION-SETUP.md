@@ -5,29 +5,35 @@ Your project now has fully functional **living documentation** that automaticall
 ## What Was Built
 
 ### 1. **Gherkin Parser Library**
+
 - `app/lib/features/types.ts` - Type definitions
 - `app/lib/features/parser.ts` - Parses `.feature` files using `@cucumber/gherkin`
 - `app/lib/features/loader.ts` - Loads and indexes features from `docs/features/`
 
 ### 2. **React Components for Gherkin Display**
+
 - `app/components/features/Feature.tsx` - Complete feature display
 - `app/components/features/Scenario.tsx` - Individual scenario rendering
 - `app/components/features/Step.tsx` - Given/When/Then steps with syntax highlighting
 - `app/components/features/FeatureCard.tsx` - Feature preview cards
 
 ### 3. **Next.js Pages with Static Generation**
+
 - `app/features/page.tsx` - Feature listing page with statistics
 - `app/features/[slug]/page.tsx` - Individual feature detail pages
 
 ### 4. **Automatic Deployment**
+
 - `.github/workflows/deploy-living-docs.yml` - GitHub Actions workflow
 
 ### 5. **Documentation**
+
 - `docs/LIVING-DOCUMENTATION.md` - Complete usage guide
 
 ## Current Status
 
 ✅ **Build Test Passed**
+
 ```
 ✓ Compiled successfully in 699ms
 ✓ Generating static pages (7/7)
@@ -39,6 +45,7 @@ Your project now has fully functional **living documentation** that automaticall
 
 ✅ **Features Already Detected**
 Your existing feature files are automatically indexed:
+
 - `docs/features/landing-page.feature`
 - `docs/features/documentation-section.feature`
 
@@ -79,6 +86,7 @@ Save the file, and it automatically appears in the documentation!
    - Add: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
 
 2. **Push changes to main branch:**
+
    ```bash
    git add .
    git commit -m "feat: add living documentation"
@@ -93,27 +101,34 @@ Save the file, and it automatically appears in the documentation!
 ## Features
 
 ### 📚 Automatic Documentation
+
 Your feature files (`docs/features/`) automatically become documentation pages at `/features`
 
 ### 🚀 Live Updates
+
 Changes to `.feature` files are automatically deployed via GitHub Actions
 
 ### 📱 Responsive Design
+
 Works beautifully on mobile, tablet, and desktop
 
 ### ✨ Syntax Highlighting
+
 - `Given` steps in blue
 - `When` steps in purple
 - `Then` steps in green
 - `And`/`But` in gray
 
 ### 📊 Feature Statistics
+
 Listing page shows:
+
 - Total features
 - Implemented count
 - Not-implemented count (@not-implemented tag)
 
 ### 🔍 Easy Navigation
+
 - Browse all features
 - View detailed scenarios
 - Navigate between features
@@ -180,6 +195,7 @@ docs/
 For detailed usage guide, see: [`docs/LIVING-DOCUMENTATION.md`](./docs/LIVING-DOCUMENTATION.md)
 
 Topics covered:
+
 - How living documentation works
 - Creating and organizing features
 - Using tags and filters
@@ -229,6 +245,7 @@ npm run dev
 ## Support
 
 For issues or questions:
+
 1. Check `docs/LIVING-DOCUMENTATION.md` troubleshooting section
 2. Review feature file syntax
 3. Check GitHub Actions logs in repository → Actions tab
@@ -239,6 +256,7 @@ For issues or questions:
 ## Summary
 
 You now have a professional, automated living documentation system that:
+
 - Transforms feature files into beautiful docs automatically
 - Updates documentation whenever feature files change
 - Deploys to Vercel with zero manual effort

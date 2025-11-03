@@ -36,9 +36,7 @@ export default function FeatureCard({ feature }: FeatureCardProps): React.ReactE
         {/* Card Body */}
         <div className="px-6 py-4">
           {feature.description && (
-            <p className="mb-4 line-clamp-2 text-sm text-gray-600">
-              {feature.description}
-            </p>
+            <p className="mb-4 line-clamp-2 text-sm text-gray-600">{feature.description}</p>
           )}
 
           {/* Scenarios Count */}

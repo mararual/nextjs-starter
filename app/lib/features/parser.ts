@@ -16,7 +16,9 @@ function transformStep(step: any): Step {
     keyword: step.keyword,
     text: step.text,
     docString: step.docString?.content,
-    dataTable: step.dataTable?.rows?.map((row: any) => row.cells?.map((cell: any) => cell.value)) || undefined,
+    dataTable:
+      step.dataTable?.rows?.map((row: any) => row.cells?.map((cell: any) => cell.value)) ||
+      undefined,
   };
 }
 
@@ -45,7 +47,11 @@ function transformBackground(background: any): Background | undefined {
   };
 }
 
-function transformFeature(gherkinDoc: GherkinDocument, filePath: string, slug: string): ParsedFeature {
+function transformFeature(
+  gherkinDoc: GherkinDocument,
+  filePath: string,
+  slug: string
+): ParsedFeature {
   const feature = gherkinDoc.feature as any;
 
   if (!feature) {
@@ -65,7 +71,11 @@ function transformFeature(gherkinDoc: GherkinDocument, filePath: string, slug: s
   };
 }
 
-export function parseFeatureContent(content: string, filePath: string, slug: string): ParsedFeature {
+export function parseFeatureContent(
+  content: string,
+  filePath: string,
+  slug: string
+): ParsedFeature {
   try {
     const uuidFn = IdGenerator.uuid();
     const builder = new AstBuilder(uuidFn);

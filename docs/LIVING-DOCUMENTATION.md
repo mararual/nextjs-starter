@@ -34,17 +34,20 @@ app/features/ (Next.js pages with SSG)
 ### Key Components
 
 **1. Parser Library** (`app/lib/features/`)
+
 - `types.ts` - TypeScript types for parsed features
 - `parser.ts` - Gherkin parser using @cucumber/gherkin
 - `loader.ts` - Loads and indexes all feature files
 
 **2. React Components** (`app/components/features/`)
+
 - `Feature.tsx` - Renders complete feature with all scenarios
 - `Scenario.tsx` - Renders individual scenario with steps
 - `Step.tsx` - Renders Given/When/Then steps with syntax highlighting
 - `FeatureCard.tsx` - Card preview for feature listing
 
 **3. Next.js Pages** (`app/features/`)
+
 - `page.tsx` - Listing page with all features
 - `[slug]/page.tsx` - Individual feature detail pages
 
@@ -53,12 +56,14 @@ app/features/ (Next.js pages with SSG)
 ### Viewing Documentation
 
 **Local Development:**
+
 ```bash
 npm run dev
 # Open http://localhost:3000/features
 ```
 
 **Production:**
+
 - Documentation is automatically deployed to Vercel
 - Access at `https://yourdomain.com/features`
 
@@ -100,6 +105,7 @@ Feature: User Authentication
 ```
 
 **Special Tags:**
+
 - `@not-implemented` - Marks feature as planned (shown separately)
 - Custom tags - Organize features by domain (e.g., `@payments`, `@notifications`)
 
@@ -108,6 +114,7 @@ Feature: User Authentication
 ### How It Works
 
 A GitHub Actions workflow automatically:
+
 1. Detects changes to `.feature` files
 2. Builds the Next.js application
 3. Deploys to Vercel
@@ -116,6 +123,7 @@ A GitHub Actions workflow automatically:
 **Workflow File:** `.github/workflows/deploy-living-docs.yml`
 
 **Triggers:**
+
 - Push to `main` branch with changes to:
   - `docs/features/**/*.feature`
   - `app/lib/features/**`
@@ -129,6 +137,7 @@ A GitHub Actions workflow automatically:
 Go to your repository → Settings → Secrets and variables → Actions
 
 Add three secrets:
+
 - `VERCEL_TOKEN` - From https://vercel.com/account/tokens
 - `VERCEL_ORG_ID` - From Vercel project settings
 - `VERCEL_PROJECT_ID` - From Vercel project settings
@@ -142,6 +151,7 @@ Add three secrets:
 ### Build-Time Parsing
 
 Features are parsed at **build time** (not runtime):
+
 - ✅ Zero runtime overhead
 - ✅ 100% static HTML output
 - ✅ Blazing fast page loads
@@ -150,16 +160,19 @@ Features are parsed at **build time** (not runtime):
 ### Static Site Generation (SSG)
 
 Next.js pre-generates all feature pages:
+
 - Listing page: `/features`
 - Feature pages: `/features/[slug]`
 
 **Generated from:**
+
 - `getAllFeatures()` - Reads all `.feature` files
 - `getFeatureBySlug(slug)` - Gets specific feature
 
 ### Incremental Static Regeneration (ISR)
 
 ISR is configured for on-demand regeneration:
+
 - Pages revalidate every 60 seconds if requested
 - Manual deployment triggers full rebuild
 - Changes visible within 60 seconds on next visit
@@ -169,6 +182,7 @@ ISR is configured for on-demand regeneration:
 ### Tailwind CSS
 
 All components use Tailwind CSS:
+
 - Responsive design (mobile-first)
 - Light theme with blue/indigo accents
 - Semantic HTML for accessibility
@@ -177,6 +191,7 @@ All components use Tailwind CSS:
 ### Customizing Styling
 
 Edit component files to customize appearance:
+
 - `app/components/features/Feature.tsx`
 - `app/components/features/Scenario.tsx`
 - `app/components/features/Step.tsx`
@@ -194,20 +209,24 @@ Example: Change color scheme
 ### Local Testing
 
 1. **Add a feature file:**
+
 ```bash
 # Create docs/features/my-feature.feature
 ```
 
 2. **Start development server:**
+
 ```bash
 npm run dev
 ```
 
 3. **View documentation:**
+
 - Open http://localhost:3000/features
 - Features auto-reload on file changes
 
 4. **Build for production:**
+
 ```bash
 npm run build
 ```
@@ -244,6 +263,7 @@ nextjs-starter/
 ### Feature Listing Page (`/features`)
 
 Shows:
+
 - All features organized by status
 - Statistics (total, implemented, not-implemented)
 - Feature cards with previews
@@ -252,6 +272,7 @@ Shows:
 ### Feature Detail Pages (`/features/[slug]`)
 
 Shows:
+
 - Complete feature with description
 - All scenarios with steps
 - Background steps (if defined)
@@ -262,12 +283,14 @@ Shows:
 ### Syntax Highlighting
 
 **Given/When/Then Steps:**
+
 - `Given` - Blue text
 - `When` - Purple text
 - `Then` - Green text
 - `And`/`But` - Gray text
 
 **Data Tables:**
+
 - Header row highlighted
 - Alternating row colors
 - Easy to read format
@@ -298,21 +321,25 @@ const authFeatures = await getFeaturesByTag('@auth');
 ### Component Props
 
 **Feature Component:**
+
 ```tsx
 <Feature feature={ParsedFeature} />
 ```
 
 **Scenario Component:**
+
 ```tsx
 <Scenario scenario={Scenario} />
 ```
 
 **Step Component:**
+
 ```tsx
 <Step step={Step} />
 ```
 
 **FeatureCard Component:**
+
 ```tsx
 <FeatureCard feature={ParsedFeature} />
 ```
@@ -326,6 +353,7 @@ const authFeatures = await getFeaturesByTag('@auth');
    - Recursive directories supported
 
 2. **Rebuild application:**
+
    ```bash
    npm run build
    npm run dev
@@ -368,12 +396,14 @@ const authFeatures = await getFeaturesByTag('@auth');
 ### Writing Features for Documentation
 
 1. **Use clear, descriptive names:**
+
    ```gherkin
    ✅ Feature: User can reset forgotten password
    ❌ Feature: Password reset
    ```
 
 2. **Include detailed descriptions:**
+
    ```gherkin
    Feature: User Authentication
      As a user
@@ -382,6 +412,7 @@ const authFeatures = await getFeaturesByTag('@auth');
    ```
 
 3. **Use concrete examples:**
+
    ```gherkin
    ✅ Given I have an account with email "alice@example.com"
    ❌ Given I have an account
@@ -462,6 +493,7 @@ Parse from tags in components if needed.
 ## Support
 
 For issues or questions:
+
 1. Check the troubleshooting section above
 2. Review feature files syntax
 3. Check GitHub Actions logs for deployment errors

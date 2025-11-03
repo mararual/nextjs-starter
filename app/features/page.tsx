@@ -24,8 +24,8 @@ export default async function FeaturesPage(): Promise<React.ReactElement> {
           <div className="max-w-2xl">
             <h1 className="text-4xl font-bold text-gray-900">Living Documentation</h1>
             <p className="mt-2 text-lg text-gray-600">
-              Explore all BDD feature specifications for this project. Features are written in Gherkin and
-              serve as executable documentation.
+              Explore all BDD feature specifications for this project. Features are written in
+              Gherkin and serve as executable documentation.
             </p>
           </div>
 
@@ -42,7 +42,9 @@ export default async function FeaturesPage(): Promise<React.ReactElement> {
             </div>
 
             <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-yellow-50 to-yellow-100 p-4">
-              <div className="text-3xl font-bold text-yellow-900">{index.notImplemented.length}</div>
+              <div className="text-3xl font-bold text-yellow-900">
+                {index.notImplemented.length}
+              </div>
               <div className="text-sm font-medium text-yellow-700">Not Implemented</div>
             </div>
           </div>
@@ -54,7 +56,8 @@ export default async function FeaturesPage(): Promise<React.ReactElement> {
         {index.features.length === 0 ? (
           <div className="rounded-lg border border-gray-200 bg-white p-8 text-center">
             <p className="text-lg text-gray-600">
-              No feature files found. Create a .feature file in <code className="bg-gray-100 px-2 py-1 rounded">docs/features/</code> to get started.
+              No feature files found. Create a .feature file in{' '}
+              <code className="rounded bg-gray-100 px-2 py-1">docs/features/</code> to get started.
             </p>
           </div>
         ) : (
@@ -63,9 +66,7 @@ export default async function FeaturesPage(): Promise<React.ReactElement> {
             {index.implemented.length > 0 && (
               <section className="mb-12">
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    ✅ Implemented Features
-                  </h2>
+                  <h2 className="text-2xl font-bold text-gray-900">✅ Implemented Features</h2>
                   <p className="mt-1 text-gray-600">
                     Features that are fully implemented and tested
                   </p>
@@ -83,12 +84,8 @@ export default async function FeaturesPage(): Promise<React.ReactElement> {
             {index.notImplemented.length > 0 && (
               <section>
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    🚧 Not Yet Implemented
-                  </h2>
-                  <p className="mt-1 text-gray-600">
-                    Features planned for future implementation
-                  </p>
+                  <h2 className="text-2xl font-bold text-gray-900">🚧 Not Yet Implemented</h2>
+                  <p className="mt-1 text-gray-600">Features planned for future implementation</p>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -107,7 +104,7 @@ export default async function FeaturesPage(): Promise<React.ReactElement> {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm text-gray-600">
             This documentation is automatically generated from feature files in the{' '}
-            <code className="bg-gray-100 px-2 py-1 rounded">docs/features/</code> directory.
+            <code className="rounded bg-gray-100 px-2 py-1">docs/features/</code> directory.
             <br />
             <a
               href="https://github.com/mararual/nextjs-starter/tree/main/docs/features"
