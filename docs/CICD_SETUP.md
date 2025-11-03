@@ -122,7 +122,52 @@ Ensure automatic deployments are enabled (default):
 
 ### Phase 3: GitHub Actions Workflow (Already Configured)
 
-The enhanced CI workflow (`.github/workflows/ci.yml`) includes:
+The enhanced CI workflow (`.github/workflows/ci.yml`) **automatically creates GitHub status checks** that Vercel can use for deployment checks. No additional configuration needed!
+
+#### Status Checks Automatically Created
+
+The workflow creates the following GitHub status checks that appear on commits and PRs:
+
+1. **`vercel/nextjs-starter: lint`** - Code quality checks
+2. **`vercel/nextjs-starter: unit-tests`** - Unit test execution
+3. **`vercel/nextjs-starter: e2e-tests`** - End-to-end test execution
+4. **`vercel/nextjs-starter: build`** - Production build verification
+5. **`vercel/nextjs-starter: quality-gate`** - Overall quality gate status
+
+Each check:
+
+- ✅ Reports success/failure status to GitHub
+- ✅ Displays on PR checks and commit status
+- ✅ Can be required by branch protection rules
+- ✅ Can be used by Vercel Deployment Checks
+
+#### How It Works
+
+The workflow includes:
+
+```yaml
+- name: Create GitHub status check - [Check Name]
+  uses: actions/github-script@v7
+  if: always()
+  with:
+    script: |
+      github.rest.repos.createCommitStatus({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        sha: context.sha,
+        state: 'success' | 'failure',
+        context: 'vercel/nextjs-starter: [check-name]',
+        description: '✓ [Check] passed'
+      });
+```
+
+This automatically reports check results back to GitHub, making them available for:
+
+- Branch protection rules
+- PR required status checks
+- Vercel Deployment Checks
+
+#### What the CI workflow includes:
 
 1. **Jobs**
    - `should-run`: Check if CI should run
