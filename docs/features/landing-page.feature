@@ -24,9 +24,9 @@ Feature: Landing Page
     Then I should see the tech stack section listing:
       | technology           |
       | Next.js 15           |
-      | React 19             |
+      | React 18             |
       | TypeScript           |
-      | Tailwind CSS 4       |
+      | Tailwind CSS 3       |
       | Vitest               |
       | Playwright           |
       | ESLint               |

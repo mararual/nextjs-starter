@@ -53,9 +53,9 @@ test.describe('Landing Page', () => {
     // Verify key technologies are listed (check within tech stack section to avoid duplication in hero description)
     const technologies = [
       'Next.js 15',
-      'React 19',
+      'React 18',
       'TypeScript',
-      'Tailwind CSS 4',
+      'Tailwind CSS 3',
       'Vitest',
       'Playwright',
       'ESLint',
