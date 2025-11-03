@@ -22,6 +22,10 @@
     "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
+    "@cucumber/gherkin": "^36.0.0",
+    "@cucumber/gherkin-utils": "^10.0.0",
+    "@cucumber/messages": "^30.1.0",
+    "glob": "^11.0.3",
     "next": "^15.0.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
@@ -53,7 +57,7 @@
   "lint-staged": {
     "app/**/*.{js,jsx,ts,tsx}": [
       "prettier --write",
-      "next lint --fix"
+      "eslint --fix"
     ],
     "*.{json,md}": [
       "prettier --write"
