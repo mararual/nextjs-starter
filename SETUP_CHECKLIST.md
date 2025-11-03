@@ -384,12 +384,12 @@ Once completed, have team lead sign off:
 - [ ] Documentation complete
 - [ ] Ready for production use
 
-**Completed Date**: ******\_\_\_******
+**Completed Date**: **\*\***\_\_\_**\*\***
 
-**Signed By**: ******\_\_\_******
+**Signed By**: **\*\***\_\_\_**\*\***
 
 ---
 
 **Total Setup Time**: ~2 hours
 
-**Next Review Date**: ******\_\_\_******
+**Next Review Date**: **\*\***\_\_\_**\*\***
