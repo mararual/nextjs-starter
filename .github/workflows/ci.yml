@@ -1,0 +1,404 @@
+name: CI
+
+on:
+  push:
+    branches: [main, release]
+    paths-ignore:
+      - '**.md'
+      - '.claude/**'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.gitignore'
+  pull_request:
+    branches: [main, release]
+    paths-ignore:
+      - '**.md'
+      - '.claude/**'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.gitignore'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  statuses: write
+
+env:
+  NODE_ENV: test
+  CI: true
+
+jobs:
+  # Check if CI should run (skip for certain commits)
+  should-run:
+    runs-on: ubuntu-latest
+    name: Check if CI should run
+    outputs:
+      should-run: ${{ steps.check.outputs.should-run }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check commit message
+        id: check
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          if [[ "$COMMIT_MSG" == *"[skip-ci]"* ]]; then
+            echo "should-run=false" >> $GITHUB_OUTPUT
+          else
+            echo "should-run=true" >> $GITHUB_OUTPUT
+          fi
+
+  # Lint: ESLint, TypeScript, and Prettier checks
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint
+    needs: should-run
+    if: needs.should-run.outputs.should-run == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check Prettier format
+        run: npm run format:check
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript type check
+        run: npm run type-check
+
+      - name: Create GitHub status check - Lint
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: state,
+              context: 'vercel/nextjs-starter: lint',
+              description: state === 'success' ? '✓ Lint checks passed' : '✗ Lint checks failed'
+            });
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Unit & Integration Tests
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit Tests
+    needs: should-run
+    if: needs.should-run.outputs.should-run == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Generate coverage report
+        run: npm test -- --coverage
+        continue-on-error: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: Create GitHub status check - Unit Tests
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: state,
+              context: 'vercel/nextjs-starter: unit-tests',
+              description: state === 'success' ? '✓ Unit tests passed' : '✗ Unit tests failed'
+            });
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # E2E Tests
+  e2e-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+      options: --shm-size=1gb
+    name: E2E Tests
+    needs: [should-run, unit-tests]
+    if: needs.should-run.outputs.should-run == 'true' && needs.unit-tests.result == 'success'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Create GitHub status check - E2E Tests
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: state,
+              context: 'vercel/nextjs-starter: e2e-tests',
+              description: state === 'success' ? '✓ E2E tests passed' : '✗ E2E tests failed'
+            });
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Build: Compile application
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    needs: should-run
+    if: needs.should-run.outputs.should-run == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js application
+        run: npm run build
+
+      - name: List .next directory contents
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo ""
+          echo "Listing current directory:"
+          ls -la | head -30
+          echo ""
+          if [ -d ".next" ]; then
+            echo "✓ .next directory found"
+            echo "File count: $(find .next -type f | wc -l)"
+            echo "Directory size: $(du -sh .next)"
+          else
+            echo "✗ .next directory NOT found"
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: .next
+          retention-days: 7
+          if-no-files-found: warn
+
+      - name: Create GitHub status check - Build
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: state,
+              context: 'vercel/nextjs-starter: build',
+              description: state === 'success' ? '✓ Build successful' : '✗ Build failed'
+            });
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Quality Gate: Ensure all checks pass
+  quality-gate:
+    runs-on: ubuntu-latest
+    name: Quality Gate
+    needs: [lint, unit-tests, e2e-tests, build]
+    if: always()
+
+    steps:
+      - name: Check lint status
+        run: |
+          if [[ "${{ needs.lint.result }}" == "failure" ]]; then
+            echo "❌ Linting failed"
+            exit 1
+          fi
+
+      - name: Check unit test status
+        run: |
+          if [[ "${{ needs.unit-tests.result }}" == "failure" ]]; then
+            echo "❌ Unit tests failed"
+            exit 1
+          fi
+
+      - name: Check E2E test status
+        run: |
+          if [[ "${{ needs.e2e-tests.result }}" == "failure" ]]; then
+            echo "❌ E2E tests failed"
+            exit 1
+          elif [[ "${{ needs.e2e-tests.result }}" == "skipped" ]]; then
+            if [[ "${{ needs.unit-tests.result }}" == "failure" ]]; then
+              echo "⊘ E2E tests skipped (unit tests failed)"
+              exit 0
+            else
+              echo "⊘ E2E tests skipped"
+              exit 0
+            fi
+          fi
+
+      - name: Check build status
+        run: |
+          if [[ "${{ needs.build.result }}" == "failure" ]]; then
+            echo "❌ Build failed"
+            exit 1
+          fi
+
+      - name: Checkout code
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+
+      - name: Comment PR on success
+        if: github.event_name == 'pull_request' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ All checks passed! Lint, tests, and build completed successfully.'
+            })
+
+      - name: Comment PR on failure
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Quality gate failed. Please review the workflow logs and fix the issues.'
+            })
+
+      - name: Set deployment context
+        if: github.ref == 'refs/heads/main'
+        run: |
+          LINT_STATUS="${{ needs.lint.result }}"
+          UNIT_TESTS_STATUS="${{ needs.unit-tests.result }}"
+          E2E_TESTS_STATUS="${{ needs.e2e-tests.result }}"
+          BUILD_STATUS="${{ needs.build.result }}"
+
+          echo "🔍 Deployment Quality Gate Check"
+          echo "================================"
+          echo "Lint: $LINT_STATUS"
+          echo "Unit Tests: $UNIT_TESTS_STATUS"
+          echo "E2E Tests: $E2E_TESTS_STATUS"
+          echo "Build: $BUILD_STATUS"
+          echo ""
+
+          if [[ "$LINT_STATUS" == "success" ]] && \
+             [[ "$UNIT_TESTS_STATUS" == "success" ]] && \
+             [[ "$BUILD_STATUS" == "success" ]]; then
+            if [[ "$E2E_TESTS_STATUS" == "success" ]] || [[ "$E2E_TESTS_STATUS" == "skipped" ]]; then
+              echo "✅ Quality Gate PASSED - Safe to deploy to production"
+              echo ""
+              echo "Summary:"
+              echo "  • Lint checks: ✓ Passed"
+              echo "  • Unit tests: ✓ Passed"
+              if [[ "$E2E_TESTS_STATUS" == "skipped" ]]; then
+                echo "  • E2E tests: ⊘ Skipped (waiting for unit tests to complete first)"
+              else
+                echo "  • E2E tests: ✓ Passed"
+              fi
+              echo "  • Build: ✓ Passed"
+              echo ""
+              echo "Vercel deployment checks will now proceed to production promotion."
+              exit 0
+            fi
+          fi
+
+          echo "❌ Quality Gate FAILED - Blocking production deployment"
+          echo ""
+          echo "Failed checks:"
+          [[ "$LINT_STATUS" != "success" ]] && echo "  • Lint: $LINT_STATUS"
+          [[ "$UNIT_TESTS_STATUS" != "success" ]] && echo "  • Unit tests: $UNIT_TESTS_STATUS"
+          [[ "$BUILD_STATUS" != "success" ]] && echo "  • Build: $BUILD_STATUS"
+          [[ "$E2E_TESTS_STATUS" == "failure" ]] && echo "  • E2E tests: $E2E_TESTS_STATUS"
+          exit 1
+
+      - name: Create GitHub status check - Quality Gate
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: state,
+              context: 'vercel/nextjs-starter: quality-gate',
+              description: state === 'success' ? '✓ Quality gate passed' : '✗ Quality gate failed'
+            });
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+

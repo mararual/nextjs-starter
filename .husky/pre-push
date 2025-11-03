@@ -1,0 +1,25 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+echo ""
+
+# Run type-check
+echo "📋 Type checking..."
+npm run type-check || exit 1
+echo "✓ Type check passed"
+echo ""
+
+# Run tests
+echo "🧪 Running unit tests..."
+npm test || exit 1
+echo "✓ Unit tests passed"
+echo ""
+
+# Run build
+echo "🏗️  Building application..."
+npm run build || exit 1
+echo "✓ Build passed"
+echo ""
+
+echo "✅ All pre-push checks passed! Ready to push."
