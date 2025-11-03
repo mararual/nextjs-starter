@@ -1,0 +1,46 @@
+name: Deploy Living Documentation
+
+on:
+  push:
+    paths:
+      - 'docs/features/**/*.feature'
+      - 'app/lib/features/**'
+      - 'app/components/features/**'
+      - 'app/features/**'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js application
+        run: npm run build
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Post deployment status
+        if: always()
+        run: |
+          echo "Living Documentation deployment completed"
+          echo "View at: https://${{ env.VERCEL_URL }}/features"
