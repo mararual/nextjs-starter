@@ -288,3 +288,45 @@ jobs:
               body: '❌ Quality gate failed. Please review the workflow logs and fix the issues.'
             })
 
+      - name: Set deployment context
+        if: github.ref == 'refs/heads/main'
+        run: |
+          LINT_STATUS="${{ needs.lint.result }}"
+          UNIT_TESTS_STATUS="${{ needs.unit-tests.result }}"
+          E2E_TESTS_STATUS="${{ needs.e2e-tests.result }}"
+          BUILD_STATUS="${{ needs.build.result }}"
+
+          echo "🔍 Deployment Quality Gate Check"
+          echo "================================"
+          echo "Lint: $LINT_STATUS"
+          echo "Unit Tests: $UNIT_TESTS_STATUS"
+          echo "E2E Tests: $E2E_TESTS_STATUS"
+          echo "Build: $BUILD_STATUS"
+          echo ""
+
+          if [[ "$LINT_STATUS" == "success" ]] && \
+             [[ "$UNIT_TESTS_STATUS" == "success" ]] && \
+             [[ "$BUILD_STATUS" == "success" ]]; then
+            if [[ "$E2E_TESTS_STATUS" == "success" ]] || [[ "$E2E_TESTS_STATUS" == "skipped" ]]; then
+              echo "✅ Quality Gate PASSED - Safe to deploy to production"
+              echo ""
+              echo "Summary:"
+              echo "  • Lint checks: ✓ Passed"
+              echo "  • Unit tests: ✓ Passed"
+              echo "  • E2E tests: $([ "$E2E_TESTS_STATUS" == "skipped" ] && echo '⊘ Skipped' || echo '✓ Passed')"
+              echo "  • Build: ✓ Passed"
+              echo ""
+              echo "Vercel deployment checks will now proceed to production promotion."
+              exit 0
+            fi
+          fi
+
+          echo "❌ Quality Gate FAILED - Blocking production deployment"
+          echo ""
+          echo "Failed checks:"
+          [[ "$LINT_STATUS" != "success" ]] && echo "  • Lint: $LINT_STATUS"
+          [[ "$UNIT_TESTS_STATUS" != "success" ]] && echo "  • Unit tests: $UNIT_TESTS_STATUS"
+          [[ "$BUILD_STATUS" != "success" ]] && echo "  • Build: $BUILD_STATUS"
+          [[ "$E2E_TESTS_STATUS" == "failure" ]] && echo "  • E2E tests: $E2E_TESTS_STATUS"
+          exit 1
+
